@@ -1,0 +1,1130 @@
+/**
+ * @package WordPress
+ * @subpackage WP Paintbrush
+ * @since WP Paintbrush 0.1
+ *
+ * Editor pane CSS
+ */
+
+@import url('openme.css');
+
+/*
+ * jQuery UI CSS Framework 1.8.12
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ */
+
+/* Layout helpers
+----------------------------------*/
+.ui-helper-hidden { display: none; }
+.ui-helper-hidden-accessible { position: absolute !important; clip: rect(1px 1px 1px 1px); clip: rect(1px,1px,1px,1px); }
+.ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none; }
+.ui-helper-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.ui-helper-clearfix { display: inline-block; }
+/* required comment for clearfix to work in Opera \*/
+* html .ui-helper-clearfix { height:1%; }
+.ui-helper-clearfix { display:block; }
+/* end clearfix */
+.ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
+
+/*
+ * jQuery UI Menu 1.8.12
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Menu#theming
+ */
+.ui-menu {
+	list-style:none;
+	padding: 2px;
+	margin: 0;
+	display:block;
+	float: left;
+}
+.ui-menu .ui-menu {
+	margin-top: -3px;
+}
+.ui-menu .ui-menu-item {
+	margin:0;
+	padding: 0;
+	zoom: 1;
+	float: left;
+	clear: left;
+	width: 100%;
+}
+.ui-menu .ui-menu-item a {
+	text-decoration:none;
+	display:block;
+	padding:.2em .4em;
+	line-height:1.5;
+	zoom:1;
+}
+.ui-menu .ui-menu-item a.ui-state-hover,
+.ui-menu .ui-menu-item a.ui-state-active {
+	font-weight: normal;
+	margin: -1px;
+}
+
+/*
+ * jQuery UI Dialog 1.8.12
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Dialog#theming
+ */
+.ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; }
+.ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
+.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
+
+.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
+.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.ui-draggable .ui-dialog-titlebar { cursor: move; }
+
+/*
+ * jQuery UI Slider 1.8.12
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Slider#theming
+ */
+.ui-slider {position:relative;text-align:left;}
+.ui-slider .ui-slider-handle {position:absolute;z-index:2;width:1.2em;height:2.2em;cursor:default;}
+.ui-slider .ui-slider-range {position:absolute;z-index:1;font-size:.7em;display:block;border:0;background-position: 0 0;}
+
+.ui-slider-horizontal { height: 1.8em; }
+.ui-slider-horizontal .ui-slider-handle { top: -.3em; margin-left: -.6em; }
+.ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
+.ui-slider-horizontal .ui-slider-range-min { left: 0; }
+.ui-slider-horizontal .ui-slider-range-max { right: 0; }
+
+.ui-slider-vertical { width: .8em; height: 100px; }
+.ui-slider-vertical .ui-slider-handle { left: -.3em; margin-left: 0; margin-bottom: -.6em; }
+.ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
+.ui-slider-vertical .ui-slider-range-min { bottom: 0; }
+.ui-slider-vertical .ui-slider-range-max { top: 0; }
+
+/* Slider */
+#tab_wrapper .ptc-size input {
+	float: left;
+	clear: none;
+	width: 20px;
+	background: none;
+	border: none;
+}
+.ui-slider {
+	width: 90px;
+	margin: 3px 2px 0 8px;
+	float: left;
+}
+.ui-slider-horizontal .ui-slider-handle { 
+}
+.ui-slider .ui-slider-handle {
+	width: 7px;
+	height: 9px;
+	top: -4px; 
+	margin-left: -4px;
+}
+.ui-slider-horizontal {
+	height: 3px;
+}
+
+/*
+ * jQuery UI Tabs 1.8.12
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Tabs#theming
+ */
+.ui-tabs { position: relative; padding: .2em; zoom: 1; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.ui-tabs .ui-tabs-nav {
+	background: none;
+
+	width: 280px;
+	margin: 0 0 0 8px;
+	padding: 0 !important;
+	border: none;
+	overflow: hidden;
+	border-top: 1px solid #b7b7b7;
+	border-left: 1px solid #b7b7b7;
+
+	-moz-border-radius: 0 !important;
+	-webkit-border-radius: 0 !important;
+	border-top-left-radius: 0 !important;
+}
+.ui-tabs .ui-tabs-nav li { 
+	list-style: none; 
+	float: left; 
+	position: relative; 
+	top: 1px; 
+	margin: 0; 
+	border-bottom: 0 !important; 
+	padding: 0; 
+	white-space: nowrap;
+	width: 69px !important;background:red;
+	height: 25px;
+}
+.ui-tabs .ui-tabs-nav li a { 
+	float: left; 
+	padding: .5em 1em; 
+	text-decoration: none;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 1px; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 1em 1.4em; background: none; }
+.ui-tabs .ui-tabs-hide { display: none !important; }
+
+/*
+ * jQuery UI Progressbar 1.8.12
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Progressbar#theming
+ */
+.ui-progressbar { height:2em; text-align: left; }
+.ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }
+
+
+/* Dialog box */
+.ui-dialog {
+	margin: 32px 10px 0 0;
+
+	-moz-box-shadow: 10px 10px 5px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 10px 1px 5px rgba(0,0,0,0.3);
+	box-shadow: 0px 1px 10px rgba(0,0,0,0.3);
+}
+#ptc-dialog-button {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	text-indent: -999em;
+}
+.ui-dialog-buttonpane div.ui-dialog-buttonset {
+	float: left !important;
+	width: 100%;
+	color: #999;
+}
+.ui-dialog-buttonpane {
+	-moz-border-radius-topleft: 0 !important;
+	-webkit-border-top-left-radius: 0 !important;
+	border-top-left-radius: 0 !important;
+	-moz-border-radius-topright: 0 !important;
+	-webkit-border-top-right-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+
+	margin: 0 !important;
+
+	border-right: none !important;
+	border-bottom: none !important;
+	border-left: none !important;
+
+	-moz-border-radius-bottomleft: 6px !important;
+	-webkit-border-bottom-left-radius: 6px !important;
+	border-bottom-left-radius: 6px !important;
+	-moz-border-radius-bottomright: 6px !important;
+	-webkit-border-bottom-right-radius: 6px !important;
+	border-bottom-right-radius: 6px !important;
+}
+.ui-dialog-buttonpane div.ui-dialog-buttonset {
+}
+.ui-dialog-buttonpane div.ui-dialog-buttonset a {
+	color: #999;
+	display: inline;
+}
+.ui-widget {
+	font-size: 70%;
+}
+.ptc-main-dialog {
+	padding: 0;
+}
+.ptc-main-dialog  .ui-dialog-content {
+	margin: 0;
+	padding: 0;
+	border: none !important;
+		zoverflow-y: scroll;
+	background: #f3f3f3;
+}
+#headeroverall_options {
+	min-height: 300px;
+}
+
+/* Generic tabber styling */
+body .ui-tabs {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	border: none;
+}
+#tabs-navigation-wrapper {
+	overflow: hidden;
+}
+
+
+
+
+
+.ui-tabs .ui-tabs-panel .ui-tabs-panel {
+	border: 1px solid #b9b9b9;
+	border-top: none;
+	-moz-border-radius: 0 !important;
+	-khtml-border-radius: 0 !important;
+	-webkit-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
+
+
+
+
+
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected,
+.ui-tabs .ui-tabs-nav li {
+	top: 0;
+	margin: 0;
+	padding: 0;
+	width: 66px;
+	height: 19px;
+	line-height: 19px;
+	border: none;
+	text-align: center;
+	background: url(images/tabs.png);
+	border-right: 1px solid #b7b7b7;
+	border-bottom: 1px solid #b7b7b7 !important;
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	font-weight: bold;
+	font-style: normal;
+	font-size: 11px;
+}
+.ui-tabs .ui-tabs-nav li a {
+	padding: 0 0;
+	width: 100%;
+	color: #393939;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+	color: #282828;
+	background: url(images/tabs.png) 0 -19px;
+}
+.ui-tabs-nav li a:hover {
+	color: #D54E21;
+}
+.ui-tabs .ui-tabs-panel {
+	padding: 0;
+	overflow: auto;
+	border: none;
+	background: none;
+	margin: 10px 0 0 0;
+}
+
+/* Editor bits */
+.ui-tabs {
+	padding-bottom: 10px;
+}
+#css_options {
+	overflow: hidden;
+}
+.ui-tabs p {
+	clear: both;
+	margin: 5px 0;
+	font-size: 90%;
+}
+.ui-tabs h2 {
+	clear: both;
+	font-size: 13px;
+	margin: 8px 0 8px 10px;
+	padding-left: 5px;
+
+	border-bottom: 1px dotted #999;
+	font-family: Georgia, serif; 
+	color: #333;
+	font-weight: normal; 
+	font-size: 14px;
+}
+.ui-tabs h3 {
+	clear: both;
+	float: left;
+	margin: 20px 0 0 10px;
+	padding: 0;
+
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	font-size: 11px;
+	line-height: 14px;
+	color: #333;
+	font-weight: bold;
+}
+.ui-tabs .block {
+	margin: 2px 0;
+	width: 180px;
+	float: left;
+}
+.ui-tabs label,
+.ui-tabs input[type=text],
+.ui-tabs select {
+	float: left;
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	font-size: 10px;
+	line-height: 12px;
+	color: #333;
+	font-weight: normal;
+	background: none;
+}
+.ui-tabs label {
+	margin-right: 5%;
+	float: left;
+	width: 30%;
+	text-align: left;
+}
+.ui-tabs select,
+.ui-tabs input[type=text] {
+	border: 1px solid #ccc;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	width: 35%;
+}
+#layout-editor-opener {
+	float: left;
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	color: #666;
+	font-weight: bold;
+	border: 1px solid #ccc;
+	-moz-border-radius: 11px;
+	-khtml-border-radius: 11px;
+	-webkit-border-radius: 11px;
+	border-radius: 11px;
+	font-size: 14px;
+	margin: 10px 0 10px 15px;
+	padding: 6px 14px;
+	background: #f7f7f7 url(images/white-grad.png);
+	-moz-box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+	box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+}
+#layout-editor-opener:hover {
+	color: #222;
+	border: 1px solid #333;
+	cursor: pointer;
+}
+.ui-tabs div.lineheight input[type=text],
+.ui-tabs div.fontsize input[type=text] {
+	float: right;
+	border: none;
+	width: auto;
+	padding: 0;
+	width: 11%;
+}
+.ui-tabs div.coordinates input[type=text] {
+	float: right;
+	border: none;
+	width: auto;
+	padding: 0;
+	width: 14%;
+	position: relative;
+	left: 7px;
+	font-size: 9px;
+	color: #999;
+}
+.ui-tabs div.alignment select {
+	width: 43%;
+}
+.ui-tabs div.image-tiling select {
+	width: 60%;
+}
+.ui-tabs div.coordinates .ui-slider,
+.ui-tabs div.textshadow .ui-slider,
+.ui-tabs div.lineheight .ui-slider,
+.ui-tabs div.fontsize .ui-slider {
+	width: 39%;
+}
+.ui-tabs div.colour input[type=text] {
+	width: 25%;
+	margin-right: 2px;
+}
+.ui-tabs div.fontfamily select {
+	width: 60%;
+}
+.ui-tabs div.smallcaps select,
+.ui-tabs div.transform select,
+.ui-tabs div.decoration select {
+	width: 55%;
+}
+.ui-tabs div.fontweight select,
+.ui-tabs div.fontstyle select {
+	width: 55%;
+}
+
+/* Side tabber */
+.inner-tabber {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	left: 0;
+	top: 80px;
+
+}
+.inner-tabber .ui-tabs-nav {
+	float: left;
+	width: 23%;
+	border: none;
+	margin: 0 0 0 3%;
+	border-right: 1px solid #cfcfcf;	
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	border-left: 1px solid #cfcfcf;	
+}
+
+
+.inner-tabber .ui-tabs-nav li.ui-tabs-selected,
+.inner-tabber .ui-tabs-nav li {
+	height: 19px;
+	line-height: 19px;
+	border: none;
+	text-align: center;
+	background: url(images/tabs.png);
+	border-right: 1px solid #b7b7b7;
+	border-bottom: 1px solid #b7b7b7 !important;	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	font-weight: bold;
+	font-style: normal;
+	font-size: 11px;
+}
+.inner-tabber .ui-tabs .ui-tabs-nav li a {
+	padding: 0 0;
+	width: 100%;
+	color: #393939;
+}
+.inner-tabber .ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+	color: #282828;
+	background: url(images/tabs.png) 0 -19px;
+}
+.inner-tabber .ui-tabs-nav li a:hover {
+	color: #D54E21;
+}
+
+
+
+
+
+.inner-tabber .ui-tabs-panel {
+	float: left;
+	width: 70%;
+	margin: 0;
+	padding: 0;
+}
+
+/* Input buttons */
+div.ui-button {
+	padding: 0;
+	margin: 5px 5px 0 0;
+	float: left;
+	border: none !important;
+	background: none !important;
+}
+div.ui-button input[type=button],
+div.ui-button input[type=submit] {
+	margin: 0;
+	padding: 3px 8px;
+	color: #464646 !important;
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	font-weight: normal;
+	background: #fdfdfd url(images/white-grad.png);
+	border: 1px solid #bbb;
+	-moz-border-radius: 11px;
+	-khtml-border-radius: 11px;
+	-webkit-border-radius: 11px;
+}
+div.ui-button input[type=button]:hover,
+div.ui-button input[type=submit]:hover {
+	border: 1px solid #333;
+}
+div.ui-button input[type=file]:hover,
+div.ui-button input[type=button]:hover,
+div.ui-button input[type=submit]:hover {
+	cursor: pointer;
+}
+div.ui-button:hover {
+	cursor: pointer;
+	border: 1px solid #79b7e7; background: #d0e5f5 url(jquery-ui-themes/redmond/images/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #1d5987;
+}
+
+
+/* Image picker */
+#ptc-image-picker {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding: 3px 0 10px 2px;
+}
+#ptc-image-picker td {
+	font-size: 10px;
+	color: #333;
+	font-weight: normal;
+	font-family: 'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	vertical-align: top;
+}
+#ptc-image-picker img {
+	width: auto;
+	max-width: 80px;
+	height: auto;
+	max-height: 110px;
+	margin: 0 2px 0 0;
+}
+#ptc-image-picker img:hover {
+	opacity: 0.7;
+	cursor: pointer;
+}
+/* The palette button */
+input.imagepickerbutton {
+	width:16px;
+	height:16px;
+	background:url(images/admin_icons.png) 0 -520px;
+	text-indent:-999em;
+	border:none;
+	padding:0;
+	margin:0;
+}
+input.imagepickerbutton:hover {
+	background-position:0 -552px;
+}
+
+/*
+ Farbtastic Color Picker 1.2
+ Copyright 2008 Steven Wittens
+*/
+
+/* The palette button */
+input.palettebutton {
+	width:16px;
+	height:16px;
+	background:url(images/admin_icons.png) 0 -646px;
+	text-indent:-999em;
+	border:none;
+	padding:0;
+	margin:0;
+}
+input.palettebutton:hover {
+	background-position:0 -678px;
+}
+input.colourinput {
+	border: 1px solid #ccc;
+	width: 77px !important;
+}
+input.image-picker {
+	width: 77px !important;
+}
+
+/* Farbtastic itself */
+.farbtastic {
+	position:relative;
+	-moz-border-radius-topleft: 6px;
+	-khtml-border-top-left-radius: 6px;
+	-webkit-border-top-left-radius: 6px;
+	border-top-left-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-khtml-border-top-right-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-right-radius: 6px;
+
+	border-left:1px solid #aaa;
+	border-right:1px solid #aaa;
+	border-bottom:1px solid #aaa;
+	background:#eee;
+}
+.farbtastic * {
+	position:absolute;
+	cursor:crosshair;
+}
+.farbtastic, .farbtastic .wheel {
+	width:195px;
+	height:195px;
+}
+.farbtastic .color, .farbtastic .overlay {
+	top:47px;
+	left:47px;
+	width:101px;
+	height:101px;
+}
+.farbtastic .wheel {
+	background:url(images/wheel2.png) no-repeat;
+	width:195px;
+	height:195px;
+}
+.farbtastic .overlay {
+	background:url(images/mask.png) no-repeat;
+}
+.farbtastic .marker {
+	width:17px;
+	height:17px;
+	margin:-8px 0 0 -8px;
+	overflow:hidden;
+	background: url(images/marker.png) no-repeat;
+}
+
+/* Open dialog box box */
+#ptc-openme {
+	display: none;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+
+	clear: both;
+	font-size: 13px;
+	margin: 8px 10px 0 0;
+	padding: 0 8px;
+
+	font-family: Georgia, serif; 
+	color: #333;
+	font-weight: normal; 
+	font-size: 14px;
+	line-height: 20px;
+	height: 20px;
+	text-decoration: none;
+
+	background: #e4e4e4;
+	border: 1px solid #ccc;
+	border-bottom: none;
+
+	-moz-border-radius-topleft: 6px;
+	-webkit-border-top-left-radius: 6px;
+	border-top-left-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-right-radius: 6px;
+}
+#ptc-openme:hover {
+	background: #f5f5f5;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {  }
+.ui-widget-content { 
+	border: 1px solid #aaa;
+	background: #f3f3f3;
+	color: #9c9c9c;
+
+	-moz-border-radius-topleft: 6px;
+	-khtml-border-top-left-radius: 6px;
+	-webkit-border-top-left-radius: 6px;
+	border-top-left-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-khtml-border-top-right-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-right-radius: 6px;
+	-moz-border-radius-bottomleft: 6px !important;
+	-webkit-border-bottom-left-radius: 6px !important;
+	border-bottom-left-radius: 6px !important;
+	-moz-border-radius-bottomright: 6px !important;
+	-webkit-border-bottom-right-radius: 6px !important;
+	border-bottom-right-radius: 6px !important;
+}
+.ui-widget-content a { 
+	color: #9c9c9c;
+}
+.ui-widget-header {
+	border: none;
+	border-top: 1px solid #fff;
+	border-bottom: none;
+
+	-moz-border-radius-topleft: 6px;
+	-khtml-border-top-left-radius: 6px;
+	-webkit-border-top-left-radius: 6px;
+	border-top-left-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-khtml-border-top-right-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-right-radius: 6px;
+
+	background: #f3f3f3;
+
+	font-family: 'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	font-style: italic; 
+	color: #989898;
+	text-shadow: 1px 1px 1px rgba(255,255,255,1);
+	font-weight: normal; 
+	font-size: 17px;
+	padding: 6px 0 !important;
+}
+.ui-dialog-title {
+	text-indent: 15px;
+}
+.ui-dialog .ui-dialog-titlebar-close { 
+	position: absolute; 
+	right: 0; 
+	top: -1px; 
+	width: 23px;
+	height: 29px;
+	background: url(images/dialog-close.png);
+	margin: 0 0 0 0; 
+	padding: 0;
+																	text-indent: -999em;
+	-moz-border-radius-topright: 6px;
+	-khtml-border-top-right-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-right-radius: 6px;
+}
+.ui-dialog .ui-dialog-titlebar-close span { 
+	display: block;
+}
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { 
+	padding: 0; 
+	background: url(images/dialog-close.png) 0 -28px !important;
+	border: none;
+}
+
+#ptc-close-button {
+	z-index: 999;
+	text-indent: -999em;
+	position: absolute; 
+	right: 0; 
+	top: -1px; 
+	width: 23px;
+	height: 29px;
+	background: url(images/dialog-close.png);
+	margin: 0; 
+	padding: 0;
+	border: none;
+	-moz-border-radius-topright: 6px;
+	-khtml-border-top-right-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-right-radius: 6px;
+}
+#ptc-close-button:hover,
+#ptc-close-button:focus {
+	background: url(images/dialog-close.png) 0 -28px !important;
+}
+
+
+/* Layout editor */
+.wide .section-layout {
+	width: 265px !important;
+	margin: 0;
+	margin: 0 0 0 10px;
+	border-left: 1px solid #b7b7b7;
+	border-right: 1px solid #b7b7b7;
+}
+.publish .section-layout {
+	padding: 0;
+	width: 250px !important;
+}
+.publish .section-layout p {
+	margin: 5px 0;
+}
+.ui-tabs .publish .section-layout h3 {
+	margin: 20px 0 0 0;
+}
+
+.inner-tab-block {
+	border-top: 1px solid #b7b7b7 !important;
+	overflow: scroll;
+	height: 380px;
+}
+
+
+
+
+.section-layout {
+	float: left;
+	margin: 0;
+	padding: 0 0 20px 0;
+	width: 99%;
+	border: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	border-top: 1px solid #b7b7b7;
+}
+
+
+
+
+.section-layout h2 {
+	margin: 5px 0 0 0;
+	padding: 0 10px;
+
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	font-size: 15px;
+	font-weight: normal;
+	font-style: italic;
+	line-height: 29px;
+	color: #848484;
+	text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
+	border: none !important;
+}
+#layout-editor-dialog p,
+.section-layout p {
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	font-style: italic;
+	margin: 5px 10px;
+	font-size: 11px;
+}
+.section-layout label {
+	font-style: normal;
+}
+
+
+.section-layout .ui-corner-all {
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	background: #e6e6e6 !important;
+	border: 1px solid #aeaeae;
+}
+
+
+.layout-editor-background {
+	position: relative;
+	background: url(images/layout-editor.png);
+	width: 547px;
+	height: 343px;
+}
+.layout-blocks {
+	margin: 0 auto 10px auto;
+	padding: 5px 0;
+}
+.current-blocks {
+	float: right;
+	width: 220px;
+	margin: 10px 40px 0 0;
+	border: 5px dashed #eee;
+	padding: 0 10px;
+}
+.section-available {
+	float: left;
+	width: 143px;
+	margin: 10px 0 0 0;
+	padding: 5px 0;
+	border: none;
+}
+
+
+.blocks-sortable {
+	background: #cfcfcf url(images/widgets-background.png) repeat-x;
+	overflow: auto;
+	padding: 0 0 30px 0;
+	width: 163px;
+	height: 200px;
+	box-shadow:inset 0 0 10px rgba(0,0,0,0.3); 
+}
+#sidebar-blocks-sortable {
+	height: 70px;
+}
+
+
+ul#layout-sortable li.ui-state-default li {
+	background: #cfcfcf url(images/widget-fat.png) repeat-x !important;
+}
+
+
+.layout-editor-background h2 {
+	margin: 0;
+	padding: 0;
+	line-height: 16px;
+	position: relative;
+	top: -10px;
+}
+#layout-editor-dialog p {
+	font-style: italic;
+	font-size: 13px;
+	margin: 0 0 15px 0;
+}
+#layout-editor-dialog p strong {
+	color: #333;
+}
+ul#layout-sortable {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.section-layout li:hover {
+	cursor: pointer;
+}
+ul#layout-sortable li.ui-state-default ul {
+	margin: 0;
+	padding: 0 0 0 2px;
+}
+ul#layout-sortable li.ui-state-default li {
+	float: left;
+	position: static;
+	background: rgba(0,0,0,0.03);
+	border: 1px solid #c9c9c9;
+	margin: 4px 2px;
+	width: 44px;
+	height: 90px;
+	line-height: 90px;
+}
+.layout-blocks ul li.ui-state-default {
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+}
+ul#layout-sortable li.ui-state-default li#layout-maincontent {
+	width: 80px;
+}
+ul#layout-sortable #layout-widgets1,
+ul#layout-sortable #layout-widgets2,
+ul#layout-sortable #layout-widgets3,
+ul#layout-sortable #layout-widgets4,
+ul#layout-sortable #layout-banner,
+ul#layout-sortable #layout-footer {
+	height: 23px;
+	line-height: 23px;
+}
+ul#layout-sortable #layout-header {
+	height: 45px;
+	line-height: 45px;
+	background: #e5e5e5 url(images/widget-fat.png) repeat-x !important;
+}
+ul#layout-sortable #layout-banner {
+	height: 35px;
+	line-height: 35px;
+	background: #e5e5e5 url(images/widget-fat.png) repeat-x !important;
+}
+ul#layout-sortable #layout-content {
+	height: 100px;
+	line-height: 100px;
+	background: #e5e5e5 url(images/widget-fat.png) repeat-x !important;
+}
+ul#layout-sortable #layout-content ul {
+	height: 90px;
+}
+ul#sidebar-blocks-sortable,
+ul#blocks-sortable {
+	padding: 0 0 0 5px;
+	min-height: 40px;
+}
+
+
+
+
+
+ul#layout-sortable li.ui-state-default,
+ul#sidebar-blocks-sortable li.ui-state-default,
+ul#blocks-sortable li.ui-state-default {
+	list-style: none;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	border: 1px solid #999;
+	background: #f5f5f5 url(images/widget-skinny.png) !important;
+	display: inline-block;
+	padding: 0;
+	text-align: center;
+	font-weight: bold;
+	color: #333;
+	line-height: 23px;
+	-moz-box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+ul#sidebar-blocks-sortable li.ui-state-default,
+ul#blocks-sortable li.ui-state-default {
+	width: 120px;
+	margin: 7px 0 0 16px;
+}
+ul#layout-sortable li.ui-state-default {
+	width: 220px;
+	margin: 7px 0 0 3px;
+}
+/* Text area boxes */
+.section-layout textarea {
+	width: 94%;
+	margin: 4px 2% 0 2%;
+	min-height: 200px;
+	font-size: 9px;
+	border: 1px solid #aaa;
+}
+
+
+#ptc-loading {
+	float: left;
+	width: 16px;
+	height: 16px;
+}
+#ptc-loading img {
+	display: block;
+	margin-top: 7px;
+}
+
+/* JS loading animation */
+#dialog #tab_wrapper {
+	display: none;
+}
+#dialog #loading-text {
+	position: absolute;
+	top: 50px;
+	right: 25px;
+	width: 250px;
+	height: auto;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	background: #fefefe !important;
+	padding: 10px;
+}
+#dialog #loading-text img {
+	display: block;
+	margin: 10px auto 0 auto;
+}
+#dialog #loading-text h3 {
+	font-size: 13px;
+	margin: 8px 0 8px 10px;
+	padding-left: 5px;
+	font-family: Georgia, serif; 
+	color: #333;
+	font-weight: normal; 
+	font-size: 14px;
+
+}
+
+/* Removing JS loading information */
+.ptc-main-dialog #dialog #loading-text {
+	display: none;
+}
+.ptc-main-dialog #dialog #tab_wrapper {
+	display: block;
+}
+
+#ptc-css2 {
+	text-indent: -99999em;
+	width: 24px;
+	height: 24px;
+	overflow: hidden;
+}
+.floating-spacer-block {
+	float: left;
+	width: 10px;
+	height: 10px;
+}
+
+/* Footer */
+.ui-dialog-buttonset {
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+}

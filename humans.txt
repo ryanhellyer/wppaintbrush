@@ -1,0 +1,24 @@
+We are the humans behind WP Paintbrush
+
+/* TEAM */
+Name: Ryan Hellyer
+Title: Lead Developer
+Twitter: ryanhellyer
+Corporate website: http://pixopoint.com/
+Personal website: http://ryanhellyer.net/
+Location: Dunedin, New Zealand
+
+Name: Dan Milward
+Title: Lead Developer
+Twitter: danmilward
+Corporate website: http://instinct.co.nz/
+Personal website: http://mufasa.webfroot.co.nz/
+Location: Wellington, New Zealand
+
+/* THANKS */
+Ronald Huereca, Alex Cragg, Josh Davies, Utkarsh Kukreti
+
+/* META */
+Updated: 2011/06/14
+See: http://humanstxt.org/
+
