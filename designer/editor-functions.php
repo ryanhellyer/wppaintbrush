@@ -298,7 +298,7 @@ function ptc_opposite_hex( $colour ) {
  * @since 0.1
  */
 function ptc_colour_selector( $option, $content_layout, $title, $class='block colour' ) {
-	echo "\n" . '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><input style="background: '  . $content_layout[$option] . '; color: #' . ptc_opposite_hex( $content_layout[$option] ) . '" type="text" class="colourinput ' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><input type="button" class="palettebutton" value="pick" /></p></div>' . "\n";
+	echo "\n" . '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><input style="background: '  . $content_layout[$option] . '; color: #' . ptc_opposite_hex( $content_layout[$option] ) . '" type="text" class="colourinput ' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /></p></div>' . "\n";
 }
 
 /**

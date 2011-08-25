@@ -729,6 +729,9 @@ $('" . $property . "').css('border-top',$('." . $name . "').val());";
 $('" . $property . "').css('border-bottom',$('." . $name . "').val());";
 	}
 
-?>
-
+echo "
 }
+</script>";
+}
+add_action( 'wp_footer', 'ptc_updatecolours' );
+

@@ -147,7 +147,7 @@ function ptc_input_check( $option, $content_layout, $title, $class='block checkb
 
 	// Display HTML
 	echo '
-<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
 
 	if ( $content_layout[$option] == 'Yes' )
 		echo '<option>Yes</option><option>No</option>';
@@ -170,7 +170,7 @@ function ptc_imagetiling_selector( $option, $content_layout, $title, $class='blo
 
 	// Display HTML
 	echo '
-<div class="image-tiling ' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+<div class="image-tiling ' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
 
 	foreach ( ptc_imagetiling_variations() as $variation=>$text ) {
 		if ( $variation == $content_layout[$option] ) {
@@ -197,7 +197,7 @@ function ptc_leftright_selector( $option, $content_layout, $title, $class='block
 
 	// Display HTML
 	echo '
-<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
 
 	if ( $content_layout[$option] == 'left' )
 		echo '<option value="left">Left</option><option value="right">Right</option>';
@@ -213,7 +213,7 @@ function ptc_leftright_selector( $option, $content_layout, $title, $class='block
  */
 function ptc_alignment_selector( $option, $content_layout, $title, $class='block alignment' ) {
 
-	echo '<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . ' ' . $class . '" name="' . $option . '">' . "\n";
+	echo '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . ' ' . $class . '" name="' . $option . '">' . "\n";
 
 	foreach ( ptc_alignment_variations() as $opt=>$label ) {
 		if ( $label == $content_layout[$option] ) {
@@ -240,7 +240,7 @@ function ptc_display_selector( $option, $content_layout, $title, $class='block' 
 		'block' => 'on',
 	);
 
-	echo '<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+	echo '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
 
 	foreach ( $options as $opt=>$label ) {
 		if ( $opt == $content_layout[$option] ) {
@@ -261,7 +261,7 @@ function ptc_display_selector( $option, $content_layout, $title, $class='block' 
  */
 function ptc_fontfamily_selector( $option, $content_layout, $title, $class='block fontfamily' ) {
 	echo '
-<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">' . "\n";
+<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">' . "\n";
 
 	foreach ( ptc_font_family() as $opt=>$font ) {
 		if ( $font == $content_layout[$option] ) {
@@ -298,7 +298,7 @@ function ptc_opposite_hex( $colour ) {
  * @since 0.1
  */
 function ptc_colour_selector( $option, $content_layout, $title, $class='block colour' ) {
-	echo "\n" . '<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><input style="background: '  . $content_layout[$option] . '; color: #' . ptc_opposite_hex( $content_layout[$option] ) . '" type="text" class="colourinput" id="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><input type="button" class="palettebutton" value="pick" /></p></div>' . "\n";
+	echo "\n" . '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><input style="background: '  . $content_layout[$option] . '; color: #' . ptc_opposite_hex( $content_layout[$option] ) . '" type="text" class="colourinput ' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /></p></div>' . "\n";
 }
 
 /**
@@ -316,7 +316,7 @@ function ptc_textdecoration_selector( $option, $content_layout, $title, $class='
 
 	// Create HTML to display select box 
 	echo '
-<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
 
 	foreach ( $ptc_textdecoration_variations as $opt=>$textdecoration ) {
 		if ( $textdecoration == $content_layout[$option] ) {
@@ -338,7 +338,7 @@ function ptc_bordertype_selector( $option, $content_layout, $title, $class='bloc
 
 	// Create HTML to display select box 
 	echo '
-<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
 
 	foreach ( ptc_bordertype_variations() as $opt=>$type ) {
 		if ( $type == $content_layout[$option] ) {
@@ -365,7 +365,7 @@ function ptc_number_selector( $option, $content_layout, $title, $class='block co
 
 	// Displaying HTML
 	echo '
-<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><input type="text" id="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><div class="slider' . $option . '"></div></p></div>
+<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><input type="text" class="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><div class="slider' . $option . '"></div></p></div>
 ';
 
 }
@@ -382,7 +382,7 @@ function ptc_background_image_selector( $option, $content_layout, $title, $class
 
 	// Displaying HTML
 	echo '
-<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><input type="text" class="image-picker" id="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><input type="button" class="imagepickerbutton" value="pick" /></p></div>
+<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><input type="text" class="image-picker ' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><input type="button" class="imagepickerbutton" value="pick" /></p></div>
 ';
 
 }
@@ -404,7 +404,7 @@ function ptc_fontweight_selector( $option, $content_layout, $title, $class='bloc
 		array_push( $ptc_fontweight_variations, $inherit );
 
 	// Create HTML to display select box 
-	echo '<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">' . "\n";
+	echo '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">' . "\n";
 
 	foreach ( $ptc_fontweight_variations as $opt=>$fontweight ) {
 		if ( $fontweight == $content_layout[$option] ) {
@@ -437,16 +437,22 @@ function ptc_fontstyle_selector( $option, $content_layout, $title, $class='block
 
 	// Create HTML to display select box 
 	echo '
-	<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">' . "\n";
+	<div class="' . $class . '" id="' . $option . '">
+		<p>
+			<label>' . $title . '</label>
+		<select class="' . $option . '" name="' . $option . '">' . "\n";
 			foreach ( $ptc_fontstyle_variations as $opt=>$fontstyle ) {
 				if ( $fontstyle == $content_layout[$option] )
 					$selected = 'SELECTED ';
 				else
 					$selected = '';
-				echo '<option ' . $selected . ' value="' . $fontstyle . '">' . ucfirst( $fontstyle ) . "</option>";
+				echo '<option ' . $selected . ' value="' . $fontstyle . '">' . ucfirst( $fontstyle ) . "</option>\n";
 			}
 
-	echo '</select></p></div>';
+	echo '
+			</select>
+		</p>
+	</div>';
 }
 
 /**
@@ -455,7 +461,7 @@ function ptc_fontstyle_selector( $option, $content_layout, $title, $class='block
  */
 function ptc_texttranform_selector( $option, $content_layout, $title, $class='block texttransform' ) {
 
-	echo '<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+	echo '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">' . "\n";
 
 	foreach ( ptc_texttransform_variations() as $opt=>$type ) {
 		if ( $type == $content_layout[$option] ) {
@@ -467,7 +473,7 @@ function ptc_texttranform_selector( $option, $content_layout, $title, $class='bl
 	}
 	echo $initial . $later;
 
-	echo "</select></p></div>";
+	echo "</select></p></div>\n";
 }
 
 /**
@@ -481,14 +487,21 @@ function ptc_smallcaps_selector( $option, $content_layout, $title, $class='block
 		$content_layout[$option] = '';
 
 	// Display HTML
-	echo '<div class="' . $class . ' ' . $option . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+	echo '
+	<div class="' . $class . '" id="' . $option . '">
+		<p>
+			<label>' . $title . '</label>
+			<select class="' . $option . '" name="' . $option . '">';
 			foreach( ptc_smallcaps_variations() as $variation=>$text ) {
 				echo '<option ';
 				if ( $variation == $content_layout[$option] )
 					echo 'SELECTED '; 
 				echo 'value="' . $variation . '">' . $text . '</option>';
 			}
-	echo '</select></p></div>';
+	echo '
+			</select>
+		</p>
+	</div>';
 }
 
 /**
