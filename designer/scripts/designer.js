@@ -1,9 +1,9 @@
 jQuery(function($){
 	// Adds a palette button
-	$('.colour').append('<input type="button" class="palettebutton" value="pick" />');
+	$('.colour p').append('<input type="button" class="palettebutton" value="pick" />');
  
 	// Adds a clear palette button (not currently working)
-	$('.colour').append('<input type="button" class="clearpalette" value="clear" />');
+	$('.colour p').append('<input type="button" class="clearpalette" value="clear" />');
  
 	// Updates colours in square boxes at top
 	// Dialog box

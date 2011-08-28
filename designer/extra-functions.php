@@ -275,15 +275,15 @@ function ptc_load_scripts() {
 	wp_register_script(
 		'ptc-designer',
 		PTC_URL . 'scripts/designer.js',
-		array( 'jquery-ui-core' ),
+		array( 'farbtastic' ),
 		'1.0',
 		true
 	);
-	wp_enqueue_script( 'farbtastic' );
+	wp_enqueue_script( 'ptc-designer', 11 );
 	wp_register_script(
 		'farbtastic',
 		PTC_URL . 'scripts/farbtastic.js',
-		array( 'jquery' ),
+		array( 'jquery-ui-core' ),
 		'1.0',
 		true
 	);
@@ -706,27 +706,27 @@ function updatecolours() {\n";
 
 	foreach ( $border as $name => $property ) {
 		echo "
-$('" . $property . "').css('border',$('." . $name . "').val());";
+jQuery('" . $property . "').css('border',jQuery('." . $name . "').val());";
 	}
 
 	foreach ( $backgroundcolour as $name => $property ) {
 		echo "
-$('" . $property . "').css('background-color',$('." . $name . "').val());";
+jQuery('" . $property . "').css('background-color',jQuery('." . $name . "').val());";
 	}
 
 	foreach ( $textcolour as $name => $property ) {
 		echo "
-$('" . $property . "').css('color',$('." . $name . "').val());";
+jQuery('" . $property . "').css('color',jQuery('." . $name . "').val());";
 	}
 
 	foreach ( $bordertop as $name => $property ) {
 		echo "
-$('" . $property . "').css('border-top',$('." . $name . "').val());";
+jQuery('" . $property . "').css('border-top',jQuery('." . $name . "').val());";
 	}
 
 	foreach ( $borderbottom as $name => $property ) {
 		echo "
-$('" . $property . "').css('border-bottom',$('." . $name . "').val());";
+jQuery('" . $property . "').css('border-bottom',jQuery('." . $name . "').val());";
 	}
 
 echo "

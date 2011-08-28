@@ -21,6 +21,7 @@ function ptc_block_wrapper() {
 		'header',
 		'banner',
 		'menu1',
+		'menu2',
 		'footer',
 	);
 	return $options;

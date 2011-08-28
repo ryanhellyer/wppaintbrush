@@ -256,6 +256,7 @@ $(".slidermenu1_shadow_blur_radius").slider({
 	value: blur, //Sets the slider handle to start at the current value
 	min: 0,
 	max: 50,
+
 	step: 1,
 	slide: function(event, ui) { //This is where we can perform actions based on the slide
 		$(".menu1_shadow_blur_radius").attr("value", ui.value); //This adds that value into the span in the tabs below, so you can see the actual value
