@@ -12,5 +12,11 @@
  */
 
 
-require( 'add-menu/index.php' );
+require( 'content.php' );
+require( 'header.php' );
+require( 'sidebars.php' );
+require( 'addmenu.php' );
+require( 'extras.php' );
+require( 'footer.php' );
+//require( 'design/index.php' );
 

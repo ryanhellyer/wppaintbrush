@@ -216,10 +216,14 @@ jQuery(function($){
 				function(data, textStatus) { $('#ptc-ajax').html(data);},
 				'text'
 			);
+		}<?php
+
+		// Output list of available designs
+		foreach( wppb_available_themes() as $count=>$design ) {
+			echo "$('#myform" . $design['Folder'] . "').click(function() {change_design( '" . $design['Folder'] . "' );});";
 		}
-		$('#myformCoraline').click(function() {change_design( 'coraline' );});
-		$('#myformEnterprize').click(function() {change_design( 'enterprize' );});
-		$('#myform2011').click(function() {change_design( '2011' );});
+
+?>
 
 	// AJAX form submission
 	function option_get(button) {
@@ -275,15 +279,15 @@ function ptc_load_scripts() {
 	wp_register_script(
 		'ptc-designer',
 		PTC_URL . 'scripts/designer.js',
-		array( 'jquery-ui-core' ),
+		array( 'farbtastic' ),
 		'1.0',
 		true
 	);
-	wp_enqueue_script( 'farbtastic' );
+	wp_enqueue_script( 'ptc-designer', 11 );
 	wp_register_script(
 		'farbtastic',
 		PTC_URL . 'scripts/farbtastic.js',
-		array( 'jquery' ),
+		array( 'jquery-ui-core' ),
 		'1.0',
 		true
 	);
@@ -330,7 +334,7 @@ function ptc_load_css() {
  * @since 0.1
  */
 function ptc_load_stuff() {
-	global $options;
+	global $options, $css;
 
 	// Grab and sanitize data
 	$options = ptc_sanitize_inputs();
@@ -358,7 +362,7 @@ function ptc_load_stuff() {
  * @since 1.0
  */
 function ptc_publish_save_export() {
-	global $options;
+	global $options, $css;
 
 	// Save options
 	if ( 'save' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] || 'publish' == $_GET['generator-css'] )
@@ -405,6 +409,60 @@ function ptc_change_design() {
 	// Redirecting to refresh page, and hence refresh entire design
 	echo '</div><meta http-equiv="refresh" content="0;url=' . home_url() . '/"><div>';
 	die;
+}
+
+/**
+ * Grabs a design
+ * Used when importing templates
+ * @since 0.1
+ */
+function wppb_grab_design( $design ) {
+
+	// Determine the path to the theme based on the theme type chosen
+	foreach( wppb_available_themes() as $count=>$theme ) {
+		if ( $design == $theme['Folder'] ) {
+			if ( 'Internal' == $theme['Type'] )
+				$designpath = get_template_directory() . '/designs';
+			elseif ( 'Child' == $theme['Type'] )
+				$designpath = get_theme_root();
+		}
+	}
+
+	// Starting importation process
+	$folder = $designpath . '/' . $design . '/';
+	echo $folder;die;
+	$file = $folder . 'data.tpl';
+	if ( !file_exists( $file ) )
+		return get_option( WPPB_SETTINGS ); // If file doesn't exist, just load existing template
+
+	// Shoving file contents into string
+	$data = file_get_contents( $file );
+
+	// Processing data ready for database
+	$data = explode( WPPB_BLOCK_SPLITTER, $data ); // Splitting data
+	$counter = 0;
+	$options = array();
+	while ( $counter <= 100 ) {
+		if ( !isset( $data[$counter+1] ) )
+			$data[$counter+1] = '';
+		$split = explode( WPPB_NAME_SPLIT_START, $data[$counter+1] ); // Splitting data
+		if ( !isset( $split[1] ) )
+			$split[1] = '';
+		$split = explode( WPPB_NAME_SPLIT_END, $split[1] ); // Splitting data
+		//$split[0] . '<br />' . $split[1]; // Echo'ing data
+		$name = $split[0];
+
+		if ( !isset( $split[1] ) )
+			$split[1] = '';
+		$options[$name] = $split[1];
+		$counter++;
+	}
+
+	// Copy images over to the uploads folder
+	wppb_copy_images( $folder . 'images/', wppb_storage_folder( 'images' ) . '/' );
+
+	// Return array
+	return $options;
 }
 
 /* Publish template
@@ -706,27 +764,27 @@ function updatecolours() {\n";
 
 	foreach ( $border as $name => $property ) {
 		echo "
-$('" . $property . "').css('border',$('." . $name . "').val());";
+jQuery('" . $property . "').css('border',jQuery('." . $name . "').val());";
 	}
 
 	foreach ( $backgroundcolour as $name => $property ) {
 		echo "
-$('" . $property . "').css('background-color',$('." . $name . "').val());";
+jQuery('" . $property . "').css('background-color',jQuery('." . $name . "').val());";
 	}
 
 	foreach ( $textcolour as $name => $property ) {
 		echo "
-$('" . $property . "').css('color',$('." . $name . "').val());";
+jQuery('" . $property . "').css('color',jQuery('." . $name . "').val());";
 	}
 
 	foreach ( $bordertop as $name => $property ) {
 		echo "
-$('" . $property . "').css('border-top',$('." . $name . "').val());";
+jQuery('" . $property . "').css('border-top',jQuery('." . $name . "').val());";
 	}
 
 	foreach ( $borderbottom as $name => $property ) {
 		echo "
-$('" . $property . "').css('border-bottom',$('." . $name . "').val());";
+jQuery('" . $property . "').css('border-bottom',jQuery('." . $name . "').val());";
 	}
 
 echo "
@@ -735,3 +793,43 @@ echo "
 }
 add_action( 'wp_footer', 'ptc_updatecolours' );
 
+
+/* Array of available designs
+ * todo: Internal designs should automatically scan folder and insert directly rather than needing to be specified individually
+ * @since 1.0
+ */
+function wppb_available_themes() {
+
+	// Including administration files needed for grabbing list of child themes
+	require_once( ABSPATH . 'wp-admin/includes/ms.php' ); // Needed for accessing child themes in multisite networks
+	require_once( ABSPATH . 'wp-admin/includes/theme.php' );
+
+	// Output list of available child themes
+	$themes = get_allowed_themes(); // Grabbing list of all available themes
+	$wppaintbrushdesigns = array(); // List of allowed WP Paintbrush designs
+	$count = 0;
+	foreach( $themes as $theme ) {
+		if( $theme['Template'] == 'wppaintbrush' && $theme['Stylesheet'] != 'wppaintbrush' ) {
+			$wppaintbrushdesigns[$count]['Type'] = 'Child';
+			$wppaintbrushdesigns[$count]['Folder'] = $theme['Stylesheet'];
+			$wppaintbrushdesigns[$count]['Name'] = $theme['Name'];
+			$count++;
+		}
+	}
+
+	// Add internal designs
+	$count++;
+	$wppaintbrushdesigns[$count]['Type'] = 'Internal'; 
+	$wppaintbrushdesigns[$count]['Folder'] = 'coraline'; 
+	$wppaintbrushdesigns[$count]['Name'] = 'Coraline'; 
+	$count++;
+	$wppaintbrushdesigns[$count]['Type'] = 'Internal'; 
+	$wppaintbrushdesigns[$count]['Folder'] = '2011'; 
+	$wppaintbrushdesigns[$count]['Name'] = '2011'; 
+	$count++;
+	$wppaintbrushdesigns[$count]['Type'] = 'Internal'; 
+	$wppaintbrushdesigns[$count]['Folder'] = 'enterprize'; 
+	$wppaintbrushdesigns[$count]['Name'] = 'Enterprize';
+
+	return $wppaintbrushdesigns; 
+}

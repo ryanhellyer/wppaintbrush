@@ -22,7 +22,7 @@ jQuery(function($){
 		//updatecolours();
 		picker.dialog('open');
 	});
- 
+
 	// Updates colours with value from input field
 	$('.colourvalue').change(function(){
 		updatecolours()

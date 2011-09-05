@@ -22,16 +22,14 @@ if ( !defined( 'ABSPATH' ) )
  * Include required files
  * @since 0.9
  */
-require( 'shortcodes.php' ); // Load shortcodes used in designer
 require( 'extra-functions.php' ); // Load functions
 require( 'editor-functions.php' ); // Load editor functions
 require( 'editor.php' ); // Load core functions
+require( 'modules/index.php' ); // Load built in modules
 require( 'sanitization.php' ); // Load sanitization functions
 require( 'sanitization-text.php' ); // Load sanitization functions
-require( 'sanitization-theme.php' ); // Load sanitization functions
 require( 'sanitization-variations.php' ); // Load sanitization functions
 require( 'sanitization-options.php' ); // Load sanitization functions
-require( 'plugins/index.php' ); // Load built in plugins
 
 /* Load required files
  * @since 0.1

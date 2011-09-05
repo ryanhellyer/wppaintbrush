@@ -62,8 +62,9 @@ function wppb_settings_setup() {
 	add_theme_support( \'automatic-feed-links\' );
 ';
 
-	// Register post thumbnails
 	$thumbsdone = ''; // Setting variable to avoid WP_DEBUG errors
+
+	// Register post thumbnails
 	foreach ( wppb_settings_thumbs_array() as $number ) {
 		if (
 			'' != get_wppb_option( 'support_name_postthumbnails' . $number ) AND

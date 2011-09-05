@@ -80,7 +80,14 @@
  *
  * http://docs.jquery.com/UI/Dialog#theming
  */
-.ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; }
+.ui-dialog {
+	position: fixed;
+	left: 0;
+	top: 0;
+	padding: .2em;
+	width: 300px;
+	overflow: hidden;
+}
 .ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
 .ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
 
@@ -100,23 +107,46 @@
  *
  * http://docs.jquery.com/UI/Slider#theming
  */
-.ui-slider {position:relative;text-align:left;}
-.ui-slider .ui-slider-handle {position:absolute;z-index:2;width:1.2em;height:2.2em;cursor:default;}
-.ui-slider .ui-slider-range {position:absolute;z-index:1;font-size:.7em;display:block;border:0;background-position: 0 0;}
-
-.ui-slider-horizontal { height: 1.8em; }
-.ui-slider-horizontal .ui-slider-handle { top: -.3em; margin-left: -.6em; }
-.ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
-.ui-slider-horizontal .ui-slider-range-min { left: 0; }
-.ui-slider-horizontal .ui-slider-range-max { right: 0; }
-
-.ui-slider-vertical { width: .8em; height: 100px; }
-.ui-slider-vertical .ui-slider-handle { left: -.3em; margin-left: 0; margin-bottom: -.6em; }
-.ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
-.ui-slider-vertical .ui-slider-range-min { bottom: 0; }
-.ui-slider-vertical .ui-slider-range-max { top: 0; }
-
-/* Slider */
+.ui-slider {
+	position: relative;
+	text-align: left;
+	width: 80px !important;
+	margin: 3px 2px 0 0;
+	float: left;
+}
+.ui-slider .ui-slider-handle {
+	position: absolute;
+	z-index: 2;
+	cursor: default;
+	width: 17px;
+	height: 17px;
+	margin-left: -9px;
+}
+.ui-slider .ui-slider-range {
+	position: absolute;
+	z-index: 1;
+	font-size: .7em;
+	display: block;
+	border: 0;
+	background-position: 0 0;
+}
+.ui-slider-horizontal .ui-slider-range { 
+	top: 0; 
+	height: 100%;
+}
+.ui-slider-horizontal .ui-slider-range-min { 
+	left: 0;
+}
+.ui-slider-horizontal .ui-slider-range-max {
+	right: 0;
+}
+.section-layout .lineheight  .ui-corner-all,
+.section-layout .coordinates  .ui-corner-all,
+.section-layout .fontsize  .ui-corner-all {
+	background: url(images/slider.png) 0 3px no-repeat;
+	border: none;
+	height: 17px;
+}
 #tab_wrapper .ptc-size input {
 	float: left;
 	clear: none;
@@ -124,21 +154,12 @@
 	background: none;
 	border: none;
 }
-.ui-slider {
-	width: 90px;
-	margin: 3px 2px 0 8px;
-	float: left;
-}
-.ui-slider-horizontal .ui-slider-handle { 
-}
-.ui-slider .ui-slider-handle {
-	width: 7px;
-	height: 9px;
-	top: -4px; 
-	margin-left: -4px;
-}
 .ui-slider-horizontal {
 	height: 3px;
+}
+.section-layout .ui-slider-horizontal .ui-corner-all {
+	background: url(images/admin_icons.png) 0 -768px;
+	border: none;
 }
 
 /*
@@ -624,10 +645,22 @@ input.palettebutton:hover {
 }
 input.colourinput {
 	border: 1px solid #ccc;
-	width: 77px !important;
+	width: 60px !important;
 }
 input.image-picker {
 	width: 77px !important;
+}
+input.clearpalette {
+	width: 9px;
+	height: 9px;
+	background: url(images/admin_icons.png) 0 -710px;
+	text-indent: -999em;
+	border: none;
+	padding: 0;
+	margin: 7px 0 0 4px;
+}
+input.clearpalette:hover {
+	background-position:0 -742px;
 }
 
 /* Farbtastic itself */
@@ -895,7 +928,7 @@ input.image-picker {
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	border-radius: 8px;
-	background: #e6e6e6 !important;
+	background: #e6e6e6;
 	border: 1px solid #aeaeae;
 }
 
@@ -1075,7 +1108,7 @@ ul#layout-sortable li.ui-state-default {
 /* JS loading animation */
 #dialog #tab_wrapper {
 	display: none;
-}
+} 
 #dialog #loading-text {
 	position: fixed;
 	top: 50px;
