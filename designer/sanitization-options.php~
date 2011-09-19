@@ -218,7 +218,7 @@ function ptc_littlenumbers_options() {
 
 	// Centered options
 	$ptc_littlenumbers_options = array();
-	//do_action( 'ptc_hook_littlenumbers_options' );
+	do_action( 'ptc_hook_littlenumbers_options' );
 
 	return $ptc_littlenumbers_options;
 }

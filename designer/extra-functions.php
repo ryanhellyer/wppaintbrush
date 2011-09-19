@@ -29,11 +29,11 @@ function wppb_admin_bar_link() {
 		$opt = 'off';
 	else
 		$opt = 'on';
-	
+
 	// Creating link
 	$link = home_url() . '/?wppb_designer_pane=' . $opt;
 	$link = wp_nonce_url( $link, 'wppb_editor' );
-	
+
 	// Adding menu item
 	$wp_admin_bar->add_menu(
 		array(
@@ -58,12 +58,14 @@ function ptc_ajax_content() {
  */
 function ptc_create_template() {
 
-
 	// Grab and sanitize inputs
 	if ( isset( $_POST['positions'] ) )
 		$content_layout = ptc_sanitize_inputs( $_POST ); // Grab submitted data
 	else
 		$content_layout = ptc_sanitize_inputs( get_option( WPPB_DESIGNER_SETTINGS ) ); // Grab from database
+
+	// Setting processed template variable
+	$processed_template = '';
 
 	// Work out block positions	
 	$positions = explode( ',', $content_layout['positions'] ); // Splitting positions into an array
@@ -76,6 +78,9 @@ function ptc_create_template() {
 			$id = strtolower( $chunk ); // Convert to lowercase
 			$id = str_replace( ' ', '', $id ); // Strip spaces
 			$id = 'layout-' . $id; // Prepend ID prefix
+
+			if ( !isset( $content_layout['changehome_homelayout_display'] ) )
+				$content_layout['changehome_homelayout_display'] = '';
 
 			// Replacing [ptc_content] with appropriate page specific template
 			if ( is_front_page()  && 'Magazine' == $content_layout['changehome_homelayout_display'] )
@@ -102,233 +107,6 @@ function ptc_create_template() {
 	return $processed_template;
 }
 
-/* Load stylesheet from external server
- * @since 0.1
- */
-function ptc_get_load_styles( $content_layout ) {
-	global $stylesheet;
-
-	// Write styles
-	$args = array(
-		'body' => $content_layout,
-		'user-agent' => 'WP Paintbrush theme'
-	);
-
-	// If using local plugin - (todo: convert to using function call instead of loading raw file)
-	if ( 'http://localhost/wp' == home_url() ) {
-		$_POST = $content_layout;
-		require( WP_PLUGIN_DIR . '/pressabl-css-generator/processor.php' );
-		if ( !isset( $stylesheet ) )
-			$stylesheet = '';
-		$stylesheet .= $style;
-	}
-	// Else, use external server
-	else {
-		$style = wp_remote_post( PTC_GET_CSS_URL, $args );
-		if ( !isset( $stylesheet ) )
-			$stylesheet = '';
-		$stylesheet .= $style['body'];
-		if ( 200 != $style['response']['code'] )
-			return '</style>Bugger! Couldn\'t connect to the server!'; // Serve error
-	}
-
-	// Action hook for providing additional CSS via plugins
-	do_action( 'wppb_add_css' );
-
-	return $stylesheet; // Spit the styles out - use return for when saving
-}
-
-/* Load dynamically generated stylesheet
- * @since 0.1
- */
-function ptc_load_styles() {
-
-	// If designer pane is not being loaded, then bail out
-	if ( 'on' != get_option( 'wppb_designer_pane' ) || !current_user_can( 'manage_options' ) || is_admin() )
-		return;
-
-	// Grab from original designer settings from database
-	$wppb_designer_settings = get_option( WPPB_DESIGNER_SETTINGS );
-
-	// Grab and sanitize inputs
-	if ( isset( $_POST['positions'] ) )
-		$content_layout = ptc_sanitize_inputs( $_POST ); // Grab submitted data
-	else
-		$content_layout = $wppb_designer_settings;
-
-	// Insert CSS in (so that the current page can be quickly styled without dragging CSS from external server)
-	$content_layout['css'] = $wppb_designer_settings['css'];
-
-	$css = str_replace( "url('", "url('" . WPPB_STORAGE_IMAGES_FOLDER . '/', $content_layout['css'] ); // Fixing CSS URLs
-	$css = str_replace( "	", '', $css ); // Stripping tabs out
-	$css = str_replace( "\n", '', $css ); // Stripping carriage returns out
-	$css = str_replace( ': ', ':', $css ); // Stripping spaces after colons out
-
-	// Display CSS
-	echo '<style id="ptc-css" type="text/css">';
-	echo $css; // Adding CSS
-	do_action( 'wppb_load_css' ); // Hook for allowing plugins to append CSS
-	echo '</style>';
-}
-add_action( 'wp_print_styles', 'ptc_load_styles' );
-
-/* Disable standard stylesheet
- * Load editor stylesheet
- * @since 0.1
- */
-function ptc_handle_stylesheets() {
-
-	// If designer pane is not being loaded, then bail out
-	if ( 'on' != get_option( 'wppb_designer_pane' ) || !current_user_can( 'manage_options' ) ) {
-		wp_enqueue_style( 'ptc_openme', PTC_URL . 'openme.css', false, '', 'screen' );
-		return;
-	}
-
-	wp_enqueue_style( 'ptccss', PTC_URL . 'style.css', false, '', 'screen' );
-	wp_deregister_style( 'wppb-core' ); 
-}
-add_action( 'wp_print_styles', 'ptc_handle_stylesheets' );
-
-/* Load inline scripts
- * todo Change this to use localize function
- * @since 0.1
- */
-function ptc_inline_scripts() {
-
-	// If designer pane is not being loaded, then bail out
-	if ( 'on' != get_option( 'wppb_designer_pane' ) || !current_user_can( 'manage_options' ) )
-		return;
-	?>
-<script type="text/javascript">
-// Setting WP Paintbrush JS variables
-var storage_folder = '<?php echo wppb_storage_folder( 'images', 'url' ); ?>';
-var nonce_link = '<?php echo home_url(); ?>/?wppb_designer_pane=off&amp;_wpnonce=<?php	$link = home_url() . '/?wppb_designer_pane=' . $opt; $link = wp_nonce_url( $link, 'wppb_editor' ); echo $link; ?>';
-var admin_url = '<?php echo home_url(); ?>/wp-admin/';
-var home_url = '<?php echo home_url(); ?>';
-<?php do_action( 'ptc_inline_scripts_hook' ); ?>
-
-jQuery(function($){
-		// AJAX form submission
-		function change_design(button) {
-			$.post(
-				home_url+'/?change_theme='+button,
-				{'ptc_nonce' : $("#ptc_nonce").val(),},
-				function(data, textStatus) { $('#ptc-ajax').html(data);},
-				'text'
-			);
-		}<?php
-
-		// Output list of available designs
-		foreach( wppb_available_themes() as $count=>$design ) {
-			echo "$('#myform" . $design['Folder'] . "').click(function() {change_design( '" . $design['Folder'] . "' );});";
-		}
-
-?>
-
-	// AJAX form submission
-	function option_get(button) {
-		$("#ptc-css2").html('<div style="text-indent:0;"><img style="" src="'+admin_url+'images/wpspin_light.gif" /></div>');
-		$.post(
-			home_url+'/?generator-css='+button,
-			{
-				'ptc_nonce' : $("#ptc_nonce").val(),<?php
-				// Set all AJAX options
-				foreach( ptc_ajax_option_get() as $option ) {
-					echo '\'' . $option . '\' : $(".' . $option . '").val(),' . "\n";
-				}
-				?>
-			},
-			function(data, textStatus) {
-				$('#ptc-css').html(data);
-				$('#ptc-css2').html(data);
-				$('#ptc-css3').html(data);
-			},
-			'text'
-		);
-	}
-	$('#myformButton').click(function() {option_get( 'process' );});
-	$('.myformSaver').click(function() {option_get( 'save' );});
-	$('#myformPublish').click(function() {option_get( 'publish' );});
-	$('#myformExport').click(function() {option_get( 'export' );});
-	$('#ChangeHomeLayoutMagazine').click(function() {option_get( 'Magazine' );});
-	$('#ChangeHomeLayoutNormal').click(function() {option_get( 'Normal' );});
-});
-</script><?php
-}
-add_action( 'wp_head', 'ptc_inline_scripts' );
-
-/* Load scripts
- * @since 0.1
- */
-function ptc_load_scripts() {
-
-	// If designer pane is not being loaded, then bail out
-	if ( 'on' != get_option( 'wppb_designer_pane' ) || !current_user_can( 'manage_options' ) )
-		return;
-
-	wp_enqueue_script( 'jquery' );
-	wp_deregister_script( 'jquery-ui-core' );
-	wp_register_script(
-		'jquery-ui-core', 
-		PTC_URL . 'scripts/jquery-ui-1.8.15.custom.min.js',
-		array( 'jquery' ),
-		'1.8.10',
-		true
-	);
-	wp_enqueue_script( 'jquery-ui-core' );
-	wp_register_script(
-		'ptc-designer',
-		PTC_URL . 'scripts/designer.js',
-		array( 'farbtastic' ),
-		'1.0',
-		true
-	);
-	wp_enqueue_script( 'ptc-designer', 11 );
-	wp_register_script(
-		'farbtastic',
-		PTC_URL . 'scripts/farbtastic.js',
-		array( 'jquery-ui-core' ),
-		'1.0',
-		true
-	);
-	wp_enqueue_script( 'farbtastic' );
-	wp_register_script(
-		'ptc-content',
-		PTC_URL . 'scripts/tab-content.js',
-		array( 'jquery-ui-core' ),
-		'1.0',
-		true
-	);
-	wp_enqueue_script( 'ptc-content' );
-}
-if ( !is_admin() )
-	add_action( 'wp_print_scripts', 'ptc_load_scripts' );
-
-/* Create CSS from editor submit data
- * @since 0.1
- */
-function ptc_load_css() {
-
-	// Check that nonce is valid
-	if ( !wp_verify_nonce( $_POST['ptc_nonce'], 'ptc_nonce' ) )
-		exit( 'Error: Nonce not verified!' );
-
-	// Processing CSS on external server
-	$css = ptc_get_load_styles( $_POST );
-
-	// Confirming that CSS is indeed valid by checking that string added to end of CSS exists
-	if ( ( $pos = strpos( $css, '/* CSS provided by WP Paintbrush CSS generator */' ) ) === FALSE )
-		exit( "Error: Couldn't connect to server" );
-
-	// Sanitizing CSS
-	$css = pixopoint_validate_css( $css );
-
-	$css = "/* " . $_GET['generator-css'] . rand() . " */\n\n\n" . $css;
-
-	// Serve CSS
-	return $css;
-}
-
 /* Process editor submits
  * Handles saves, publishes, exports etc.
  * @since 0.1
@@ -346,7 +124,7 @@ function ptc_load_stuff() {
 	$options['css'] = $css;
 
 	// Add URLs (needed since CSS won't reference images correctly otherwise - not needed for storage though as can dynamically add it later)
- 	$css = str_replace( "url('", "url('" . WPPB_STORAGE_IMAGES_FOLDER . '/', $css ); // Fixing CSS URLs
+	$css = wppb_convert_urls_in_css( $css );
 
 	// Serve CSS
 	echo $css;
@@ -379,102 +157,6 @@ function ptc_publish_save_export() {
 	}
 }
 add_action( 'ptc_load_stuff_hook', 'ptc_publish_save_export' );
-
-/* Change design
- * @since 0.9
- */
-function ptc_change_design() {
-
-	// Bail out if not logged in and nonce not legit
-	if ( !current_user_can( 'manage_options' ) && !wp_verify_nonce( $_POST['ptc_nonce'], 'ptc_nonce' ) )
-		exit( 'Error: Nonce not verified!' );
-
-	// Set new design 
-	$wppb_design = wppb_grab_design( $_GET['change_theme'] ); // Grab design
-	$wppb_designer_settings = explode( '}', $wppb_design['paintbrush_designer'] );
-	foreach( $wppb_designer_settings as $tmp=>$setting ) {
-		$setting = explode( '|', $setting );
-		if ( !isset( $setting[0] ) )
-			$setting[1] = '';
-		$name = $setting[0];
-		if ( !isset( $setting[1] ) )
-			$setting[1] = '';
-		$option = $setting[1];
-		$wppb_designer_array[$name] = $option;
-	}
-
-	$wppb_designer_array['css'] = $wppb_design['css']; // Storing CSS in designer array so that can be used on page load (otherwise need to make server call on initial page load)
-	update_option( WPPB_DESIGNER_SETTINGS, $wppb_designer_array ); // Saving new design
-
-	// Redirecting to refresh page, and hence refresh entire design
-	echo '</div><meta http-equiv="refresh" content="0;url=' . home_url() . '/"><div>';
-	die;
-}
-
-/**
- * Grabs a design
- * Used when importing templates
- * @since 0.1
- */
-function wppb_grab_design( $design ) {
-
-	// Determine the path to the theme based on the theme type chosen
-	foreach( wppb_available_themes() as $count=>$theme ) {
-		if ( $design == $theme['Folder'] ) {
-			if ( 'Internal' == $theme['Type'] )
-				$designpath = get_template_directory() . '/designs';
-			elseif ( 'Child' == $theme['Type'] )
-				$designpath = get_theme_root();
-		}
-	}
-
-	// Starting importation process
-	$folder = $designpath . '/' . $design . '/';
-	$file = $folder . 'data.tpl';
-	if ( !file_exists( $file ) )
-		return get_option( WPPB_SETTINGS ); // If file doesn't exist, just load existing template
-
-	// Shoving file contents into string
-	$data = file_get_contents( $file );
-
-	// Processing data ready for database
-	$data = explode( WPPB_BLOCK_SPLITTER, $data ); // Splitting data
-	$counter = 0;
-	$options = array();
-	while ( $counter <= 100 ) {
-		if ( !isset( $data[$counter+1] ) )
-			$data[$counter+1] = '';
-		$split = explode( WPPB_NAME_SPLIT_START, $data[$counter+1] ); // Splitting data
-		if ( !isset( $split[1] ) )
-			$split[1] = '';
-		$split = explode( WPPB_NAME_SPLIT_END, $split[1] ); // Splitting data
-		//$split[0] . '<br />' . $split[1]; // Echo'ing data
-		$name = $split[0];
-
-		if ( !isset( $split[1] ) )
-			$split[1] = '';
-		$options[$name] = $split[1];
-		$counter++;
-	}
-
-	// Copy images over to the uploads folder
-	wppb_copy_images( $folder . 'images/', wppb_storage_folder( 'images' ) . '/' );
-
-	// Return array
-	return $options;
-}
-
-/* Publish template
- * @since 0.1
- */
-function ptc_publish_options( $content_layout, $css ) {
-
-	// Get options ready for publishing
-	$input = ptc_get_options_for_storing( $content_layout, $css );
-
-	// Update database with sanitized data
-	update_option( WPPB_SETTINGS, wppb_settings_options_validate( $input ) );
-}
 
 /* Get options ready for storing
  * This processes the designer settings into a format suitable for publishing
@@ -558,26 +240,6 @@ function ptc_get_options_for_storing( $content_layout, $css='' ) {
 	return $options; 
 }
 
-/* Calculate current URL
- * Used for loading current URL via AJAX
- * @since 0.1
- */
-function ptc_current_url() {
-	if ( !isset( $_SERVER['REQUEST_URI'] ) )
-		$serverrequri = $_SERVER['PHP_SELF'];
-	else
-		$serverrequri =    $_SERVER['REQUEST_URI'];
-	$s = empty( $_SERVER["HTTPS"] ) ? '' : ( $_SERVER['HTTPS'] == 'on' ) ? 's' : '';
-	$protocol = strleft( strtolower( $_SERVER['SERVER_PROTOCOL'] ), '/' ) . $s;
-	$port = ( $_SERVER['SERVER_PORT'] == '80' ) ? '' : (':' . $_SERVER['SERVER_PORT'] );
-	$url = $protocol . '://' . $_SERVER['SERVER_NAME'] . $port . $serverrequri;   
-	$url = esc_url( $url ); // Sanitizing URL
-	return $url;
-}
-function strleft($s1, $s2) {
-	return substr($s1, 0, strpos($s1, $s2));
-}
-
 /* Array of page chunks
  * @since 0.1
  */
@@ -620,215 +282,43 @@ function ptc_open_editor() {
 }
 add_action( 'wp_footer', 'ptc_open_editor' );
 
-
-/* Add colour updater script
- * Added to footer
- * @since 1.0
+/* Init
+ *
+ * Handling image uploading
+ * Setting options to ensure that widgets are shown
+ *
+ * @since 0.1
  */
-function ptc_updatecolours() {
-	echo "<script type='text/javascript'>
-function updatecolours() {\n";
+function ptc_load_files() {
 
-	$border = array(
-		// border colour
-		'pagination_border_colour' => '#pagination li',
-	);
-/*
-	foreach( ptc_block_wrapper() as $next=>$type ) {
-		array_push( $border, $type . '_border_top_colour' );
-		array_push( $border, $type . '_border_right_colour' );
-		array_push( $border, $type . '_border_bottom_colour' );
-		array_push( $border, $type . '_border_left_colour' );
-	}
-*/
-	
-	$backgroundcolour = array(
-		// background colour
-		'header_searchbox_text_background_colour' => 'header #search input[type=text]',
-		'header_searchsubmit_text_background_colour' => 'header #search input[type=submit]',
-		'header_searchbox_background_colour' => 'header #search',
+	// Bail out if in admin panel
+	if ( is_admin() )
+		return;
 
-		'header_background_colour' => 'header .header',
-		'header_fullwidth_background_colour' => 'header',
-
-		'maincontent_background_colour' => '#content',
-		'menu1_background_colour' => 'nav#nav ul',
-		'menu1_fullwidth_background_colour' => 'nav#nav',
-		'menu1_items_background_colour' => 'nav#nav li',
-		'sidebar_background_colour' => 'aside#aside-1',
-		'sidebar_background_colour' => 'aside#aside-2',
-		'footer_background_colour' => 'footer',
-		'pagination_background_colour' => '#pagination li',
-		//'pagination_background_hovercolour' => '',
-		'background_colour' => 'body',
-		//'menu1_hover_background_colour' => '',
-		'heading1_background_colour' => '.wrapper h1',
-		'heading2_background_colour' => '.wrapper h2',
-		'heading3_background_colour' => '.wrapper h3',
-		'heading4_background_colour' => '.wrapper h4',
-		'heading5_background_colour' => '.wrapper h5',
-		'heading6_background_colour' => '.wrapper h6',
-		'paragraph_background_colour' => '.wrapper p',
-		'listitem_background_colour' => '.wrapper li',
-		'sidebar_heading_background_colour' => 'aside h3',
-		'sidebar_list_background_colour' => 'aside li',
-		'sidebar_paragraph_background_colour' => 'aside p',
-		'postinfo_background_colour' => '.post-info',
-		'footer_fullwidth_background_colour' => 'footer',
-	);
-
-	$textcolour = array(
-		// text colour
-		'searchsubmit_textcolour' => 'header #search input[type=submit]',
-		'searchtext_textcolour' => 'header #search input[type=text]',
-
-		'pagination_textcolour' => '#pagination li a',
-		//'pagination_texthovercolour' => '',
-		//'menu1_hover_textcolour' => '',
-		'links_textcolour' => '.wrapper a',
-		//'links_hover_textcolour' => '',
-		'header_heading_textcolour' => 'header h1 a',
-		'header_description_textcolour' => 'header #description',
-		'heading1_textcolour' => '.wrapper h1',
-		'heading2_textcolour' => '.wrapper h2',
-		'heading3_textcolour' => '.wrapper h3',
-		'heading4_textcolour' => '.wrapper h4',
-		'heading5_textcolour' => '.wrapper h5',
-		'heading6_textcolour' => '.wrapper h6',
-		'paragraph_textcolour' => '.wrapper p',
-		'listitem_textcolour' => '.wrapper li',
-		'sidebar_heading_textcolour' => 'aside h3',
-		'sidebar_list_textcolour' => 'aside li',
-		'sidebar_paragraph_textcolour' => 'aside p',
-		'footer_menu_textcolour' => 'footer nav li a',
-		'footer_copyright_textcolour' => 'footer p',
-		'postinfo_textcolour' => '.post-info',
-		'menu1_textcolour' => 'nav#nav li a',
-	);
-
-	/*
-		'header_heading_shadow_colour' => '',
-		'header_description_shadow_colour' => '',
-		'heading1_shadow_colour' => '',
-		'heading2_shadow_colour' => '',
-		'heading3_shadow_colour' => '',
-		'heading4_shadow_colour' => '',
-		'heading5_shadow_colour' => '',
-		'heading6_shadow_colour' => '',
-		'paragraph_shadow_colour' => '',
-		'listitem_shadow_colour' => '',
-		'sidebar_heading_shadow_colour' => '',
-		'sidebar_list_shadow_colour' => '',
-		'sidebar_paragraph_shadow_colour' => '',
-		'footer_menu_shadow_colour' => '',
-		'footer_copyright_shadow_colour' => '',
-		'postinfo_shadow_colour' => '',
-		'menu1_shadow_colour' => '',
-		*/
-
-	$bordertop = array(
-		// Border top
-		'heading1_bordertop_colour' => '.wrapper h1',
-		'heading2_bordertop_colour' => '.wrapper h2',
-		'heading3_bordertop_colour' => '.wrapper h3',
-		'heading4_bordertop_colour' => '.wrapper h4',
-		'heading5_bordertop_colour' => '.wrapper h5',
-		'heading6_bordertop_colour' => '.wrapper h6',
-		'paragraph_bordertop_colour' => '.wrapper p',
-		'listitem_bordertop_colour' => '.wrapper li',
-		'sidebar_heading_bordertop_colour' => 'aside h3',
-		'sidebar_list_bordertop_colour' => 'aside li',
-		'sidebar_paragraph_bordertop_colour' => 'aside p',
-		'postinfo_bordertop_colour' => '.post-info',
-		'menu1_bordertop_colour' => 'nav#nav',
-	);
-
-	$borderbottom = array(
-		// Border bottom
-		'heading1_borderbottom_colour' => '.wrapper h1',
-		'heading2_borderbottom_colour' => '.wrapper h2',
-		'heading3_borderbottom_colour' => '.wrapper h3',
-		'heading4_borderbottom_colour' => '.wrapper h4',
-		'heading5_borderbottom_colour' => '.wrapper h5',
-		'heading6_borderbottom_colour' => '.wrapper h6',
-		'paragraph_borderbottom_colour' => '.wrapper p',
-		'listitem_borderbottom_colour' => '.wrapper li',
-		'sidebar_heading_borderbottom_colour' => 'aside h3',
-		'sidebar_list_borderbottom_colour' => 'aside li',
-		'sidebar_paragraph_borderbottom_colour' => 'aside p',
-		'postinfo_borderbottom_colour' => '.post-info',
-		'menu1_borderbottom_colour' => 'nav#nav',
-
-	);
-
-	foreach ( $border as $name => $property ) {
-		echo "
-jQuery('" . $property . "').css('border',jQuery('." . $name . "').val());";
+	// Make sure both sidebars are set - UGLY IF STATEMENT IS A HACK TO PREVENT MUCK UPS WHEN NO SETTINGS ARE PRESENT YET - IE: WHEN INSTALLING THE THEME
+	if ( get_option( WPPB_SETTINGS ) ) {
+		$wppb_options = get_option( WPPB_SETTINGS );
+		$wppb_options['show_widget1'] = 'on';
+		$wppb_options['show_widget2'] = 'on';
+		$wppb_options['name_widget1'] = 'Sidebar 1';
+		$wppb_options['before_widget1'] = '<div class="widget">';
+		$wppb_options['after_widget1'] = '</div>';
+		$wppb_options['before_title1'] = '<h3>';
+		$wppb_options['after_title1'] = '</h3>';
+		$wppb_options['name_widget2'] = 'Sidebar 2';
+		$wppb_options['before_widget2'] = '<div class="widget">';
+		$wppb_options['after_widget2'] = '</div>';
+		$wppb_options['before_title2'] = '<h3>';
+		$wppb_options['after_title2'] = '</h3>';
+		update_option( WPPB_SETTINGS, $wppb_options );
 	}
 
-	foreach ( $backgroundcolour as $name => $property ) {
-		echo "
-jQuery('" . $property . "').css('background-color',jQuery('." . $name . "').val());";
+	// Security check for image uploads
+	if ( $_FILES ) {
+		require_once( ABSPATH . 'wp-admin/includes/file.php' ); // Load file necessary for processing image file on front-end
+		require_once( ABSPATH . 'wp-includes/pluggable.php' ); // Load file necessary for processing image file on front-end
+		wppb_image_upload_form_check();
 	}
 
-	foreach ( $textcolour as $name => $property ) {
-		echo "
-jQuery('" . $property . "').css('color',jQuery('." . $name . "').val());";
-	}
-
-	foreach ( $bordertop as $name => $property ) {
-		echo "
-jQuery('" . $property . "').css('border-top',jQuery('." . $name . "').val());";
-	}
-
-	foreach ( $borderbottom as $name => $property ) {
-		echo "
-jQuery('" . $property . "').css('border-bottom',jQuery('." . $name . "').val());";
-	}
-
-echo "
 }
-</script>";
-}
-add_action( 'wp_footer', 'ptc_updatecolours' );
-
-
-/* Array of available designs
- * todo: Internal designs should automatically scan folder and insert directly rather than needing to be specified individually
- * @since 1.0
- */
-function wppb_available_themes() {
-
-	// Including administration files needed for grabbing list of child themes
-	require_once( ABSPATH . 'wp-admin/includes/ms.php' ); // Needed for accessing child themes in multisite networks
-	require_once( ABSPATH . 'wp-admin/includes/theme.php' );
-
-	// Output list of available child themes
-	$themes = get_allowed_themes(); // Grabbing list of all available themes
-	$wppaintbrushdesigns = array(); // List of allowed WP Paintbrush designs
-	$count = 0;
-	foreach( $themes as $theme ) {
-		if( $theme['Template'] == 'wppaintbrush' && $theme['Stylesheet'] != 'wppaintbrush' ) {
-			$wppaintbrushdesigns[$count]['Type'] = 'Child';
-			$wppaintbrushdesigns[$count]['Folder'] = $theme['Stylesheet'];
-			$wppaintbrushdesigns[$count]['Name'] = $theme['Name'];
-			$count++;
-		}
-	}
-
-	// Add internal designs
-	$count++;
-	$wppaintbrushdesigns[$count]['Type'] = 'Internal'; 
-	$wppaintbrushdesigns[$count]['Folder'] = 'coraline'; 
-	$wppaintbrushdesigns[$count]['Name'] = 'Coraline'; 
-	$count++;
-	$wppaintbrushdesigns[$count]['Type'] = 'Internal'; 
-	$wppaintbrushdesigns[$count]['Folder'] = '2011'; 
-	$wppaintbrushdesigns[$count]['Name'] = '2011'; 
-	$count++;
-	$wppaintbrushdesigns[$count]['Type'] = 'Internal'; 
-	$wppaintbrushdesigns[$count]['Folder'] = 'enterprize'; 
-	$wppaintbrushdesigns[$count]['Name'] = 'Enterprize';
-
-	return $wppaintbrushdesigns; 
-}
+add_action( 'init', 'ptc_load_files', 9 );

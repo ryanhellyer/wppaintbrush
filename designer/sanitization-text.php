@@ -128,6 +128,10 @@ add_action( 'ptc_hook_fontweight_options', 'ptc_add_fontweight_options' );
 function ptc_add_fontstyle_options() {
 	global $ptc_fontstyle_options;
 
+	// Setting variable
+	if ( !isset( $ptc_fontstyle_options ) )
+		$ptc_fontstyle_options = '';
+
 	// Style options
 	foreach( ptc_text_type_options() as $stuff=>$type ) {
 		array_push( $ptc_fontstyle_options, $type . '_font_style' ); // Font style
@@ -150,7 +154,7 @@ function ptc_add_fontsize_options() {
 		array_push( $ptc_fontsize_options, $type . '_fontsize' );
 	}
 
-	return $ptc_fontstyle_options;
+	return $ptc_fontsize_options;
 }
 add_action( 'ptc_hook_fontsize_options', 'ptc_add_fontsize_options' );
 

@@ -15,11 +15,11 @@
 function ptc_text_margins( $option, $content_layout ) {
 	?>
 <div class="section-layout chunk">
-	<h2>Margins</h2>
-	<?php ptc_number_selector( $option . '_margin_top', $content_layout, 'Top', 'block coordinates' ); ?>
-	<?php ptc_number_selector( $option . '_margin_right', $content_layout, 'Right', 'block coordinates' ); ?>
-	<?php ptc_number_selector( $option . '_margin_bottom', $content_layout, 'Bottom', 'block coordinates' ); ?>
-	<?php ptc_number_selector( $option . '_margin_left',  $content_layout, 'Left', 'block coordinates' ); ?>
+	<h2><?php _e( 'Margins', 'wppb_lang' ); ?></h2>
+	<?php ptc_number_selector( $option . '_margin_top', $content_layout, __( 'Top', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_number_selector( $option . '_margin_right', $content_layout, __( 'Right', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_number_selector( $option . '_margin_bottom', $content_layout, __( 'Bottom', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_number_selector( $option . '_margin_left',  $content_layout, __( 'Left', 'wppb_lang' ), 'block coordinates' ); ?>
 </div>
 	<?php
 }
@@ -30,11 +30,11 @@ function ptc_text_margins( $option, $content_layout ) {
 function ptc_text_padding( $option, $content_layout ) {
 	?>
 <div class="section-layout chunk">
-	<h2>Paddings</h2>
-	<?php ptc_number_selector( $option . '_padding_top', $content_layout, 'Top', 'block coordinates' ); ?>
-	<?php ptc_number_selector( $option . '_padding_right', $content_layout, 'Right', 'block coordinates' ); ?>
-	<?php ptc_number_selector( $option . '_padding_bottom', $content_layout, 'Bottom', 'block coordinates' ); ?>
-	<?php ptc_number_selector( $option . '_padding_left', $content_layout, 'Left', 'block coordinates' ); ?>
+	<h2><?php _e( 'Paddings', 'wppb_lang' ); ?></h2>
+	<?php ptc_number_selector( $option . '_padding_top', $content_layout, __( 'Top', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_number_selector( $option . '_padding_right', $content_layout, __( 'Right', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_number_selector( $option . '_padding_bottom', $content_layout, __( 'Bottom', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_number_selector( $option . '_padding_left', $content_layout, __( 'Left', 'wppb_lang' ), 'block coordinates' ); ?>
 </div>
 	<?php
 }
@@ -45,9 +45,9 @@ function ptc_text_padding( $option, $content_layout ) {
 function ptc_text_background( $option, $content_layout ) {
 	?>
 <div class="chunk section-layout">
-	<h2>Background</h2>
-	<?php ptc_colour_selector( $option . '_background_colour', $content_layout, 'Colour', 'block colour' ); ?>
-	<?php ptc_background_image_selector( $option . '_background_image', $content_layout, 'Image' ); ?>
+	<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
+	<?php ptc_colour_selector( $option . '_background_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
+	<?php ptc_background_image_selector( $option . '_background_image', $content_layout, __( 'Image', 'wppb_lang' ) ); ?>
 </div>
 	<?php
 }
@@ -58,14 +58,14 @@ function ptc_text_background( $option, $content_layout ) {
 function ptc_text_borders_vertical( $option, $content_layout ) {
 	?>
 <div class="chunk">
-	<h3>Left border</h3>
-	<?php ptc_number_selector( $option . '_borderleft_width', $content_layout, 'Width', 'block coordinates' ); ?>
-	<?php ptc_bordertype_selector( $option . '_borderleft_type', $content_layout, 'Type', 'block bordertype' ); ?>
-	<?php ptc_colour_selector( $option . '_borderleft_colour', $content_layout, 'Colour', 'block colour' ); ?>
-	<h3>Right border</h3>
-	<?php ptc_number_selector( $option . '_borderright_width', $content_layout, 'Width', 'block coordinates' ); ?>
-	<?php ptc_bordertype_selector( $option . '_borderright_type', $content_layout, 'Type', 'block bordertype' ); ?>
-	<?php ptc_colour_selector( $option . '_borderright_colour', $content_layout, 'Colour', 'block colour' ); ?>
+	<h3><?php _e( 'Left border', 'wppb_lang' ); ?></h3>
+	<?php ptc_number_selector( $option . '_borderleft_width', $content_layout, __( 'Width', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_bordertype_selector( $option . '_borderleft_type', $content_layout, __( 'Type', 'wppb_lang' ), 'block bordertype' ); ?>
+	<?php ptc_colour_selector( $option . '_borderleft_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
+	<h3><?php _e( 'Right border', 'wppb_lang' ); ?></h3>
+	<?php ptc_number_selector( $option . '_borderright_width', $content_layout, __( 'Width', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_bordertype_selector( $option . '_borderright_type', $content_layout, __( 'Type', 'wppb_lang' ), 'block bordertype' ); ?>
+	<?php ptc_colour_selector( $option . '_borderright_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
 </div>
 	<?php
 }
@@ -76,15 +76,15 @@ function ptc_text_borders_vertical( $option, $content_layout ) {
 function ptc_text_borders_horizontal( $option, $content_layout ) {
 	?>
 <div class="chunk section-layout">
-	<h2>Borders</h2>
-	<h3>Top border</h3>
-	<?php ptc_number_selector( $option . '_bordertop_width', $content_layout, 'Width', 'block coordinates' ); ?>
-	<?php ptc_bordertype_selector( $option . '_bordertop_type', $content_layout, 'Type', 'block bordertype' ); ?>
-	<?php ptc_colour_selector( $option . '_bordertop_colour', $content_layout, 'Colour', 'block colour' ); ?>
-	<h3>Bottom border</h3>
-	<?php ptc_number_selector( $option . '_borderbottom_width', $content_layout, 'Width', 'block coordinates' ); ?>
-	<?php ptc_bordertype_selector( $option . '_borderbottom_type', $content_layout, 'Type', 'block bordertype' ); ?>
-	<?php ptc_colour_selector( $option . '_borderbottom_colour', $content_layout, 'Colour', 'block colour' ); ?>
+	<h2><?php _e( 'Borders', 'wppb_lang' ); ?></h2>
+	<h3><?php _e( 'Top border', 'wppb_lang' ); ?></h3>
+	<?php ptc_number_selector( $option . '_bordertop_width', $content_layout, __( 'Width', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_bordertype_selector( $option . '_bordertop_type', $content_layout, __( 'Type', 'wppb_lang' ), 'block bordertype' ); ?>
+	<?php ptc_colour_selector( $option . '_bordertop_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
+	<h3><?php _e( 'Bottom border', 'wppb_lang' ); ?></h3>
+	<?php ptc_number_selector( $option . '_borderbottom_width', $content_layout, __( 'Width', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_bordertype_selector( $option . '_borderbottom_type', $content_layout, __( 'Type', 'wppb_lang' ), 'block bordertype' ); ?>
+	<?php ptc_colour_selector( $option . '_borderbottom_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
 </div>
 	<?php
 }
@@ -101,15 +101,15 @@ function ptc_text_display( $option, $content_layout, $title, $minimum='' ) {
 	if ( '' != $title )
 		echo '<h2>' . $title . '</h2>';
 
-	ptc_fontfamily_selector( $option . '_fontfamily', $content_layout, 'Font', 'block fontfamily' );
-	ptc_number_selector( $option . '_fontsize', $content_layout, 'Size', 'block fontsize' );
-	ptc_colour_selector( $option . '_textcolour', $content_layout, 'Colour', 'block colour' );
-	ptc_fontweight_selector( $option . '_font_weight', $content_layout, 'Weight', 'block fontweight' );
-	ptc_fontstyle_selector( $option . '_font_style', $content_layout, 'Style', 'block fontstyle' );
-	ptc_number_selector( $option . '_line_height', $content_layout, 'Line height', 'block lineheight' );
-	ptc_textdecoration_selector( $option . '_textdecoration', $content_layout, 'Decoration', 'block decoration' );
-	ptc_texttranform_selector( $option . '_text_transform', $content_layout, 'Transform', 'block transform' );
-	ptc_smallcaps_selector( $option . '_small_caps', $content_layout, 'Small caps', 'block smallcaps' );
+	ptc_fontfamily_selector( $option . '_fontfamily', $content_layout, __( 'Font', 'wppb_lang' ), 'block fontfamily' );
+	ptc_number_selector( $option . '_fontsize', $content_layout, __( 'Size', 'wppb_lang' ), 'block fontsize' );
+	ptc_colour_selector( $option . '_textcolour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' );
+	ptc_fontweight_selector( $option . '_font_weight', $content_layout, __( 'Weight', 'wppb_lang' ), 'block fontweight' );
+	ptc_fontstyle_selector( $option . '_font_style', $content_layout, __( 'Style', 'wppb_lang' ), 'block fontstyle' );
+	ptc_number_selector( $option . '_line_height', $content_layout, __( 'Line height', 'wppb_lang' ), 'block lineheight' );
+	ptc_textdecoration_selector( $option . '_textdecoration', $content_layout, __( 'Decoration', 'wppb_lang' ), 'block decoration' );
+	ptc_texttranform_selector( $option . '_text_transform', $content_layout, __( 'Transform', 'wppb_lang' ), 'block transform' );
+	ptc_smallcaps_selector( $option . '_small_caps', $content_layout, __( 'Small caps', 'wppb_lang' ), 'block smallcaps' );
 
 	// Split textshadow into separate chunk
 	if ( 'yes' != $minimum )
@@ -120,11 +120,11 @@ function ptc_text_display( $option, $content_layout, $title, $minimum='' ) {
 	// Text shadow section
 	echo '
 		';
-		ptc_number_selector( $option . '_shadow_x_coordinate', $content_layout, 'x-coord', 'block coordinates' );
-		ptc_number_selector( $option . '_shadow_y_coordinate', $content_layout, 'y-coord', 'block coordinates' );
-		ptc_number_selector( $option . '_shadow_blur_radius', $content_layout, 'Blur radius', 'block coordinates' );
-		ptc_colour_selector( $option . '_shadow_colour', $content_layout, 'Colour', 'block colour' );
-		//ptc_number_selector( $option . '_shadow_opacity', $content_layout, 'Opacity' );
+		ptc_number_selector( $option . '_shadow_x_coordinate', $content_layout, __( 'x-coord', 'wppb_lang' ), 'block coordinates' );
+		ptc_number_selector( $option . '_shadow_y_coordinate', $content_layout, __( 'y-coord', 'wppb_lang' ), 'block coordinates' );
+		ptc_number_selector( $option . '_shadow_blur_radius', $content_layout, __( 'Blur radius', 'wppb_lang' ), 'block coordinates' );
+		ptc_colour_selector( $option . '_shadow_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' );
+		//ptc_number_selector( $option . '_shadow_opacity', $content_layout, __( 'Opacity', 'wppb_lang' ) );
 
 	// Split textshadow into separate chunk
 	if ( 'yes' != $minimum )
@@ -147,7 +147,7 @@ function ptc_input_check( $option, $content_layout, $title, $class='block checkb
 
 	// Display HTML
 	echo '
-<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
+<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
 
 	if ( $content_layout[$option] == 'Yes' )
 		echo '<option>Yes</option><option>No</option>';
@@ -170,7 +170,9 @@ function ptc_imagetiling_selector( $option, $content_layout, $title, $class='blo
 
 	// Display HTML
 	echo '
-<div class="image-tiling ' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
+<div class="image-tiling ' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+
+	$later = ''; // Setting variable
 
 	foreach ( ptc_imagetiling_variations() as $variation=>$text ) {
 		if ( $variation == $content_layout[$option] ) {
@@ -197,7 +199,7 @@ function ptc_leftright_selector( $option, $content_layout, $title, $class='block
 
 	// Display HTML
 	echo '
-<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
+<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
 
 	if ( $content_layout[$option] == 'left' )
 		echo '<option value="left">Left</option><option value="right">Right</option>';
@@ -213,7 +215,9 @@ function ptc_leftright_selector( $option, $content_layout, $title, $class='block
  */
 function ptc_alignment_selector( $option, $content_layout, $title, $class='block alignment' ) {
 
-	echo '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . ' ' . $class . '" name="' . $option . '">' . "\n";
+	echo '<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" class="' . $class . '" name="' . $option . '">' . "\n";
+
+	$later = ''; // Setting variable
 
 	foreach ( ptc_alignment_variations() as $opt=>$label ) {
 		if ( $label == $content_layout[$option] ) {
@@ -240,7 +244,9 @@ function ptc_display_selector( $option, $content_layout, $title, $class='block' 
 		'block' => 'on',
 	);
 
-	echo '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
+	echo '<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+
+	$later = ''; // Setting variable
 
 	foreach ( $options as $opt=>$label ) {
 		if ( $opt == $content_layout[$option] ) {
@@ -261,7 +267,9 @@ function ptc_display_selector( $option, $content_layout, $title, $class='block' 
  */
 function ptc_fontfamily_selector( $option, $content_layout, $title, $class='block fontfamily' ) {
 	echo '
-<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">' . "\n";
+<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">' . "\n";
+
+	$later = ''; // Setting variable
 
 	foreach ( ptc_font_family() as $opt=>$font ) {
 		if ( $font == $content_layout[$option] ) {
@@ -277,20 +285,12 @@ function ptc_fontfamily_selector( $option, $content_layout, $title, $class='bloc
 }
 
 /**
- * Get oppposite colour
- * @since 0.1
+ * Get oppposite hex colour
+ * Code based on work by "Axe" ... http://www.ozzu.com/digital-art-forum/how-determine-the-opposite-hex-color-values-t53983.html
+ * @since 1.0
  */
-function ptc_opposite_hex( $colour ) {
-	return( '#999' );
-	/*
-	$r = dechex( 255 - hexdec( substr( $colour, 0, 2 ) ) );
-	$r = ( strlen( $r ) > 1 ) ? $r : '0' . $r;
-	$g = dechex( 255 - hexdec( substr( $colour, 2, 2 ) ) );
-	$g = ( strlen( $g ) > 1 ) ? $g : '0' . $g;
-	$b = dechex( 255 - hexdec( substr( $colour, 4, 2 ) ) );
-	$b = ( strlen( $b ) > 1 ) ? $b : '0' . $b;
-	return $r . $g . $b;
-	*/
+function wppb_invert_colour( $start ) {
+	return $new;
 }
 
 /**
@@ -298,7 +298,7 @@ function ptc_opposite_hex( $colour ) {
  * @since 0.1
  */
 function ptc_colour_selector( $option, $content_layout, $title, $class='block colour' ) {
-	echo "\n" . '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><input style="background: '  . $content_layout[$option] . '; color: #' . ptc_opposite_hex( $content_layout[$option] ) . '" type="text" class="colourinput ' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /></p></div>' . "\n";
+	echo "\n" . '<div class="' . $class . '"><p><label>' . $title . '</label><input style="background: '  . $content_layout[$option] . '; color: #' . invert_colour( $content_layout[$option] ) . '" type="text" class="colourinput" id="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /></p></div>' . "\n";
 }
 
 /**
@@ -316,7 +316,9 @@ function ptc_textdecoration_selector( $option, $content_layout, $title, $class='
 
 	// Create HTML to display select box 
 	echo '
-<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
+<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+
+	$later = ''; // Setting variable
 
 	foreach ( $ptc_textdecoration_variations as $opt=>$textdecoration ) {
 		if ( $textdecoration == $content_layout[$option] ) {
@@ -338,7 +340,9 @@ function ptc_bordertype_selector( $option, $content_layout, $title, $class='bloc
 
 	// Create HTML to display select box 
 	echo '
-<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">';
+<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
+
+	$later = ''; // Setting variable
 
 	foreach ( ptc_bordertype_variations() as $opt=>$type ) {
 		if ( $type == $content_layout[$option] ) {
@@ -365,7 +369,7 @@ function ptc_number_selector( $option, $content_layout, $title, $class='block co
 
 	// Displaying HTML
 	echo '
-<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><input type="text" class="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><div class="slider' . $option . '"></div></p></div>
+<div class="' . $class . '"><p><label>' . $title . '</label><input type="text" id="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><div id="slider' . $option . '"></div></p></div>
 ';
 
 }
@@ -382,7 +386,7 @@ function ptc_background_image_selector( $option, $content_layout, $title, $class
 
 	// Displaying HTML
 	echo '
-<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><input type="text" class="image-picker ' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><input type="button" class="imagepickerbutton" value="pick" /></p></div>
+<div class="' . $class . '"><p><label>' . $title . '</label><input type="text" class="image-picker" id="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /><input type="button" class="imagepickerbutton" value="pick" /></p></div>
 ';
 
 }
@@ -404,7 +408,9 @@ function ptc_fontweight_selector( $option, $content_layout, $title, $class='bloc
 		array_push( $ptc_fontweight_variations, $inherit );
 
 	// Create HTML to display select box 
-	echo '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">' . "\n";
+	echo '<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">' . "\n";
+
+	$later = ''; // Setting variable
 
 	foreach ( $ptc_fontweight_variations as $opt=>$fontweight ) {
 		if ( $fontweight == $content_layout[$option] ) {
@@ -437,10 +443,7 @@ function ptc_fontstyle_selector( $option, $content_layout, $title, $class='block
 
 	// Create HTML to display select box 
 	echo '
-	<div class="' . $class . '" id="' . $option . '">
-		<p>
-			<label>' . $title . '</label>
-		<select class="' . $option . '" name="' . $option . '">' . "\n";
+	<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">' . "\n";
 			foreach ( $ptc_fontstyle_variations as $opt=>$fontstyle ) {
 				if ( $fontstyle == $content_layout[$option] )
 					$selected = 'SELECTED ';
@@ -449,10 +452,7 @@ function ptc_fontstyle_selector( $option, $content_layout, $title, $class='block
 				echo '<option ' . $selected . ' value="' . $fontstyle . '">' . ucfirst( $fontstyle ) . "</option>\n";
 			}
 
-	echo '
-			</select>
-		</p>
-	</div>';
+	echo '</select></p></div>';
 }
 
 /**
@@ -461,7 +461,9 @@ function ptc_fontstyle_selector( $option, $content_layout, $title, $class='block
  */
 function ptc_texttranform_selector( $option, $content_layout, $title, $class='block texttransform' ) {
 
-	echo '<div class="' . $class . '" id="' . $option . '"><p><label>' . $title . '</label><select class="' . $option . '" name="' . $option . '">' . "\n";
+	echo '<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">' . "\n";
+
+	$later = ''; // Setting variable
 
 	foreach ( ptc_texttransform_variations() as $opt=>$type ) {
 		if ( $type == $content_layout[$option] ) {
@@ -488,20 +490,14 @@ function ptc_smallcaps_selector( $option, $content_layout, $title, $class='block
 
 	// Display HTML
 	echo '
-	<div class="' . $class . '" id="' . $option . '">
-		<p>
-			<label>' . $title . '</label>
-			<select class="' . $option . '" name="' . $option . '">';
+	<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
 			foreach( ptc_smallcaps_variations() as $variation=>$text ) {
 				echo '<option ';
 				if ( $variation == $content_layout[$option] )
 					echo 'SELECTED '; 
 				echo 'value="' . $variation . '">' . $text . '</option>';
 			}
-	echo '
-			</select>
-		</p>
-	</div>';
+	echo '</select></p></div>';
 }
 
 /**
@@ -513,29 +509,29 @@ function ptc_wrapper_block( $chunk, $content_layout, $heading='h2' ) {
 	if ( 'h2' == $heading )
 		echo '<div class="section-layout"><h2>Border</h2>';
 	?>
-	<h3>Border top</h3>
-	<?php ptc_number_selector( $chunk . '_border_top_width', $content_layout, 'Width', 'block coordinates' ); ?>
-	<?php ptc_bordertype_selector( $chunk . '_border_top_type', $content_layout, 'Type', 'block bordertype' ); ?>
-	<?php ptc_colour_selector( $chunk . '_border_top_colour', $content_layout, 'Colour', 'block colour' ); ?>
-	<h3>Border right</h3>
-	<?php ptc_number_selector( $chunk . '_border_right_width', $content_layout, 'Width', 'block coordinates' ); ?>
-	<?php ptc_bordertype_selector( $chunk . '_border_right_type', $content_layout, 'Type', 'block bordertype' ); ?>
-	<?php ptc_colour_selector( $chunk . '_border_right_colour', $content_layout, 'Colour', 'block colour' ); ?>
-	<h3>Border bottom</h3>
-	<?php ptc_number_selector( $chunk . '_border_bottom_width', $content_layout, 'Width', 'block coordinates' ); ?>
-	<?php ptc_bordertype_selector( $chunk . '_border_bottom_type', $content_layout, 'Type', 'block bordertype' ); ?>
-	<?php ptc_colour_selector( $chunk . '_border_bottom_colour', $content_layout, 'Colour', 'block colour' ); ?>
-	<h3>Border left</h3>
-	<?php ptc_number_selector( $chunk . '_border_left_width', $content_layout, 'Width', 'block coordinates' ); ?>
-	<?php ptc_bordertype_selector( $chunk . '_border_left_type', $content_layout, 'Type', 'block bordertype' ); ?>
-	<?php ptc_colour_selector( $chunk . '_border_left_colour', $content_layout, 'Colour', 'block colour' ); ?>
+	<h3><?php _e( 'Border top', 'wppb_lang' ); ?></h3>
+	<?php ptc_number_selector( $chunk . '_border_top_width', $content_layout, __( 'Width', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_bordertype_selector( $chunk . '_border_top_type', $content_layout, __( 'Type', 'wppb_lang' ), 'block bordertype' ); ?>
+	<?php ptc_colour_selector( $chunk . '_border_top_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
+	<h3><?php _e( 'Border right', 'wppb_lang' ); ?></h3>
+	<?php ptc_number_selector( $chunk . '_border_right_width', $content_layout, __( 'Width', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_bordertype_selector( $chunk . '_border_right_type', $content_layout, __( 'Type', 'wppb_lang' ), 'block bordertype' ); ?>
+	<?php ptc_colour_selector( $chunk . '_border_right_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
+	<h3><?php _e( 'Border bottom', 'wppb_lang' ); ?></h3>
+	<?php ptc_number_selector( $chunk . '_border_bottom_width', $content_layout, __( 'Width', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_bordertype_selector( $chunk . '_border_bottom_type', $content_layout, __( 'Type', 'wppb_lang' ), 'block bordertype' ); ?>
+	<?php ptc_colour_selector( $chunk . '_border_bottom_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
+	<h3><?php _e( 'Border left', 'wppb_lang' ); ?></h3>
+	<?php ptc_number_selector( $chunk . '_border_left_width', $content_layout, __( 'Width', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_bordertype_selector( $chunk . '_border_left_type', $content_layout, __( 'Type', 'wppb_lang' ), 'block bordertype' ); ?>
+	<?php ptc_colour_selector( $chunk . '_border_left_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
 	<?php
 	if ( 'h2' == $heading )
 		echo '</div><div class="section-layout">';
 	?>
-	<<?php echo $heading; ?>>Margins</<?php echo $heading; ?>>
-	<?php ptc_number_selector( $chunk . '_top_margin', $content_layout, 'Top margin', 'block coordinates' ); ?>
-	<?php ptc_number_selector( $chunk . '_bottom_margin', $content_layout, 'Bottom margin', 'block coordinates' ); ?>
+	<<?php echo $heading; ?>><?php _e( 'Margins', 'wppb_lang' ); ?></<?php echo $heading; ?>>
+	<?php ptc_number_selector( $chunk . '_top_margin', $content_layout, __( 'Top margin', 'wppb_lang' ), 'block coordinates' ); ?>
+	<?php ptc_number_selector( $chunk . '_bottom_margin', $content_layout, __( 'Bottom margin', 'wppb_lang' ), 'block coordinates' ); ?>
 	<?php
 	if ( 'h2' == $heading )
 		echo '</div>';
@@ -546,8 +542,8 @@ function ptc_wrapper_block( $chunk, $content_layout, $heading='h2' ) {
  * @since 1.0
  */
 function ptc_background( $name, $content_layout ) {
-	ptc_display_selector( $name . '_display', $content_layout, 'Display?' );
-	ptc_colour_selector( $name . '_colour', $content_layout, 'Colour' );
-	ptc_background_image_selector( $name . '_image', $content_layout, 'Image' );
-	ptc_imagetiling_selector( $name . '_image_tiling', $content_layout, 'Image tiling' );
+	ptc_display_selector( $name . '_display', $content_layout, __( 'Display?', 'wppb_lang' ) );
+	ptc_colour_selector( $name . '_colour', $content_layout, __( 'Colour', 'wppb_lang' ) );
+	ptc_background_image_selector( $name . '_image', $content_layout, __( 'Image', 'wppb_lang' ) );
+	ptc_imagetiling_selector( $name . '_image_tiling', $content_layout, __( 'Image tiling', 'wppb_lang' ) );
 }

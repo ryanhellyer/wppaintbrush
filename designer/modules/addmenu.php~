@@ -13,7 +13,7 @@
  * @since 0.1
  */
 function wppb_addmenu_editor_link() {
-	echo '<li id="pixopoint_menus_options"><a href="#menus_options">Menus</a></li>';
+	echo '<li id="pixopoint_menus_options"><a href="#menus_options">' . __( 'Menus', 'wppb_lang' ) . '</a></li>';
 } 
 add_action( 'wppb_add_editor_links', 'wppb_addmenu_editor_link' );
 
@@ -43,70 +43,70 @@ function wppb_addmenu_editor_tab( $number ) {
 <div class="tab-block" id="menus<?php echo $id; ?>_options">
 	<div id="tabs-menus<?php echo $id; ?>" class="inner-tabber">
 		<ul>
-			<li id="ptc_menu<?php echo $id; ?>overall_options"><a href="#menu<?php echo $id; ?>overall_options" title="Overall">Overall</a></li>
-			<li id="ptc_menu<?php echo $id; ?>text_options"><a href="#menu<?php echo $id; ?>text_options" title="Menu <?php echo $id; ?> items">Menu items</a></li>
+			<li id="ptc_menu<?php echo $id; ?>overall_options"><a href="#menu<?php echo $id; ?>overall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_menu<?php echo $id; ?>text_options"><a href="#menu<?php echo $id; ?>text_options" title="<?php _e( 'Menu ' . $id . ' items', 'wppb_lang' ); ?>"><?php _e( 'Menu items', 'wppb_lang' ); ?></a></li>
 		</ul>
 		<div class="inner-tab-block" id="menu<?php echo $id; ?>overall_options">
 			<div class="section-layout">
-				<h2>Menu</h2>
+				<h2><?php _e( 'Menu', 'wppb_lang' ); ?></h2>
 				<?php
-					ptc_number_selector( 'menu' . $number . '_max_width', $content_layout, 'Maximum width' );
-					ptc_number_selector( 'menu' . $number . '_min_width', $content_layout, 'Minimum width' );
+					ptc_number_selector( 'menu' . $number . '_max_width', $content_layout, __( 'Maximum width', 'wppb_lang' ) );
+					ptc_number_selector( 'menu' . $number . '_min_width', $content_layout, __( 'Minimum width', 'wppb_lang' ) );
 				?>
 			</div>
 			<div class="section-layout">
-				<h2>Background</h2>
+				<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
 				<?php
-					ptc_colour_selector( 'menu' . $number . '_background_colour', $content_layout, 'Colour' );
-					ptc_background_image_selector( 'menu' . $number . '_background_image', $content_layout, 'Image' );
+					ptc_colour_selector( 'menu' . $number . '_background_colour', $content_layout, __( 'Colour', 'wppb_lang' ) );
+					ptc_background_image_selector( 'menu' . $number . '_background_image', $content_layout, __( 'Image', 'wppb_lang' ) );
 				?>
 			</div>
 			<div class="section-layout">
-				<h2>Full width background</h2>
-				<p>Background displayed across the full width of the site - leave blank to use the standard page background.</p>
-				<?php ptc_display_selector( 'menu' . $number . '_fullwidth_background_display', $content_layout, 'Display' ); ?>
-				<?php ptc_colour_selector( 'menu' . $number . '_fullwidth_background_colour', $content_layout, 'Colour' ); ?>
-				<?php ptc_background_image_selector( 'menu' . $number . '_fullwidth_background_image', $content_layout, 'Image' ); ?>
+				<h2><?php _e( 'Full width background', 'wppb_lang' ); ?></h2>
+				<p><?php _e( 'Background displayed across the full width of the site - leave blank to use the standard page background.', 'wppb_lang' )); ?></p>
+				<?php ptc_display_selector( 'menu' . $number . '_fullwidth_background_display', $content_layout, __( 'Display', 'wppb_lang' ) ); ?>
+				<?php ptc_colour_selector( 'menu' . $number . '_fullwidth_background_colour', $content_layout, __( 'Colour', 'wppb_lang' ) ); ?>
+				<?php ptc_background_image_selector( 'menu' . $number . '_fullwidth_background_image', $content_layout, __( 'Image', 'wppb_lang' ) ); ?>
 			</div>
 			<?php ptc_wrapper_block( 'menu' . $number . '', $content_layout ); ?>
 		</div>
 		<div class="inner-tab-block" id="menu<?php echo $id; ?>text_options">
 			<div class="section-layout">
-				<h2>Menu items</h2>
-				<?php ptc_number_selector( 'menu' . $number . '_indent', $content_layout, 'Indent items' ); ?>
+				<h2><?php _e( 'Menu items', 'wppb_lang' ); ?></h2>
+				<?php ptc_number_selector( 'menu' . $number . '_indent', $content_layout, __( 'Indent items', 'wppb_lang' ) ); ?>
 				<?php ptc_text_display( 'menu' . $number . '', $content_layout, '', 'yes' ); ?>
 			</div>
 			<?php ptc_text_background( 'menu' . $number . '_items', $content_layout ); ?>
 			<div class="section-layout">
-				<h2>Margins</h2>
+				<h2><?php _e( 'Margins', 'wppb_lang' ); ?></h2>
 				<?php
-					ptc_number_selector( 'menu' . $number . '_margin_top', $content_layout, 'Top' );
-					ptc_number_selector( 'menu' . $number . '_margin_bottom', $content_layout, 'Bottom' );
-					ptc_number_selector( 'menu' . $number . '_margin_left', $content_layout, 'Left' );
-					ptc_number_selector( 'menu' . $number . '_margin_right', $content_layout, 'Right' );
+					ptc_number_selector( 'menu' . $number . '_margin_top', $content_layout, __( 'Top', 'wppb_lang' ) );
+					ptc_number_selector( 'menu' . $number . '_margin_bottom', $content_layout, __( 'Bottom', 'wppb_lang' ) );
+					ptc_number_selector( 'menu' . $number . '_margin_left', $content_layout, __( 'Left', 'wppb_lang' ) );
+					ptc_number_selector( 'menu' . $number . '_margin_right', $content_layout, __( 'Right', 'wppb_lang' ) );
 				?>
 			</div>
 			<div class="section-layout">
-				<h2>Padding</h2>
+				<h2><?php _e( 'Padding', 'wppb_lang' ); ?></h2>
 				<?php
-					ptc_number_selector( 'menu' . $number . '_padding_top', $content_layout, 'Top' );
-					ptc_number_selector( 'menu' . $number . '_padding_right', $content_layout, 'Right' );
-					ptc_number_selector( 'menu' . $number . '_padding_bottom', $content_layout, 'Bottom' );
-					ptc_number_selector( 'menu' . $number . '_padding_left', $content_layout, 'Left' );
+					ptc_number_selector( 'menu' . $number . '_padding_top', $content_layout, __( 'Top', 'wppb_lang' ) );
+					ptc_number_selector( 'menu' . $number . '_padding_right', $content_layout, __( 'Right', 'wppb_lang' ) );
+					ptc_number_selector( 'menu' . $number . '_padding_bottom', $content_layout, __( 'Bottom', 'wppb_lang' ) );
+					ptc_number_selector( 'menu' . $number . '_padding_left', $content_layout, __( 'Left', 'wppb_lang' ) );
 				?>
 			</div>
 			<div class="section-layout">
-				<h2>Hover effects</h2>
+				<h2><?php _e( 'Hover effects', 'wppb_lang' ); ?></h2>
 				<?php
-					ptc_colour_selector( 'menu' . $number . '_hover_textcolour', $content_layout, 'Colour' );
-					ptc_fontweight_selector( 'menu' . $number . '_hover_font_weight', $content_layout, 'Font weight' );
-					ptc_fontstyle_selector( 'menu' . $number . '_hover_font_style', $content_layout, 'Font style' );
-					ptc_textdecoration_selector( 'menu' . $number . '_hover_textdecoration', $content_layout, 'Text decoration' ); 
+					ptc_colour_selector( 'menu' . $number . '_hover_textcolour', $content_layout, __( 'Colour', 'wppb_lang' ) );
+					ptc_fontweight_selector( 'menu' . $number . '_hover_font_weight', $content_layout, __( 'Font weight', 'wppb_lang' ) );
+					ptc_fontstyle_selector( 'menu' . $number . '_hover_font_style', $content_layout, __( 'Font style', 'wppb_lang' ) );
+					ptc_textdecoration_selector( 'menu' . $number . '_hover_textdecoration', $content_layout, __( 'Text decoration', 'wppb_lang' ) ); 
 				?>
-				<h3>Background</h3>
+				<h3><?php _e( 'Background', 'wppb_lang' ); ?></h3>
 				<?php
-					ptc_colour_selector('menu' . $number . '_hover_background_colour', $content_layout, 'Colour', 'block colour' );
-					ptc_background_image_selector( 'menu' . $number . '_hover_background_image', $content_layout, 'Image' );
+					ptc_colour_selector('menu' . $number . '_hover_background_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' );
+					ptc_background_image_selector( 'menu' . $number . '_hover_background_image', $content_layout, __( 'Image', 'wppb_lang' ) );
 				?>
 			</div>
 		</div>

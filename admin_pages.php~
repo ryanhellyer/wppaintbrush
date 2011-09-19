@@ -25,7 +25,7 @@ function wppb_admin_add_dashboard_widgets() {
 	// Add custom WP Paintbrush feed
 	wp_add_dashboard_widget(
 		'wpbp_dashboard_custom_feed',
-		'Latest Posts from WP Paintbrush',
+		__( 'Latest Posts from WP Paintbrush', 'wppb_lang' ),
 		'wppb_dashboard_custom_feed_output'
 	);
 }
@@ -42,7 +42,7 @@ function wppb_dashboard_custom_feed_output() {
 	wp_widget_rss_output(
 		array(
 			'url'           => 'http://wppaintbrush.com/feed/',
-			'title'         => 'News from WP Paintbrush',
+			'title'         => __( 'News from WP Paintbrush', 'wppb_lang' ),
 			'items'         => 3,
 			'show_summary'  => 1,
 			'show_author'   => 0,
@@ -51,115 +51,6 @@ function wppb_dashboard_custom_feed_output() {
 	);
 	echo '</div>';
 }
-
-/**
- * Copying images folder
- * @description Copies images from one folder to another
- * @since 0.8.1
- */
-function wppb_copy_images( $from, $to ) {
-
-	// If there is no image folder to copy, then bail out now
-	if ( !is_dir( $from ) )
-		return;
-
-	// Create main storage folder
-	if ( !is_dir( wppb_storage_folder() ) )
-		mkdir( wppb_storage_folder(), 0777 );
-
-	// Create images folder
-	if ( !is_dir( wppb_storage_folder( 'images' ) ) )
-		mkdir( wppb_storage_folder( 'images' ), 0777 );
-
-	// Plow through images folder and check for correct files to copy
-	$dir = opendir( $from );
-	while( false != ( $file = readdir( $dir ) ) ) {
-		if (
-			$file != '.' AND // ignore .
-			$file != '..' AND // ignore ..
-			(
-				'.gif'  == substr( $file, -4 ) OR // .gif files wanted
-				'.jpg'  == substr( $file, -4 ) OR // .jpg files wanted 
-				'.jpeg' == substr( $file, -4 ) OR // .jpeg files wanted 
-				'.png'  == substr( $file, -4 )    // .png files wanted
-			) ) {
-			// Copy each file over individually
-			copy(
-				$from . $file, // Copying from
-				$to . $file // Copying to
-			);
-		}
-	}
-}
-
-/**
- * Delete a file, or a folder and its contents (recursive algorithm)
- *
- * Modified for use with WP Paintbrush WordPress theme
- *
- * @author      Aidan Lister <aidan@php.net>
- * @version     1.0.3
- * @link        http://aidanlister.com/2004/04/recursively-deleting-a-folder-in-php/
- * @param       string   $dirname    Directory to delete
- * @return      bool     Returns TRUE on success, FALSE on failure
- */
-function wppb_delete_directory( $dirname ) {
-	
-	// Sanity check
-	if ( !file_exists( $dirname ) )
-		return false;
-	
-	// Simple delete for a file
-	if ( is_file( $dirname ) OR is_link( $dirname ) )
-		return unlink( $dirname );
-	
-    // Loop through the folder
-    $dir = dir( $dirname );
-    while ( false !== $entry = $dir->read() ) {
-		// Skip pointers
-		if ( $entry == '.' OR $entry == '..' )
-			continue;
-	
-		// Recurse
-		wppb_delete_directory( $dirname . '/' . $entry );
-	}
-	
-	// Clean up
-	$dir->close();
-	return rmdir( $dirname );
-}
-
-/**
- * Setup for new site activation
- * @since 0.8.6
- * REMOVED TEMPORARILY AS UNNEEDED ANYMORE DUE TO LACK OF STATIC FILE CACHING ANYMORE
-function wppb_site_activation() {
-
-	// Create main storage folder
-	mkdir( wppb_storage_folder(), 0777 );
-
-	// Create images folder
-	mkdir( wppb_storage_folder( 'images' ), 0777 );
-
-}
-add_action( 'activate_blog ', 'wppb_site_activation' );
-if ( !file_exists( wppb_storage_folder() ) )
-	add_action( 'admin_init', 'wppb_site_activation' );
-
-function blop() {
-$bla = get_option( WPPB_SETTINGS );
-echo 'BLOP';
-echo '<textarea style="width:100%;">';var_dump( $bla );echo '</textarea>';
-//die;
-}
-add_action( 'init', 'blop', 1 );
-
-function blop2() {
-	echo 'DEAD';
-	die;
-}
-add_action( 'init', 'blop2', 20 );
- */
 
 /**
  * Init options to white list our options
@@ -205,8 +96,8 @@ function wppb_add_admin_page() {
 
 	// Import/export template admin page
 	$page = add_theme_page(
-		__( 'Import/export' ),
-		__( 'Import/export' ),
+		__( 'Import/export', 'wppb_lang' ),
+		__( 'Import/export', 'wppb_lang' ),
 		'edit_theme_options',
 		'import_template',
 		'import_template_do_page'

@@ -28,47 +28,47 @@ function wppb_content_editor_tab() {
 <div id="menudesign_options">
 	<div id="tabs-text" class="inner-tabber">
 		<ul>
-			<li id="ptc_overall_options"><a href="#overall_options" title="Overall">Overall</a></li>
-			<li id="ptc_maincontent_options"><a href="#maincontent_options" title="Main content">Main <br />content</a></li>
-			<li id="ptc_postinfo_options"><a href="#postinfo_options" title="Post info.">Post info</a></li>
-			<li id="ptc_pagination_options"><a href="#pagination_options" title="Pagination">Pagination</a></li>
-			<li id="ptc_h1_options"><a href="#h1_options" title="Heading 1">H1</a></li>
-			<li id="ptc_h2_options"><a href="#h2_options" title="Heading 2">H2</a></li>
-			<li id="ptc_h3_options"><a href="#h3_options" title="Heading 3">H3</a></li>
-			<li id="ptc_h4_options"><a href="#h4_options" title="Heading 4">H4</a></li>
-			<li id="ptc_h5_options"><a href="#h5_options" title="Heading 5">H5</a></li>
-			<li id="ptc_h6_options"><a href="#h6_options" title="Heading 6">H6</a></li>
-			<li id="ptc_p_options"><a href="#p_options" title="Paragraph">P</a></li>
-			<li id="ptc_li_options"><a href="#li_options" title="List item">LI</a></li>
-			<li id="ptc_a_options"><a href="#a_options" title="Links">A</a></li>
+			<li id="ptc_overall_options"><a href="#overall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_maincontent_options"><a href="#maincontent_options" title="<?php _e( 'Main content', 'wppb_lang' ); ?>"><?php _e( 'Main <br />content', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_postinfo_options"><a href="#postinfo_options" title="<?php _e( 'Post info.', 'wppb_lang' ); ?>"><?php _e( 'Post info', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_pagination_options"><a href="#pagination_options" title="<?php _e( 'Pagination', 'wppb_lang' ); ?>"><?php _e( 'Pagination', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_h1_options"><a href="#h1_options" title="<?php _e( 'Heading 1', 'wppb_lang' ); ?>"><?php _e( 'H1', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_h2_options"><a href="#h2_options" title="<?php _e( 'Heading 2', 'wppb_lang' ); ?>"><?php _e( 'H2', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_h3_options"><a href="#h3_options" title="<?php _e( 'Heading 3', 'wppb_lang' ); ?>"><?php _e( 'H3', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_h4_options"><a href="#h4_options" title="<?php _e( 'Heading 4', 'wppb_lang' ); ?>"><?php _e( 'H4', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_h5_options"><a href="#h5_options" title="<?php _e( 'Heading 5', 'wppb_lang' ); ?>"><?php _e( 'H5', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_h6_options"><a href="#h6_options" title="<?php _e( 'Heading 6', 'wppb_lang' ); ?>"><?php _e( 'H6', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_p_options"><a href="#p_options" title="<?php _e( 'Paragraph', 'wppb_lang' ); ?>"><?php _e( 'P', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_li_options"><a href="#li_options" title="<?php _e( 'List item', 'wppb_lang' ); ?>"><?php _e( 'LI', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_a_options"><a href="#a_options" title="<?php _e( 'Links', 'wppb_lang' ); ?>"><?php _e( 'A', 'wppb_lang' ); ?></a></li>
 		</ul>
 		<div class="inner-tab-block" id="overall_options">
 			<div class="section-layout">
-				<h2>Background</h2>
+				<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
 				<?php ptc_background( 'background', $content_layout ); ?>
 			</div>
 		</div>
 		<div class="inner-tab-block" id="maincontent_options">
 			<?php ptc_text_margins( 'content', $content_layout ); ?>
 			<div class="section-layout">
-				<h2>Background</h2>
-				<?php ptc_colour_selector( 'maincontent_background_colour', $content_layout, 'Colour' ); ?>
-				<?php ptc_background_image_selector( 'maincontent_background_image', $content_layout, 'Image' ); ?>
-				<?php ptc_imagetiling_selector( 'maincontent_background_image_tiling', $content_layout, 'Image tiling' ); ?>
+				<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
+				<?php ptc_colour_selector( 'maincontent_background_colour', $content_layout, __( 'Colour', 'wppb_lang' ) ); ?>
+				<?php ptc_background_image_selector( 'maincontent_background_image', $content_layout, __( 'Image', 'wppb_lang' ) ); ?>
+				<?php ptc_imagetiling_selector( 'maincontent_background_image_tiling', $content_layout, __( 'Image tiling', 'wppb_lang' ) ); ?>
 			</div>
 			<div class="section-layout">
-				<h2>Width</h2>
-				<?php ptc_number_selector( 'maincontent_maximum_width', $content_layout, 'Max width' ); ?>
-				<?php ptc_number_selector( 'maincontent_minimum_width', $content_layout, 'Min width' ); ?>
+				<h2><?php _e( 'Width', 'wppb_lang' ); ?></h2>
+				<?php ptc_number_selector( 'maincontent_maximum_width', $content_layout, __( 'Max width', 'wppb_lang' ) ); ?>
+				<?php ptc_number_selector( 'maincontent_minimum_width', $content_layout, __( 'Min width', 'wppb_lang' ) ); ?>
 			</div>
 		</div>
 		<div class="inner-tab-block" id="postinfo_options">
 			<div class="section-layout">
-				<h2>Post info</h2>
-				<?php ptc_display_selector	( 'postinfo_display', $content_layout, 'Display' ); ?>
+				<h2><?php _e( 'Post info', 'wppb_lang' ); ?></h2>
+				<?php ptc_display_selector( 'postinfo_display', $content_layout, __( 'Display', 'wppb_lang' ) ); ?>
 			</div>
 			<?php
-				ptc_text_display( 'postinfo', $content_layout, 'Text' );
+				ptc_text_display( 'postinfo', $content_layout, __( 'Text', 'wppb_lang' ) );
 				ptc_text_margins( 'postinfo', $content_layout );
 				ptc_text_padding( 'postinfo', $content_layout );
 				ptc_text_background( 'postinfo', $content_layout );
@@ -77,49 +77,48 @@ function wppb_content_editor_tab() {
 		</div>
 		<div class="inner-tab-block" id="pagination_options">
 			<div class="section-layout">
-				<h2>Pagination</h2>
+				<h2><?php _e( 'Pagination', 'wppb_lang' ); ?></h2>
 				<?php
-					ptc_display_selector( 'pagination_display', $content_layout, 'Display' );
-					ptc_fontfamily_selector( 'pagination_fontfamily', $content_layout, 'Font', 'block fontfamily' );
-					ptc_number_selector( 'pagination_fontsize', $content_layout, 'Size', 'block fontsize' );
-					ptc_colour_selector( 'pagination_textcolour', $content_layout, 'Colour', 'block colour' );
-					ptc_colour_selector( 'pagination_texthovercolour', $content_layout, 'Colour on hover', 'block colour' );
-					ptc_fontweight_selector( 'pagination_font_weight', $content_layout, 'Weight', 'block fontweight' );
-					ptc_fontstyle_selector( 'pagination_font_style', $content_layout, 'Style', 'block fontstyle' );
-					ptc_textdecoration_selector( 'pagination_textdecoration', $content_layout, 'Decoration', 'block decoratoin' );
-					ptc_texttranform_selector( 'pagination_text_transform', $content_layout, 'Transform', 'block texttransform' );
-					ptc_smallcaps_selector( 'pagination_small_caps', $content_layout, 'Small caps', 'block smallcaps' );
+					ptc_display_selector( 'pagination_display', $content_layout, __( 'Display', 'wppb_lang' ) );
+					ptc_fontfamily_selector( 'pagination_fontfamily', $content_layout, __( 'Font', 'wppb_lang' ), 'block fontfamily' );
+					ptc_number_selector( 'pagination_fontsize', $content_layout, __( 'Size', 'wppb_lang' ), 'block fontsize' );
+					ptc_colour_selector( 'pagination_textcolour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' );
+					ptc_colour_selector( 'pagination_texthovercolour', $content_layout, __( 'Colour on hover', 'wppb_lang' ), 'block colour' );
+					ptc_fontweight_selector( 'pagination_font_weight', $content_layout, __( 'Weight', 'wppb_lang' ), 'block fontweight' );
+					ptc_fontstyle_selector( 'pagination_font_style', $content_layout, __( 'Style', 'wppb_lang' ), 'block fontstyle' );
+					ptc_textdecoration_selector( 'pagination_textdecoration', $content_layout, __( 'Decoration', 'wppb_lang' ), 'block decoratoin' );
+					ptc_texttranform_selector( 'pagination_text_transform', $content_layout, __( 'Transform', 'wppb_lang' ), 'block texttransform' );
+					ptc_smallcaps_selector( 'pagination_small_caps', $content_layout, __( 'Small caps', 'wppb_lang' ), 'block smallcaps' );
 				?>
 			</div>
 			<div class="section-layout">
-			<h2>Text shadow</h3>
+			<h2><?php _e( 'Text shadow', 'wppb_lang' ); ?></h3>
 				<?php
-					ptc_number_selector( 'pagination_shadow_x_coordinate', $content_layout, 'x-coordinate', 'block coordinates' );
-					ptc_number_selector( 'pagination_shadow_y_coordinate', $content_layout, 'y-coordinate', 'block coordinates' );
-					ptc_number_selector( 'pagination_shadow_blur_radius', $content_layout, 'Blur radius', 'block coordinates' );
-					ptc_colour_selector( 'pagination_shadow_colour', $content_layout, 'Colour', 'block colour' );
-					//ptc_number_selector( 'pagination_shadow_opacity', $content_layout, 'Opacity' );
+					ptc_number_selector( 'pagination_shadow_x_coordinate', $content_layout, __( 'x-coordinate', 'wppb_lang' ), 'block coordinates' );
+					ptc_number_selector( 'pagination_shadow_y_coordinate', $content_layout, __( 'y-coordinate', 'wppb_lang' ), 'block coordinates' );
+					ptc_number_selector( 'pagination_shadow_blur_radius', $content_layout, __( 'Blur radius', 'wppb_lang' ), 'block coordinates' );
+					ptc_colour_selector( 'pagination_shadow_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' );
 				?>
 			</div>
 			<div class="section-layout">
-				<h2>Margin</h2>
-				<?php ptc_number_selector( 'pagination_vertical_margin', $content_layout, 'Vertical margin', 'block coordinates' ); ?>
-				<?php ptc_number_selector( 'pagination_horizontal_margin', $content_layout, 'Horizontal margin', 'block coordinates' ); ?>
+				<h2><?php _e( 'Margin', 'wppb_lang' ); ?></h2>
+				<?php ptc_number_selector( 'pagination_vertical_margin', $content_layout, __( 'Vertical margin', 'wppb_lang' ), 'block coordinates' ); ?>
+				<?php ptc_number_selector( 'pagination_horizontal_margin', $content_layout, __( 'Horizontal margin', 'wppb_lang' ), 'block coordinates' ); ?>
 			</div>
 			<div class="section-layout">
-				<h2>Padding</h2>
-				<?php ptc_number_selector( 'pagination_padding', $content_layout, 'Padding', 'block coordinates' ); ?>
+				<h2><?php _e( 'Padding', 'wppb_lang' ); ?></h2>
+				<?php ptc_number_selector( 'pagination_padding', $content_layout, __( 'Padding', 'wppb_lang' ), 'block coordinates' ); ?>
 			</div>
 			<div class="section-layout">
-				<h2>Background</h2>
-				<?php ptc_colour_selector( 'pagination_background_colour', $content_layout, 'Colour', 'block colour' ); ?>
-				<?php ptc_colour_selector( 'pagination_background_hovercolour', $content_layout, 'Colour on hover', 'block colour' ); ?>
+				<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
+				<?php ptc_colour_selector( 'pagination_background_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
+				<?php ptc_colour_selector( 'pagination_background_hovercolour', $content_layout, __( 'Colour on hover', 'wppb_lang' ), 'block colour' ); ?>
 			</div>
 			<div class="section-layout">
-				<h2>Border</h2>
-				<?php ptc_number_selector( 'pagination_border_width', $content_layout, 'Width', 'block coordinates' ); ?>
-				<?php ptc_bordertype_selector( 'pagination_border_type', $content_layout, 'Type', 'block bordertype' ); ?>
-				<?php ptc_colour_selector( 'pagination_border_colour', $content_layout, 'Colour', 'block colour' ); ?>
+				<h2><?php _e( 'Border', 'wppb_lang' ); ?></h2>
+				<?php ptc_number_selector( 'pagination_border_width', $content_layout, __( 'Width', 'wppb_lang' ), 'block coordinates' ); ?>
+				<?php ptc_bordertype_selector( 'pagination_border_type', $content_layout, __( 'Type', 'wppb_lang' ), 'block bordertype' ); ?>
+				<?php ptc_colour_selector( 'pagination_border_colour', $content_layout, __( 'Colour', 'wppb_lang' ), 'block colour' ); ?>
 			</div>
 		</div>
 		<?php
@@ -127,7 +126,7 @@ function wppb_content_editor_tab() {
 		while( $count < 7 ) : ?>
 		<div id="h<?php echo $count; ?>_options">
 			<?php
-				ptc_text_display( 'heading' . $count, $content_layout, 'Heading ' . $count );
+				ptc_text_display( 'heading' . $count, $content_layout, __( 'Heading ' . $count, 'wppb_lang' ) );
 				ptc_text_margins( 'heading' . $count, $content_layout, 'block coordinates' );
 				ptc_text_padding( 'heading' . $count, $content_layout, 'block coordinates' );
 				ptc_text_background( 'heading' . $count, $content_layout );
@@ -138,7 +137,7 @@ function wppb_content_editor_tab() {
 		<?php endwhile; ?>
 		<div id="p_options">
 			<?php
-				ptc_text_display( 'paragraph', $content_layout, 'Paragraph' );
+				ptc_text_display( 'paragraph', $content_layout, __( 'Paragraph', 'wppb_lang' ) );
 				ptc_text_margins( 'paragraph', $content_layout, 'block coordinates' );
 				ptc_text_padding( 'paragraph', $content_layout, 'block coordinates' );
 				ptc_text_background( 'paragraph', $content_layout );
@@ -147,7 +146,7 @@ function wppb_content_editor_tab() {
 		</div>
 		<div id="li_options">
 			<?php
-				ptc_text_display( 'listitem', $content_layout, 'List items' );
+				ptc_text_display( 'listitem', $content_layout, __( 'List items', 'wppb_lang' ) );
 				ptc_text_margins( 'listitem', $content_layout );
 				ptc_text_padding( 'listitem', $content_layout );
 				ptc_text_background( 'listitem', $content_layout );
@@ -156,21 +155,21 @@ function wppb_content_editor_tab() {
 		</div>
 		<div class="inner-tab-block" id="a_options">
 			<div class="section-layout">
-				<h2>Links</h2>
+				<h2><?php _e( 'Links', 'wppb_lang' ); ?></h2>
 				<?php 
-					ptc_colour_selector( 'links_textcolour', $content_layout, 'Colour' );
-					ptc_fontweight_selector( 'links_font_weight', $content_layout, 'Font weight', 'block fontweight', 'inherit' );
-					ptc_fontstyle_selector( 'links_font_style', $content_layout, 'Font style', 'block', 'inherit' );
-					ptc_textdecoration_selector( 'links_textdecoration', $content_layout, 'Text decoration', 'block textdecoration', 'inherit' );
+					ptc_colour_selector( 'links_textcolour', $content_layout, __( 'Colour', 'wppb_lang' ) );
+					ptc_fontweight_selector( 'links_font_weight', $content_layout, __( 'Font weight', 'wppb_lang' ), 'block fontweight', 'inherit' );
+					ptc_fontstyle_selector( 'links_font_style', $content_layout, __( 'Font style', 'wppb_lang' ), 'block', 'inherit' );
+					ptc_textdecoration_selector( 'links_textdecoration', $content_layout, __( 'Text decoration', 'wppb_lang' ), 'block textdecoration', 'inherit' );
 				?>
 			</div>
 			<div class="section-layout">
-				<h2>Links on hover</h2>
+				<h2><?php _e( 'Links on hover', 'wppb_lang' ); ?></h2>
 				<?php
-					ptc_colour_selector( 'links_hover_textcolour', $content_layout, 'Colour' );
-					ptc_fontweight_selector( 'links_hover_font_weight', $content_layout, 'Font weight', 'block fontweight', 'inherit' );
-					ptc_fontstyle_selector( 'links_hover_font_style', $content_layout, 'Font style', 'block', 'inherit' );
-					ptc_textdecoration_selector( 'links_hover_textdecoration', $content_layout, 'Text decoration', 'block textdecoration', 'inherit' ); 
+					ptc_colour_selector( 'links_hover_textcolour', $content_layout, __( 'Colour', 'wppb_lang' ) );
+					ptc_fontweight_selector( 'links_hover_font_weight', $content_layout, __( 'Font weight', 'wppb_lang' ), 'block fontweight', 'inherit' );
+					ptc_fontstyle_selector( 'links_hover_font_style', $content_layout, __( 'Font style', 'wppb_lang' ), 'block', 'inherit' );
+					ptc_textdecoration_selector( 'links_hover_textdecoration', $content_layout, __( 'Text decoration', 'wppb_lang' ), 'block textdecoration', 'inherit' ); 
 				?>
 			</div>
 		</div>
@@ -716,4 +715,17 @@ function ptc_addcontent_textdecoration_options() {
 }
 add_action( 'ptc_hook_textdecoration_options', 'ptc_addcontent_textdecoration_options' );
 
+/**
+ * Add raw text options for global sanitization array
+ * @since 1.0
+ */
+function ptc_addcontent_rawtext_options() {
+	global $ptc_rawtext_options;
 
+	// Raw text options
+	array_push( $ptc_rawtext_options, 'positions' );
+	array_push( $ptc_rawtext_options, 'sidebar_positions' );
+
+	return $ptc_rawtext_options;
+}
+add_action( 'ptc_hook_rawtext_options', 'ptc_addcontent_rawtext_options' );

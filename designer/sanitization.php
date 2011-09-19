@@ -43,24 +43,12 @@ function ptc_sanitize_inputs( $input='' ) {
 		}
 	}
 
-	// Sanitizing HTML
-	if ( !isset( $input['positions'] ) )
-		$input['positions'] = '';
-	$content_layout['positions'] = esc_attr( wp_kses( $input['positions'], '', '' ) ); // Positions of blocks - could do with more aggressive sanitization
-	if ( !isset( $input['sidebar_positions'] ) )
-		$input['sidebar_positions'] = '';
-	$content_layout['sidebar_positions'] = esc_attr( wp_kses( $input['sidebar_positions'], '', '' ) ); // Positions of sidebars - could do with more aggressive sanitization
-	if ( !isset( $input['copyright'] ) )
-		$input['copyright'] = '';
-	$content_layout['copyright'] = str_replace( '"', "'", wp_kses( $input['copyright'], pixopoint_limited_html(), '' ) ); // Copyright statement sanitization
-
 	// Sanitizing CSS
 	if ( isset( $input['add_custom_css'] ) )
 		$content_layout['add_custom_css'] = pixopoint_validate_css( $input['add_custom_css'] ); // Sanitizing CSS
 
 	// Setting arrays of options
 	$ptc_fontfamily_options = ptc_fontfamily_options(); // Font family
-	//echo '<textarea style="width:600px;height:800px;">';var_dump( $ptc_fontfamily_options );echo '</textarea>';die;
 	$ptc_colour_options = ptc_colour_options(); // Text colour
 	$ptc_fontweight_options = ptc_fontweight_options(); // Font weight
 	$ptc_smallcaps_options = ptc_smallcaps_options(); // Small caps
@@ -79,6 +67,11 @@ function ptc_sanitize_inputs( $input='' ) {
 	$ptc_fontsize_options = ptc_fontsize_options(); // Font size - also line heights
 	$ptc_shadow_coordinates_options = ptc_shadow_coordinates_options(); // Shadow coordinates
 	$ptc_rawtext_options = ptc_rawtext_options(); // Text
+
+	// Sanitizing the added custom CSS (only one option for this so need for accessing from array)
+	if ( empty( $content_layout['add_custom_css'] ) )
+		$content_layout['add_custom_css'] = '';
+	$content_layout['add_custom_css'] = pixopoint_validate_css( $input['add_custom_css'] );
 
 	// Sanitizing font size options
 	foreach( $ptc_fontsize_options as $stuff=>$opt ) {
@@ -325,7 +318,9 @@ function ptc_sanitize_inputs( $input='' ) {
 	foreach( $ptc_rawtext_options as $stuff=>$opt ) {
 		if ( !isset( $input[$opt] ) )
 			$input[$opt] = '';
-		$content_layout[$opt] = wp_kses( $input[$opt], '', '' );
+
+		// Allows some HTML, and converts quote marks to ensure they don't screw up quote marks in input fields
+		$content_layout[$opt] = str_replace( "'", '"', wp_kses( $input[$opt], pixopoint_limited_html(), '' ) );
 	}
 
 	return $content_layout;
@@ -337,21 +332,10 @@ function ptc_sanitize_inputs( $input='' ) {
  * @since 0.1
  */
 function ptc_ajax_option_get() {
+
 	$options = array(
-		'positions',
-		'sidebar_positions',
-		'copyright',
 		'add_custom_css',
 	);
-
-/*
-	// Adding text options
-	foreach( ptc_text_options() as $stuff=>$opt ) {
-		foreach( ptc_text_type_options() as $next=>$type ) {
-			array_push( $options, $type . $opt );
-		}
-	}
-*/
 
 	// Adding font style options
 	foreach( ptc_fontstyle_options() as $stuff=>$opt ) {
@@ -450,6 +434,12 @@ function ptc_ajax_option_get() {
  * @since 1.0
  */
 function ptc_sanitize_hex_colour( $colour ) {
+	
+	// If transparent, then spit value straight back out
+	if ( 'transparent' == $colour || '' == $colour )
+		return 'transparent';
+
+	// Check to confirm hex colour code
 	$colour = explode( '#', $colour );
 	$colour = $colour[1];
 	$default = '#FEFEFE';
@@ -468,4 +458,18 @@ function ptc_sanitize_hex_colour( $colour ) {
 
 	return '#' . $colour;
 }
+
+/**
+ * Add raw text options for global sanitization array
+ * @since 1.0
+ */
+function ptc_adddefault_rawtext_options() {
+	global $ptc_rawtext_options;
+
+	// Raw text options
+	array_push( $ptc_rawtext_options, 'copyright' );
+
+	return $ptc_rawtext_options;
+}
+add_action( 'ptc_hook_rawtext_options', 'ptc_adddefault_rawtext_options' );
 

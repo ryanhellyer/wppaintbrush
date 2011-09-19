@@ -13,10 +13,10 @@
 
 
 require( 'content.php' );
+require( 'designs.php' );
 require( 'header.php' );
 require( 'sidebars.php' );
 require( 'addmenu.php' );
 require( 'extras.php' );
 require( 'footer.php' );
-//require( 'design/index.php' );
-
+require( 'publish.php' );

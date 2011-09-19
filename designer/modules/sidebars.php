@@ -28,28 +28,28 @@ function wppb_sidebars_editor_tab() {
 <div class="tab-block" id="sidebars_options">
 	<div id="tabs-sidebars" class="inner-tabber">
 		<ul>
-			<li id="ptc_sidebaroverall_options"><a href="#sidebaroverall_options" title="Overall">Overall</a></li>
-			<li id="ptc_sidebarheading_options"><a href="#sidebarheading" title="Heading">Heading</a></li>
-			<li id="ptc_sidebarparagraph_options"><a href="#sidebarparagraph_options" title="Paragraph">Paragraph</a></li>
-			<li id="ptc_sidebarlistitem_options"><a href="#sidebarlistitem_options" title="List items">List items</a></li>
+			<li id="ptc_sidebaroverall_options"><a href="#sidebaroverall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_sidebarheading_options"><a href="#sidebarheading" title="<?php _e( 'Heading', 'wppb_lang' ); ?>"><?php _e( 'Heading', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_sidebarparagraph_options"><a href="#sidebarparagraph_options" title="<?php _e( 'Paragraph', 'wppb_lang' ); ?>"><?php _e( 'Paragraph', 'wppb_lang' ); ?></a></li>
+			<li id="ptc_sidebarlistitem_options"><a href="#sidebarlistitem_options" title="<?php _e( 'List items', 'wppb_lang' ); ?>"><?php _e( 'List items', 'wppb_lang' ); ?></a></li>
 		</ul>
 		<div class="inner-tab-block" id="sidebaroverall_options">
 			<div class="section-layout">
-				<h2>Background</h2>
-				<?php ptc_colour_selector( 'sidebar_background_colour', $content_layout, 'Colour' ); ?>
-				<?php ptc_background_image_selector( 'sidebar_background_image', $content_layout, 'Image' ); ?>
-				<?php ptc_imagetiling_selector( 'sidebar_background_image_tiling', $content_layout, 'Tiling' ); ?>
+				<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
+				<?php ptc_colour_selector( 'sidebar_background_colour', $content_layout, __( 'Colour', 'wppb_lang' ) ); ?>
+				<?php ptc_background_image_selector( 'sidebar_background_image', $content_layout, __( 'Image', 'wppb_lang' ) ); ?>
+				<?php ptc_imagetiling_selector( 'sidebar_background_image_tiling', $content_layout, __( 'Tiling', 'wppb_lang' ) ); ?>
 			</div>
 			<div class="section-layout">
-				<h2>Widths</h2>
-				<?php ptc_number_selector( 'aside_1_width', $content_layout, 'Sidebar 1', 'block coordinates' ); ?>
-				<?php ptc_number_selector( 'aside_2_width', $content_layout, 'Sidebar 2', 'block coordinates' ); ?>
+				<h2><?php _e( 'Widths', 'wppb_lang' ); ?></h2>
+				<?php ptc_number_selector( 'aside_1_width', $content_layout, __( 'Sidebar 1', 'wppb_lang' ), 'block coordinates' ); ?>
+				<?php ptc_number_selector( 'aside_2_width', $content_layout, __( 'Sidebar 2', 'wppb_lang' ), 'block coordinates' ); ?>
 			</div>
 			<?php ptc_text_padding( 'aside', $content_layout, 'block coordinates' ); ?>
 		</div>
 		<div class="inner-tab-block" id="sidebarheading">
 			<?php 
-				ptc_text_display( 'sidebar_heading', $content_layout, 'Heading' ); 
+				ptc_text_display( 'sidebar_heading', $content_layout, __( 'Heading', 'wppb_lang' ) ); 
 				ptc_text_margins( 'sidebar_heading', $content_layout );
 				ptc_text_padding( 'sidebar_heading', $content_layout );
 				ptc_text_background( 'sidebar_heading', $content_layout );
@@ -58,7 +58,7 @@ function wppb_sidebars_editor_tab() {
 		</div>
 		<div class="inner-tab-block" id="sidebarparagraph_options">
 			<?php
-				ptc_text_display( 'sidebar_paragraph', $content_layout, 'Paragraph' ); 
+				ptc_text_display( 'sidebar_paragraph', $content_layout, __( 'Paragraph', 'wppb_lang' ) ); 
 				ptc_text_margins( 'sidebar_paragraph', $content_layout, 'block coordinates' );
 				ptc_text_padding( 'sidebar_paragraph', $content_layout, 'block coordinates' );
 				ptc_text_background( 'sidebar_paragraph', $content_layout );
@@ -67,7 +67,7 @@ function wppb_sidebars_editor_tab() {
 		</div>
 		<div class="inner-tab-block" id="sidebarlistitem_options">
 			<?php 
-				ptc_text_display( 'sidebar_list', $content_layout, 'List text' ); 
+				ptc_text_display( 'sidebar_list', $content_layout, __( 'List text', 'wppb_lang' ) ); 
 				ptc_text_margins( 'sidebar_list', $content_layout, 'block coordinates' );
 				ptc_text_padding( 'sidebar_list', $content_layout, 'block coordinates' );
 				ptc_text_background( 'sidebar_list', $content_layout, 'block coordinates' );

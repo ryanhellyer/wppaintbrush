@@ -280,11 +280,16 @@
 	margin: 0;
 	padding: 0;
 	border: none !important;
-		zoverflow-y: scroll;
 	background: #f3f3f3;
 }
 #headeroverall_options {
 	min-height: 300px;
+}
+.ui-dialog-content p {
+	font-size: 14px;
+	line-height: 22px;
+	font-family: sans-serif;
+	color: #333;
 }
 
 /* Generic tabber styling */
@@ -522,7 +527,8 @@ body .ui-tabs {
 	text-align: center;
 	background: url(images/tabs.png);
 	border-right: 1px solid #b7b7b7;
-	border-bottom: 1px solid #b7b7b7 !important;	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	border-bottom: 1px solid #b7b7b7 !important;
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
 	font-weight: bold;
 	font-style: normal;
 	font-size: 11px;
@@ -583,43 +589,52 @@ div.ui-button input[type=submit]:hover {
 }
 div.ui-button:hover {
 	cursor: pointer;
-	border: 1px solid #79b7e7; background: #d0e5f5 url(jquery-ui-themes/redmond/images/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #1d5987;
+	border: 1px solid #79b7e7;
+	background: #d0e5f5;
+	font-weight: bold;
+	color: #1d5987;
 }
-
 
 /* Image picker */
-#ptc-image-picker {
-	overflow-y: scroll;
-	overflow-x: hidden;
+#wppb-image-uploads {
+	overflow: autol
 	padding: 3px 0 10px 2px;
 }
-#ptc-image-picker td {
+#wppb-images {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	max-height: 600px !important;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #bbb;
+	margin: 0 0 15px 0;
+}
+#wppb-image-uploads td {
 	font-size: 10px;
 	color: #333;
 	font-weight: normal;
 	font-family: 'Lucida Grande', Verdana, Arial, Arial, sans-serif;
 	vertical-align: top;
 }
-#ptc-image-picker img {
+#wppb-image-uploads img {
 	width: auto;
 	max-width: 80px;
 	height: auto;
 	max-height: 110px;
-	margin: 0 2px 0 0;
+	margin: 5px 2px 10px 0;
 }
-#ptc-image-picker img:hover {
+#wppb-image-uploads img:hover {
 	opacity: 0.7;
 	cursor: pointer;
 }
 /* The palette button */
 input.imagepickerbutton {
-	width:16px;
-	height:16px;
-	background:url(images/admin_icons.png) 0 -520px;
-	text-indent:-999em;
-	border:none;
-	padding:0;
-	margin:0;
+	width: 16px;
+	height: 16px;
+	background: url(images/admin_icons.png) 0 -520px;
+	text-indent: -999em;
+	border: none;
+	padding: 0;
+	margin: 0;
 }
 input.imagepickerbutton:hover {
 	background-position:0 -552px;
@@ -632,13 +647,13 @@ input.imagepickerbutton:hover {
 
 /* The palette button */
 input.palettebutton {
-	width:16px;
-	height:16px;
-	background:url(images/admin_icons.png) 0 -646px;
-	text-indent:-999em;
-	border:none;
-	padding:0;
-	margin:0;
+	width: 16px;
+	height: 16px;
+	background: url(images/admin_icons.png) 0 -646px;
+	text-indent: -999em;
+	border: none;
+	padding: 0;
+	margin: -3px 0 0 0;
 }
 input.palettebutton:hover {
 	background-position:0 -678px;
@@ -651,16 +666,16 @@ input.image-picker {
 	width: 77px !important;
 }
 input.clearpalette {
-	width: 9px;
-	height: 9px;
-	background: url(images/admin_icons.png) 0 -710px;
+	width: 16px;
+	height: 16px;
+	background: url(images/admin_icons.png) 0 -712px;
 	text-indent: -999em;
 	border: none;
 	padding: 0;
-	margin: 7px 0 0 4px;
+	margin: -3px 0 0 3px;
 }
 input.clearpalette:hover {
-	background-position:0 -742px;
+	background-position:0 -739px;
 }
 
 /* Farbtastic itself */
@@ -918,6 +933,8 @@ input.clearpalette:hover {
 	font-style: italic;
 	margin: 5px 10px;
 	font-size: 11px;
+	line-height: 13px;
+	color: #666;
 }
 .section-layout label {
 	font-style: normal;
@@ -1161,3 +1178,14 @@ ul#layout-sortable li.ui-state-default {
 .ui-dialog-buttonset {
 	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
 }
+
+/* Error dialog box */
+#wppb-page-reload,
+#wppb-external-connection-failure {
+	display: none;
+}
+#wppb-page-reload.ui-widget-content,
+#wppb-external-connection-failure.ui-widget-content {
+	display: block;
+}
+

@@ -24,17 +24,10 @@ define( 'WPPB_TEMPLATES_LABEL', 'Themes' ); // Decides what label to give the te
 define( 'WPPB_SETTINGS', 'wppb_settings' ); // Label for option used to store template code in database
 define( 'WPPB_DESIGNER_SETTINGS', 'wppb_designer_settings' ); // Label for option used to store designer settings in database
 define( 'WPPB_STORAGE_FOLDER', 'wppb_storage' );
-define( 'PTC_DIR', get_stylesheet_directory() . '/designer/' ); // Designer framework directory
-define( 'PTC_URL', get_stylesheet_directory_uri() . '/designer/' ); // Designer framework folder URL
 define( 'WPPB_STORAGE_IMAGES_FOLDER', wppb_storage_folder( 'images', 'url' ) );
 define( 'WPPB_BLOCK_SPLITTER', "/* PixoPoint Template option */\n" ); // Strings used to descriminate between differents bits in exported/imported files
 define( 'WPPB_NAME_SPLIT_START', '[----' ); // Strings used to descriminate between differents bits in exported/imported files
 define( 'WPPB_NAME_SPLIT_END', "----]\n" ); // Strings used to descriminate between differents bits in exported/imported files
-// Load URL for CSS generator - uses IF check to allow for using local generator during testing and wppaintbrush.com to use local plugin
-if ( 'http://localhost/wp' == home_url() )
-	define( 'PTC_GET_CSS_URL', 'http://localhost/wp/wp-content/plugins/pressabl-css-generator/index.php' );
-else
-	define( 'PTC_GET_CSS_URL', 'http://demo.pixopoint.com/wp-content/plugins/pressabl-css-generator/index.php' );
 
 /**
  * Set widget suffixes
@@ -118,10 +111,10 @@ if ( isset( $_GET['wppb_designer_pane'] ) && current_user_can( 'manage_options' 
  * @since 0.1
  */
 require( get_stylesheet_directory() . '/admin_pages.php' ); // Admin specific functions - need loaded for front end of theme roller too
-require( get_stylesheet_directory() . '/import-export.php' ); // Loading Import/Export script
-require( get_stylesheet_directory() . '/images.php' ); // Loading image uploader functions
 require( get_stylesheet_directory() . '/designer/index.php' ); // Loading designer interface
 require( get_stylesheet_directory() . '/templating/index.php' ); // Loading PixoPoint emplating framework
+require( get_stylesheet_directory() . '/import-export.php' ); // Loading Import/Export script
+require( get_stylesheet_directory() . '/images.php' ); // Loading image uploader functions
 
 /**
  * Dynamically create CSS file
