@@ -55,6 +55,34 @@ function wppb_available_themes() {
 	return $wppaintbrushdesigns; 
 }
 
+/* Change design
+ * @since 0.9
+ */
+function wppb_change_design() {
+
+	// Bail out if not logged in and nonce not legit
+	if ( !current_user_can( 'manage_options' ) && !wp_verify_nonce( $_POST['ptc_nonce'], 'ptc_nonce' ) )
+		exit( 'Error: Nonce not verified!' );
+
+	// Set new design 
+	$wppb_design = wppb_grab_design( $_GET['change_theme'] ); // Grab design
+	$wppb_designer_settings = explode( '}', $wppb_design['paintbrush_designer'] );
+	foreach( $wppb_designer_settings as $tmp=>$setting ) {
+		$setting = explode( '|', $setting );
+		if ( !isset( $setting[0] ) )
+			$setting[1] = '';
+		$name = $setting[0];
+		if ( !isset( $setting[1] ) )
+			$setting[1] = '';
+		$option = $setting[1];
+		$wppb_designer_array[$name] = $option;
+	}
+
+	$wppb_designer_array['css'] = $wppb_design['css']; // Storing CSS in designer array so that can be used on page load (otherwise need to make server call on initial page load)
+	update_option( WPPB_DESIGNER_SETTINGS, $wppb_designer_array ); // Saving new design
+
+	die;
+}
 
 /**
  * Grabs a design

@@ -560,3 +560,36 @@ function ptc_background( $name, $content_layout ) {
 	ptc_background_image_selector( $name . '_image', $content_layout, __( 'Image', 'wppb_lang' ) );
 	ptc_imagetiling_selector( $name . '_image_tiling', $content_layout, __( 'Image tiling', 'wppb_lang' ) );
 }
+
+/**
+ * List images in specified folder
+ * Used within image picker
+ * @since 1.0
+ */
+function wppb_list_images( $wppb_image_dir, $wppb_image_url, $no_image, $folder ) {
+
+	// Setting folder variable in case it's empty
+	if ( empty( $folder ) )
+		$folder = '';
+
+	$file_list = wppb_list_files( $wppb_image_dir );
+	if ( is_array( $file_list ) ) {
+		$col = 0;
+		$first = '';
+		foreach ( $file_list as $file ) {
+			$col ++;
+			if ( $col == 1 )
+				echo '<tr>';
+			if ( $col == 1 && $first != 'no' && 'display' == $no_image ) {
+				echo '<td>' . __( 'No image', 'wppb_lang' ) . '<br /><img src="' . PTC_URL . '/images/no-image.jpg" class="uploaded-image" alt="" /></td>';
+				$first = 'no';
+				$col ++;
+			}
+			echo '<td>' . $file . '<br /><img src="' . $wppb_image_url . '/' . $file . '" class="uploaded-image" alt="' . $folder . '/' . $file . '" /></td>';
+			if ( $col == 4 ) {
+				echo '</tr>';
+				$col = 0;
+			}
+		}
+	}
+}

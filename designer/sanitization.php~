@@ -468,6 +468,7 @@ function ptc_adddefault_rawtext_options() {
 
 	// Raw text options
 	array_push( $ptc_rawtext_options, 'copyright' );
+	array_push( $ptc_rawtext_options, 'design' );
 
 	return $ptc_rawtext_options;
 }

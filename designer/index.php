@@ -47,8 +47,9 @@ require( 'sanitization-options.php' ); // Load sanitization functions
 if ( isset( $_GET['generator-css'] ) )
 	add_action( 'init', 'ptc_load_stuff' );
 if ( isset( $_GET['change_theme'] ) )
-	add_action( 'init', 'ptc_change_design' );
+	add_action( 'init', 'wppb_change_design' );
 if ( isset( $_GET['generator-content'] ) )
 	add_action( 'template_redirect', 'ptc_ajax_content' );
 if ( isset( $_GET['generator-export'] ) )
 	add_action( 'init', 'wppb_export_zip' );
+

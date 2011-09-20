@@ -48,8 +48,8 @@ function ptc_load_template() {
 <div id="tab_wrapper">
 <form id="ptc-editor-form" method="post" action="" enctype="multipart/form-data">
 	<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-	<input type="hidden" class="copyright" name="copyright" value='<?php echo $content_layout['copyright']; ?>' />
-	<input type="hidden" class="design" name="design" value='<?php echo $content_layout['design']; ?>' />
+	<input type="hidden" id="copyright" name="copyright" value='<?php echo $content_layout['copyright']; ?>' />
+	<input type="hidden" id="design" name="design" value='<?php echo $content_layout['design']; ?>' />
 	<?php wp_nonce_field( 'wppb_upload_image','image'); ?>
 	<?php wp_nonce_field( 'ptc_nonce','ptc_nonce'); ?>
 	<div id="tabs" class="maintabber">
@@ -76,48 +76,26 @@ function ptc_load_template() {
 	<div id="wppb-images">
 		<table>
 		<?php
+		wppb_list_images(
+			wppb_storage_folder( 'images' ), // Folder directory
+			wppb_storage_folder( 'images', 'url' ), // Folder URL
+			'display', // Display no image link
+			'stored' // Folder name
+		);
 
-		$wppb_image_url = wppb_storage_folder( 'images', 'url' );
-		$wppb_image_dir = wppb_storage_folder( 'images' );
-
-		$file_list = wppb_list_files( $wppb_image_dir );
-		if ( is_array( $file_list ) ) {
-			$col = 0;
-			$first = '';
-			foreach ( $file_list as $file ) {
-				$col ++;
-				if ( $col == 1 )
-					echo '<tr>';
-				if ( $col == 1 && $first != 'no' ) {
-					echo '<td>' . __( 'No image', 'wppb_lang' ) . '<br /><img src="' . PTC_URL . '/images/no-image.jpg" class="uploaded-image" alt="" /></td>';
-					$first = 'no';
-					$col ++;
-				}
-				echo '<td>' . $file . '<br /><img src="' . $wppb_image_url . '/' . $file . '" class="uploaded-image" alt="stored/' . $file . '" /></td>';
-				if ( $col == 4 ) {
-					echo '</tr>';
-					$col = 0;
+		echo '<tr><td><h2 style="margin:20px 0 6px 0;">' . __( ' Design images', 'wppb_lang' ) . '</h2></td></tr>';
+		foreach( wppb_available_themes() as $count=>$theme ) {
+			if ( $theme['Folder'] == $content_layout['design'] ) {
+				if ( 'Internal' == $theme['Type'] ) {
+					wppb_list_images(
+						get_template_directory() . '/designs/' . $theme['Folder'] . '/images/', // Folder directory
+						get_template_directory_uri() . '/designs/' . $theme['Folder'] . '/images/', // Folder URL
+						'', // Display no image link
+						$theme['Folder'] // Folder name
+					);
 				}
 			}
 		}
-
-
-	echo '<br><br><br>';
-	foreach( wppb_available_themes() as $count=>$theme ) {
-		echo $content_layout['design'];
-		if ( $theme['Name'] == $content_layout['design'] )
-			echo $theme['Name'] . "<br>";
-	}
-
-/*
-		if ( 'Internal' == $theme['Type'] ) {
-		}
-		elseif ( 'Child' == $theme['Type'] ) }
-		}
-		else {
-		}
-*/
-
 		?>
 		</table>
 	</div>

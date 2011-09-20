@@ -55,65 +55,113 @@ $ele = $('#wppb-image-uploads').dialog({
 				if('stored'==filename[0]){
 					$('.wrapper').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
 				}
+				if('internal'==filename[0]){
+					$('.wrapper').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
+				}
 				var filename=$('#footer_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('footer div.footer').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
+				}
+				if('internal'==filename[0]){
+					$('footer div.footer').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
 				}
 				var filename=$('#background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('body').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
 				}
+				if('internal'==filename[0]){
+					$('body').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
+				}
 				var filename=$('#maincontent_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('.wrapper #content').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
+				}
+				if('internal'==filename[0]){
+					$('.wrapper #content').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
 				}
 				var filename=$('#header_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('header div.header').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
 				}
+				if('internal'==filename[0]){
+					$('header div.header').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
+				}
 				var filename=$('#header_fullwidth_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('header').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
+				}
+				if('internal'==filename[0]){
+					$('header').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
 				}
 				var filename=$('#header_searchbox_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('header #search').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
 				}
+				if('internal'==filename[0]){
+					$('header #search').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
+				}
 				var filename=$('#header_logo_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('header #logo').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
+				}
+				if('internal'==filename[0]){
+					$('header #logo').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
 				}
 				var filename=$('#banner_image').val().split('/');
 				if('stored'==filename[0]){
 					$('#banner div.banner-image').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
 				}
+				if('internal'==filename[0]){
+					$('#banner div.banner-image').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
+				}
 				var filename=$('#menu1_hover_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('nav#nav li:hover a').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
+				}
+				if('internal'==filename[0]){
+					$('nav#nav li:hover a').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
 				}
 				var filename=$('#menu1_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('nav#nav ul').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
 				}
+				if('internal'==filename[0]){
+					$('nav#nav ul').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
+				}
 				var filename=$('#menu1_fullwidth_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('nav#nav').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
+				}
+				if('internal'==filename[0]){
+					$('nav#nav').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
 				}
 				var filename=$('#menu1_items_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('nav#nav li').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
 				}
+				if('internal'==filename[0]){
+					$('nav#nav li').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
+				}
 				var filename=$('#header_searchbox_text_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('header #search input[type=text]').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
+				}
+				if('internal'==filename[0]){
+					$('header #search input[type=text]').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
 				}
 				var filename=$('#header_searchsubmit_text_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('header #search input[type=submit]').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
 				}
+				if('internal'==filename[0]){
+					$('header #search input[type=submit]').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
+				}
 				var filename=$('#footer_fullwidth_background_image').val().split('/');
 				if('stored'==filename[0]){
 					$('footer').css({'background-image': 'url('+storage_folder+'/'+filename[1]+')'});
+				}
+				if('internal'==filename[0]){
+					$('footer').css({'background-image': 'url('+design_folder+'/'+filename[1]+')'});
 				}				$ele.dialog('close');
 			});
 		});

@@ -290,6 +290,19 @@ function ptc_fontfamily_selector( $option, $content_layout, $title, $class='bloc
  * @since 1.0
  */
 function wppb_invert_colour( $start ) {
+	$red = hexdec( substr( $start, 1, 2 ) );
+	$green = hexdec( substr( $start, 3, 2 ) );
+	$blue = hexdec( substr( $start, 5, 2) );
+	$new_red = dechex( 255 - $red );
+	$new_green = dechex (255  - $green );
+	$new_blue = dechex( 255 - $blue );
+	if ( strlen( $new_red ) == 1 )
+		$new_red .= '0';
+	if ( strlen( $new_green ) == 1 )
+		$new_green .= '0';
+	if ( strlen( $new_blue ) == 1 )
+		$new_blue .= '0';
+	$new = $new_red . $new_green . $new_blue;
 	return $new;
 }
 
@@ -298,7 +311,7 @@ function wppb_invert_colour( $start ) {
  * @since 0.1
  */
 function ptc_colour_selector( $option, $content_layout, $title, $class='block colour' ) {
-	echo "\n" . '<div class="' . $class . '"><p><label>' . $title . '</label><input style="background: '  . $content_layout[$option] . '; color: #' . invert_colour( $content_layout[$option] ) . '" type="text" class="colourinput" id="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /></p></div>' . "\n";
+	echo "\n" . '<div class="' . $class . '"><p><label>' . $title . '</label><input style="background: '  . $content_layout[$option] . '; color: #' . wppb_invert_colour( $content_layout[$option] ) . '" type="text" class="colourinput" id="' . $option . '" name="' . $option . '" value="'  . $content_layout[$option] . '" /></p></div>' . "\n";
 }
 
 /**
@@ -546,4 +559,37 @@ function ptc_background( $name, $content_layout ) {
 	ptc_colour_selector( $name . '_colour', $content_layout, __( 'Colour', 'wppb_lang' ) );
 	ptc_background_image_selector( $name . '_image', $content_layout, __( 'Image', 'wppb_lang' ) );
 	ptc_imagetiling_selector( $name . '_image_tiling', $content_layout, __( 'Image tiling', 'wppb_lang' ) );
+}
+
+/**
+ * List images in specified folder
+ * Used within image picker
+ * @since 1.0
+ */
+function wppb_list_images( $wppb_image_dir, $wppb_image_url, $no_image, $type, $folder ) {
+
+	// Setting folder variable in case it's empty
+	if ( empty( $folder ) )
+		$folder = '';
+
+	$file_list = wppb_list_files( $wppb_image_dir );
+	if ( is_array( $file_list ) ) {
+		$col = 0;
+		$first = '';
+		foreach ( $file_list as $file ) {
+			$col ++;
+			if ( $col == 1 )
+				echo '<tr>';
+			if ( $col == 1 && $first != 'no' && 'display' == $no_image ) {
+				echo '<td>' . __( 'No image', 'wppb_lang' ) . '<br /><img src="' . PTC_URL . '/images/no-image.jpg" class="uploaded-image" alt="" /></td>';
+				$first = 'no';
+				$col ++;
+			}
+			echo '<td>' . $file . '<br /><img src="' . $wppb_image_url . '/' . $file . '" class="uploaded-image" alt="' . $folder . '/' . $file . '" /></td>';
+			if ( $col == 4 ) {
+				echo '</tr>';
+				$col = 0;
+			}
+		}
+	}
 }

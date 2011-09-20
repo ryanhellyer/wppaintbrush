@@ -24,14 +24,19 @@ function ptc_inline_scripts() {
 	// If designer pane is not being loaded, then bail out
 	if ( 'on' != get_option( 'wppb_designer_pane' ) || !current_user_can( 'manage_options' ) )
 		return;
+
+	$content_layout = get_option( WPPB_DESIGNER_SETTINGS );
 	?>
 <script type="text/javascript">
+<?php do_action( 'ptc_inline_scripts_hook' ); ?>
+
 // Setting WP Paintbrush JS variables
 var storage_folder = '<?php echo wppb_storage_folder( 'images', 'url' ); ?>';
+var design_folder = '<?php echo get_template_directory_uri(); ?>/designs/<?php echo $content_layout['design']; ?>/images/';
+var design_name = '<?php echo $content_layout['design']; ?>';
 var nonce_link = '<?php	echo wp_nonce_url( home_url(), 'wppb_editor' ); ?>';
 var admin_url = '<?php echo home_url(); ?>/wp-admin/';
 var home_url = '<?php echo home_url(); ?>';
-<?php do_action( 'ptc_inline_scripts_hook' ); ?>
 
 jQuery(function($){
 	// AJAX form submission	function change_design(button) {
@@ -67,10 +72,10 @@ jQuery(function($){
 			type: 'POST',
 			url: home_url+'/?generator-css='+button,
 			data: {
-				'ptc_nonce' : $("#ptc_nonce").val(),<?php
+				'ptc_nonce':$("#ptc_nonce").val(),<?php
 				// Set all AJAX options
 				foreach( ptc_ajax_option_get() as $option ) {
-					echo '\'' . $option . '\' : $("#' . $option . '").val(),' . "\n";
+					echo '\'' . $option . '\':$("#' . $option . '").val(),';
 				}
 				?>
 			},
@@ -78,13 +83,12 @@ jQuery(function($){
 				switch(data) {
 					case "Error: Couldn't connect to server":
 					$( "#wppb-external-connection-failure" ).dialog({width:250,minWidth:250,maxWidth:250,modal:true,autoOpen:true,});
-					$('#ptc-css2').html('');
 					$('#ptc-css3').html("Error: Couldn't connect to server");					break;
 					default:
 					$('#ptc-css').html(data);
-					$('#ptc-css2').html(data);
 					$('#ptc-css3').html(data);					break;
 				}
+				$('#ptc-css2').html('');
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				$( "#wppb-external-connection-failure" ).dialog({width:250,minWidth:250,maxWidth:250,modal:true,autoOpen:true,});
@@ -98,6 +102,61 @@ jQuery(function($){
 	$('#myformExport').click(function() {option_get( 'export' );});
 	$('#ChangeHomeLayoutMagazine').click(function() {option_get( 'Magazine' );});
 	$('#ChangeHomeLayoutNormal').click(function() {option_get( 'Normal' );});
+
+	// Image picker
+	var $button,
+	$ele = $('#wppb-image-uploads').dialog({
+		width: 530,
+		minWidth: 530,
+		maxWidth: 530,
+		title: 'Image picker',
+		modal: false,
+		autoOpen: false,
+		open : function(event, ui){
+			$('img.uploaded-image',ui.dialog).each(function(){
+				var image = $(this);
+				image.click(function(){
+					$button.parent().find('.image-picker').val(image.attr('alt'));
+					$button.removeClass('ICopen').val('pick');
+<?php
+	$images = array(	
+		'sidebar_background_image'                  => '.wrapper',
+		'footer_background_image'                   => 'footer div.footer',
+		'background_image'                          => 'body',
+		'maincontent_background_image'              => '.wrapper #content',
+		'header_background_image'                   => 'header div.header',
+		'header_fullwidth_background_image'         => 'header',
+		'header_searchbox_background_image'         => 'header #search',
+		'header_logo_background_image'              => 'header #logo',
+		'banner_image'                              => '#banner div.banner-image',
+		'menu1_hover_background_image'              => 'nav#nav li:hover a',
+		'menu1_background_image'                    => 'nav#nav ul',
+		'menu1_fullwidth_background_image'          => 'nav#nav',
+		'menu1_items_background_image'              => 'nav#nav li',
+		'header_searchbox_text_background_image'    => 'header #search input[type=text]',
+		'header_searchsubmit_text_background_image' => 'header #search input[type=submit]',
+		'footer_fullwidth_background_image'         => 'footer',
+	);
+	foreach( $images as $theid=>$selector ) {
+		echo "
+					var filename=$('#" . $theid , "').val().split('/');
+					if('stored'==filename[0]){
+						$('" . $selector . "').css({'background-image':'url('+storage_folder+'/'+filename[1]+')'});
+					}
+					if(design_name==filename[0]){
+						$('" . $selector . "').css({'background-image':'url('+design_folder+'/'+filename[1]+')'});
+					}";
+	}
+?>
+					$ele.dialog('close');
+				});
+			});
+		},
+		beforeClose: function(event,ui){
+			$('img',ui.dialog).unbind();
+		}
+	});
+	$('.imagepickerbutton').click(function(){$button = $(this);$ele.dialog('open');});
 });
 </script><?php
 }
