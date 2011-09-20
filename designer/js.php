@@ -26,6 +26,10 @@ function ptc_inline_scripts() {
 		return;
 
 	$content_layout = get_option( WPPB_DESIGNER_SETTINGS );
+	
+	// Setting potentially empty variable	
+	if ( empty( $content_layout['design'] ) )
+		$content_layout['design'] = ''; 
 	?>
 <script type="text/javascript">
 <?php do_action( 'ptc_inline_scripts_hook' ); ?>

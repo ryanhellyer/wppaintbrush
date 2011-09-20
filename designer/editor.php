@@ -30,8 +30,12 @@ function ptc_load_template() {
 		$content_layout = get_option( WPPB_DESIGNER_SETTINGS ); // Setting defaults for "content_layout"
 
 
-?>
-<?php
+	// Setting potentially empty variable
+	if ( empty( $content_layout['copyright'] ) )
+		$content_layout['copyright'] = '';
+	if ( empty( $content_layout['design'] ) )
+		$content_layout['design'] = '';
+
 	// Hook for adding AJAXed scripts
 	do_action( 'wppb_add_ajax_content' );
 ?>
