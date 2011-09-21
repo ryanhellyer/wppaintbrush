@@ -10,7 +10,7 @@
  
 // Setting WP Paintbrush JS variables
 var storage_folder = 'http://localhost/wp/testsite/files/wppb_storage/images';
-var design_folder = 'http://localhost/wp/testsite/wp-content/themes/wppaintbrush/designs/';
+var design_folder = 'http://localhost/wp/testsite/wp-content/themes/wppaintbrush/designs/
 var nonce_link = 'http://localhost/wp/testsite?_wpnonce=5de410d40c';
 var admin_url = 'http://localhost/wp/testsite/wp-admin/';
 var home_url = 'http://localhost/wp/testsite';
