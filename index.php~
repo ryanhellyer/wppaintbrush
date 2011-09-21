@@ -26,7 +26,8 @@ do_action( 'wppb_pre_theme' ); // Action hook for loading content
  * Processing short codes via do_shortcode()
  * @since 0.1
  */
-eval( '?>' . do_shortcode( $wppb_template ) . '<?php ' );
+echo $wppb_template;
+//do_shortcode( $wppb_template );
 
 /**
  * Load footer
