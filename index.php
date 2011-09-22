@@ -8,6 +8,7 @@
  */
 
 
+
 /**
  * Load header
  * @since 0.1
@@ -18,16 +19,15 @@ get_header();
  * Output buffering template
  * @since 0.8
  */
-global $wppb_template;
 do_action( 'wppb_pre_theme' ); // Action hook for loading content
 
 /**
- * Executing PHP
- * Processing short codes via do_shortcode()
+ * Outputting stored templates
+ * Parsed through do_shortcode() to convert shortcodes into required text
  * @since 0.1
  */
-echo $wppb_template;
-//do_shortcode( $wppb_template );
+if ( isset( $wppb_template ) )
+	echo do_shortcode( $wppb_template );
 
 /**
  * Load footer

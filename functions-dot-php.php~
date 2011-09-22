@@ -24,6 +24,10 @@ function wppb_settings_setup() {
 	define( 'WPPB_COPYRIGHT', '<a href="http://wppaintbrush.com/">wppaintbrush.com</a>. Powered by <a href="http://wordpress.org/">WordPress</a>.' );
 	define( 'WPPB_VERSION', '1.0 beta 10_5' ); // Version of WP Paintbrush used
 
+	// Setting the content width
+	if ( ! isset( $content_width ) )
+		$content_width = 900;
+
 	// Register primary wp_nav_menu()
 	if ( 'on' == get_wppb_option( 'support_primarymenu' ) )
 		register_nav_menu( 'primary', __( 'Primary Menu' ) );

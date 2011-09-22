@@ -20,7 +20,7 @@ function wppb_image_upload_form_fields() {
 		</div>
 		<input type="hidden" name="wppb_settings[upload_file]" value="" />
 		<div style="clear:both" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" role="button" aria-disabled="false">
-			<input type="submit" class="button-primary" value="<?php _e( 'Upload image', 'wppb_lang' ); ?>" />
+			<input type="submit" class="button-primary" value="<?php _e( 'Upload image' ); ?>" />
 		</div>
 	</p>
 	<?php

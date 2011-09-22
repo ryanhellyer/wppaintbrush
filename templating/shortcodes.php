@@ -209,7 +209,11 @@ add_shortcode( 'the_content_limit', 'pixopoint_the_content_limit_shortcode' );
  * @since 0.1
  */
 function pixopoint_the_author_posts_link_shortcode() {
-	return get_author_posts_url();
+	ob_start();
+	the_author_posts_link();
+	$author = ob_get_contents();
+	ob_end_clean();
+	return $author;
 }
 add_shortcode( 'the_author_posts_link', 'pixopoint_the_author_posts_link_shortcode' );
 
@@ -352,9 +356,13 @@ add_shortcode( 'the_tags', 'pixopoint_the_tags_shortcode' );
 
 /**
  * [the_category] shortcode
+ * Uses output buffering to avoid rewriting a bunch of code in comments_number() which can only be echo'd
  * @since 0.1
  */
 function pixopoint_the_category_shortcode( $atts ) {
+
+ 	ob_start();
+
 	// Grabbing parameters and setting default values
 	extract(
 		shortcode_atts(
@@ -367,7 +375,11 @@ function pixopoint_the_category_shortcode( $atts ) {
 
 	$separator = wp_kses( $separator, '' );
 
-	return the_category( $separator );
+	the_category( $separator );
+
+	$the_category = ob_get_contents();
+	ob_end_clean();
+	return $the_category;
 }
 add_shortcode( 'the_category', 'pixopoint_the_category_shortcode' );
 
@@ -572,7 +584,7 @@ function pixopoint_widget_shortcode( $atts, $content = null ) {
 		$return;
 
 	if ( !dynamic_sidebar( 'widgetarea' . $number ) )
-		do_shortcode( $content );
+		return do_shortcode( $content );
 }
 add_shortcode( 'widget', 'pixopoint_widget_shortcode' );
 
@@ -653,9 +665,11 @@ add_shortcode( 'admin_note', 'pixopoint_note_shortcode' );
 
 /**
  * [loop] shortcode
+ * todo: Output buffering may not be necessary here. May be able to return string directly
  * @since 0.1
  */
 function pixopoint_loop_shortcode( $atts, $content = null ) {
+	ob_start();
 
 	// Grabbing parameters and setting default values
 	extract(
@@ -684,22 +698,22 @@ function pixopoint_loop_shortcode( $atts, $content = null ) {
 
 	// Sanitise slugs
 	if ( '' != $category_name )
-		$query = $query . 'category_name=' . sanitize_title( $category_name ) . '&';
+		$query = $query . 'category_name=' . sanitize_title_with_dashes( $category_name ) . '&';
 	if ( '' != $tag )
-		$query = $query . 'tag=' . sanitize_title( $tag ) . '&';
+		$query = $query . 'tag=' . sanitize_title_with_dashes( $tag ) . '&';
 	if ( '' != $author_name )
-		$query = $query . 'author_name=' . sanitize_title( $author_name ) . '&';
+		$query = $query . 'author_name=' . sanitize_title_with_dashes( $author_name ) . '&';
 	if ( '' != $name )
-		$query = $query . 'name=' . sanitize_title( $name ) . '&';
+		$query = $query . 'name=' . sanitize_title_with_dashes( $name ) . '&';
 	if ( '' != $pagename )
-		$query = $query . 'pagename=' . sanitize_title( $pagename ) . '&';
+		$query = $query . 'pagename=' . sanitize_title_with_dashes( $pagename ) . '&';
 
 	// Sanitise post type
-	if ( 'page' == $post_type || 'post' == $post_type || 'slider_gallery' == $post_type )
+	if ( 'page' == $post_type OR 'post' == $post_type OR 'slider_gallery' == $post_type )
 		$query = $query . 'post_type=' . $post_type . '&';
 
 	// Sanitise order
-	if ( 'ASC' == $order && 'DESC' == $order )
+	if ( 'ASC' == $order AND 'DESC' == $order )
 		$query = $query . 'order=' . $order . '&';
 
 	// Sanitise post type
@@ -714,29 +728,32 @@ function pixopoint_loop_shortcode( $atts, $content = null ) {
 		case 'rand':             $query = $query . 'orderby=' . $orderby . '&'; break;
 		case 'none':             $query = $query . 'orderby=' . $orderby . '&'; break;
 		case 'comment_count':    $query = $query . 'orderby=' . $orderby . '&'; break;
-		default:                                                                break;
+		default: break;
 	}
 
-	// Add PHP string, or blitz query entirely if not needed
 	if ( !isset( $query ) )
 		$query = '';
-	if ( '' != $query ) {
-		$query = substr_replace( $query , '', -1 ); // Remove last &
-		query_posts(  );
-	}
+
+	// Remove last &
+	$query = substr_replace( $query , '', -1 );
+
+	// Add PHP string, or blitz query entirely if not needed
+	if ( '' != $query )
+		query_posts( $query );
 	else
 		$query = '';
 
 	// Create PHP
-	if ( is_404() ) {
+	if ( is_404() )
 		query_posts( 'post_type=page&name=404-error' );
-		if ( have_posts() ) {
-			while ( have_posts() ) { 
-				the_post();
-				do_shortcode( $content ); // Return filtered output
-			}
-		}
-	}
+	if ( have_posts() ) : while ( have_posts() ) : the_post();
+		// Return filtered output
+		echo do_shortcode( $content );
+	endwhile; endif;
+
+	$loop = ob_get_contents();
+	ob_end_clean();
+	return $loop;
 }
 add_shortcode( 'loop', 'pixopoint_loop_shortcode' );
 
@@ -820,7 +837,7 @@ function pixopoint_if_shortcode( $atts, $content = null ) {
 
 	// If condtion is set, then display content
 	if ( $condition( $slug ) )
-		do_shortcode( $content );
+		return do_shortcode( $content );
 }
 add_shortcode( 'if', 'pixopoint_if_shortcode' );
 
