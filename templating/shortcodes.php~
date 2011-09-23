@@ -569,6 +569,7 @@ add_shortcode( 'nav_menu', 'pixopoint_nav_menu_shortcode' );
 
 /**
  * [widget] shortcode
+ * Uses output buffering to avoid rewriting a bunch of code in dynamic_sidebar() which can only be echo'd
  * @since 0.1
  */
 function pixopoint_widget_shortcode( $atts, $content = null ) {
@@ -585,8 +586,12 @@ function pixopoint_widget_shortcode( $atts, $content = null ) {
 	if ( !is_int( $number ) )
 		$return;
 
+	ob_start();
 	if ( !dynamic_sidebar( 'widgetarea' . $number ) )
 		return do_shortcode( $content );
+	$widgets = ob_get_contents();
+	ob_end_clean();
+	return $widgets;
 }
 add_shortcode( 'widget', 'pixopoint_widget_shortcode' );
 

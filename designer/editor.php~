@@ -104,7 +104,7 @@ function ptc_load_template() {
 		</table>
 	</div>
 	<h2><?php _e( 'Image uploads', 'wppb_lang' ); ?></h2>
-	<p><?php _e( 'Visit the <a href="http://localhost/wp/testing/wp-admin/themes.php?page=upload_images">image uploads page</a> to upload new images.', 'wppb_lang' ); ?></p>
+	<p>Visit the <a href="http://localhost/wp/testing/wp-admin/themes.php?page=upload_images">image uploads page</a> to upload new images.</p>
 	<?php /*<div class="ptc-image-uploads"><?php wppb_image_upload_form_fields(); ?></div>*/ ?>
 </div>
 

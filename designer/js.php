@@ -45,7 +45,8 @@ var admin_url = '<?php echo home_url(); ?>/wp-admin/';
 var home_url = '<?php echo home_url(); ?>';
 
 jQuery(function($){
-	// AJAX form submission	function change_design(button) {
+	// AJAX form submission
+	function change_design(button) {
 		$.ajax({
 			type: 'POST',
 			url: home_url+'/?change_theme='+button,
