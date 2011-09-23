@@ -75,6 +75,8 @@ function wppb_image_upload_form_check() {
  */
 function wppb_list_files( $path ){
 	$list = array(); // Initialise a variable
+	if ( !file_exists( $path ) )
+		return false;
 	$dir_handle = @opendir( $path ) or die( "Unable to open $path" ); // Attempt to open path
 	while( $file = readdir( $dir_handle ) ) { // Loop through all the files in the path
 		if ( $file == '.' || $file == '..' )

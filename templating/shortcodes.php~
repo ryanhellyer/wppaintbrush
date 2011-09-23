@@ -135,11 +135,12 @@ function pixopoint_the_excerpt_shortcode( $atts ) {
 		)
 	);
 
-	// Strip nasties from readmore
-	$readmore = wp_kses( $readmore, '', '' );
+	// Strip nasties from readmore (probably not necessary since wp_kses() already parses content before entering DB)
+	$readmore = esc_html( $readmore );
+
 	// Link read more
 	if ( 'yes' == $link )
-		$readmore = '<a href="' . get_the_permalink() . '">' . $readmore . '</a>';
+		$readmore = '<a href="' . get_permalink() . '">' . $readmore . '</a>';
 
 
 	// Excerpt with word limit
@@ -210,7 +211,7 @@ add_shortcode( 'the_content_limit', 'pixopoint_the_content_limit_shortcode' );
  */
 function pixopoint_the_author_posts_link_shortcode() {
 	ob_start();
-	echo get_author_posts_url( '' );
+	the_author_posts_link();
 	$author = ob_get_contents();
 	ob_end_clean();
 	return $author;
@@ -263,7 +264,8 @@ add_shortcode( 'comment_form', 'pixopoint_comment_form_shortcode' );
  * @since 1.0
  */
 function pixopoint_onfocus_shortcode( $atts, $content ) {
-	$content = wp_kses( $content, '', '' );
+	$content = pixopoint_sanitize_names( $content ); // Blitz everything but alpha numerics, _'s or -'s and spaces
+
 	return 'onFocus="this.value=\'' . $content . '\'"';
 }
 add_shortcode( 'onfocus', 'pixopoint_onfocus_shortcode' );
@@ -348,7 +350,7 @@ function pixopoint_the_tags_shortcode( $atts ) {
 		)
 	);
 
-	$separator = wp_kses( $separator, '' );
+	$separator = esc_html( $separator );
 
 	return get_the_tag_list( '', $separator, '' );
 }
@@ -373,7 +375,7 @@ function pixopoint_the_category_shortcode( $atts ) {
 		)
 	);
 
-	$separator = wp_kses( $separator, '' );
+	$separator = esc_html( $separator );
 
 	the_category( $separator );
 
@@ -526,7 +528,7 @@ function pixopoint_the_time_shortcode( $atts, $content = null ) {
 	);
 
 	// Strip out unnecessary stuff
-	$format = preg_replace( '/[^a-z_0-9-_A-Z-_ ]/', ',' , $format ); // Blitz everything but alpha numerics, _'s or -'s
+	$format = pixopoint_sanitize_names( $format ); // Blitz everything but alpha numerics, _'s or -'s and spaces
 
 	ob_start();
 	the_time( $format );
@@ -645,11 +647,13 @@ function pixopoint_post_thumbnail_shortcode( $atts ) {
 		echo 'Post thumbnails not activated';
 
 	// Sanitise name
-	$name = wp_kses( $name, '', '' );
+	$name = esc_html( $name );
 
 	// Outputting the thumbnail
-	if ( has_post_thumbnail() )
-		return get_the_post_thumbnail( null, $name, '' );
+	if ( function_exists( 'has_post_thumbnail' ) ) { // need function check in case they haven't set a thumbnail up at all
+		if ( has_post_thumbnail() )
+			return get_the_post_thumbnail( null, $name, '' );
+	}
 }
 add_shortcode( 'post_thumbnail', 'pixopoint_post_thumbnail_shortcode' );
 

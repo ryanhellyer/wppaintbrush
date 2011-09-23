@@ -289,6 +289,16 @@ function pixopoint_validate_comma_numeric( $str ) {
 endif;
 
 /**
+ * Sanitize names 
+ * Blitz everything but alpha numerics, _'s or -'s or spaces
+ * @since 1.0
+ */
+function pixopoint_sanitize_names( $string ) {
+	$string = preg_replace( '/[^a-z_0-9-_A-Z-_ ]/', ',' , $string );
+	$return $string;
+}
+
+/**
  * Set thumbmail array
  * @since 0.1
  */
