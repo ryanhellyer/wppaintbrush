@@ -109,7 +109,7 @@ function ptc_load_template() {
 
 	// If using WP 3.3 then make use of plup uploader (note use of query var to force major CSS changes in iframe)
 	global $wp_version;
-	if ( $wp_version >= 3.4 )
+	if ( $wp_version >= 3.3 )
 		echo '<iframe src="' . admin_url() . '/media-new.php?wppb_frontenduploader=css" width="525" height="215"></iframe>';
 	else
 		echo '<p>' . __( 'Visit the <a href="http://localhost/wp/testing/wp-admin/themes.php?page=upload_images">image uploads page</a> to upload new images.', 'wppb_lang' ) . '</p>';
