@@ -84,7 +84,6 @@ function wppb_init() {
 	// Else load AJAX content
 	else
 		add_action( 'wppb_pre_header', 'ptc_ajax_content', 1 ); // Need at high priority to make sure theme is loaded before random junk is loaded
-
 }
 add_action( 'init', 'wppb_init' );
 

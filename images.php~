@@ -27,17 +27,6 @@ function wppb_image_upload_form_fields() {
 }
 
 /**
- * Setting the folder for storing images
- * Used for filtering in wppb_image_upload_form_check() 
- * @since 0.9
- */
-function wppb_image_uploads_folder( $upload ) {
-	$upload['path'] = $upload['basedir'] . '/' . WPPB_STORAGE_FOLDER . '/images';
-	$upload['url'] = $upload['baseurl'] . '/' . WPPB_STORAGE_FOLDER . '/images';
-	return $upload;
-}
-
-/**
  * Security checks for image upload form
  * @since 0.1
  */
@@ -75,7 +64,7 @@ function wppb_image_upload_form_check() {
  */
 function wppb_list_files( $path ){
 	$list = array(); // Initialise a variable
-	if ( !file_exists( $path )
+	if ( !file_exists( $path ) )
 		return false;
 	$dir_handle = @opendir( $path ) or die( "Unable to open $path" ); // Attempt to open path
 	while( $file = readdir( $dir_handle ) ) { // Loop through all the files in the path

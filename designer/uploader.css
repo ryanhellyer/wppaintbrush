@@ -1,0 +1,85 @@
+html {
+	background: transparent !important;
+}
+body {
+	min-width: 0 !important;
+	overflow-x: hidden;
+}
+#wpcontent {
+	margin-left: 0 !important;
+}
+.wrap {
+	margin-right: 0 !important;
+}
+#wpbody-content {
+	padding-bottom: 0 !important;
+}
+#media-items,
+table.slidetoggle {
+	width: 100% !important;
+}
+input.text,
+textarea {
+	width: 95% !important;
+}
+#wpadminbar,
+#adminmenuwrap,
+.update-nag,
+#footer,
+#adminmenuback,
+#icon-upload,
+h2,
+tbody,
+.media-item-info .button,
+#save,
+.imgedit-wait-spin,
+#image_resize,
+.hide-if-no-js label,
+.slidetoggle,
+																					.ZZZZZZZZZZZZZZZtoggle {
+	display: none !important;
+}
+
+
+#wpbody {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+#drag-drop-area {
+	border: 3px dashed #ccc !important;
+	height: 105px !important;
+	margin-bottom: 7px !important;
+}
+.drag-drop-inside {
+	padding-top: 25px !important;
+}
+#media-items {
+	height: 75px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+p,
+.title {
+	margin: 0 !important;
+	padding: 0 !important;
+	font-size: 11px !important;
+	font-family: 'Lucida Grande', Verdana, Arial, Arial, sans-serif !important;
+	color: #666 !important;
+	font-style: italic !important;
+}
+p.dragdrop-info {
+	font-size: 13px !important;
+	font-family: 'Lucida Grande', Verdana, Arial, Arial, sans-serif !important;
+	color: #333 !important;
+	font-style: normal !important;
+}
+
+.media-item,
+.filename {
+	height: 16px !important;
+	min-height: 20px !important;
+	line-height: 20px !important;
+}

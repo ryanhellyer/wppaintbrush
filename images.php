@@ -27,17 +27,6 @@ function wppb_image_upload_form_fields() {
 }
 
 /**
- * Setting the folder for storing images
- * Used for filtering in wppb_image_upload_form_check() 
- * @since 0.9
- */
-function wppb_image_uploads_folder( $upload ) {
-	$upload['path'] = $upload['basedir'] . '/' . WPPB_STORAGE_FOLDER . '/images';
-	$upload['url'] = $upload['baseurl'] . '/' . WPPB_STORAGE_FOLDER . '/images';
-	return $upload;
-}
-
-/**
  * Security checks for image upload form
  * @since 0.1
  */

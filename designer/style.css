@@ -597,13 +597,13 @@ div.ui-button:hover {
 
 /* Image picker */
 #wppb-image-uploads {
-	overflow: autol
+	overflow: auto;
 	padding: 3px 0 10px 2px;
 }
 #wppb-images {
 	overflow-y: scroll;
 	overflow-x: hidden;
-	max-height: 600px !important;
+	max-height: 250px !important;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #bbb;
 	margin: 0 0 15px 0;
@@ -625,6 +625,18 @@ div.ui-button:hover {
 #wppb-image-uploads img:hover {
 	opacity: 0.7;
 	cursor: pointer;
+}
+#wppb-image-uploads h2 {
+	margin: 5px 0 0 0;
+	padding: 0 10px;
+	font-family:  'Lucida Grande', Verdana, Arial, Arial, sans-serif;
+	font-size: 15px;
+	font-weight: normal;
+	font-style: italic;
+	line-height: 29px;
+	color: #848484;
+	text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
+	border: none !important;
 }
 /* The palette button */
 input.imagepickerbutton {

@@ -7,7 +7,6 @@
  * Admin pages
  */
 
-//delete_option( 'WPPB_SETTINGS' );delete_option( 'WPPB_DESIGNER_SETTINGS' );
 
 /**
  * Do not continue processing since file was called directly
@@ -89,23 +88,57 @@ function wppb_options_init() {
 add_action( 'admin_init', 'wppb_options_init' );
 
 /**
- * Load up the menu pages
- * @since 0.1
+ * CSS for front-end uploader
+ * @since 1.0
  */
-function wppb_add_admin_page() {
-
-	// Import/export template admin page
-	$page = add_theme_page(
-		__( 'Import/export', 'wppb_lang' ),
-		__( 'Import/export', 'wppb_lang' ),
-		'edit_theme_options',
-		'import_template',
-		'import_template_do_page'
-	);
-
+function wppb_upload_css() {
+	wp_register_style( 'wppb_uploader_css', PTC_URL . 'uploader.css' );
+	wp_enqueue_style( 'wppb_uploader_css' );
 }
-add_action( 'admin_menu', 'wppb_add_admin_page' ); // Creat admin page
+if ( 'css' == $_GET['wppb_frontenduploader'] )
+	add_action( "admin_print_styles-media-new.php", 'wppb_upload_css' );   
 
+/* Change uploads folder
+ * Only changes it if a specific form field was present - whic is dynamically added via WP Paintbrush when using the media uploader on the front-end
+ * @since 1.0
+ */
+function wppb_change_uploads_folder() {
+	if ( 'wppb' == $_POST['wppb'] )
+		add_filter( 'upload_dir', 'wppb_image_uploads_folder' );
+}
+add_action( 'admin_init', 'wppb_change_uploads_folder', 9 );
+
+/**
+ * Setting the folder for storing images
+ * Used for filtering in wppb_image_upload_form_check() 
+ * @since 0.9
+ */
+function wppb_image_uploads_folder( $upload ) {
+	$upload['path'] = $upload['basedir'] . '/' . WPPB_STORAGE_FOLDER . '/images';
+	$upload['url'] = $upload['baseurl'] . '/' . WPPB_STORAGE_FOLDER . '/images';
+	return $upload;
+}
+
+/**
+ * Adding paramater to plup uploader
+ * Required for submitting extra field to indicate when using alternate storage folder
+ * @since 1.0
+ */
+function wppb_plup_post_parameters( $post_params ) {
+	$post_params['wppb'] = 'wppb';
+	return $post_params;
+}
+if ( 'css' == $_GET['wppb_frontenduploader'] )
+	add_filter( 'upload_post_params', 'wppb_plup_post_parameters' );
+
+/**
+ * Add extra input field to pluploader
+ * @since 1.0
+ */
+function wppb_plup_add_input() {
+	echo "\n	<input id='wppb' type='hidden' value='wppb' name='wppb' />\n";
+}
+add_action( 'pre-upload-ui', 'wppb_plup_add_input' );
 
 /**
  * Display list of uploaded images
