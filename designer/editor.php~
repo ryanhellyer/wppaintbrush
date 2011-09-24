@@ -105,12 +105,16 @@ function ptc_load_template() {
 	</div>
 	<h2><?php _e( 'Image uploads', 'wppb_lang' ); ?></h2>
 	<!--
-	<p><?php _e( 'Visit the <a href="http://localhost/wp/testing/wp-admin/themes.php?page=upload_images">image uploads page</a> to upload new images.', 'wppb_lang' ); ?></p>
-	-->
+	--><?php
 
-	<iframe src="<?php echo admin_url(); ?>/media-new.php?wppb_frontenduploader=css" width="525" height="215"></iframe>
+	// If using WP 3.3 then make use of plup uploader (note use of query var to force major CSS changes in iframe)
+	global $wp_version;
+	if ( $wp_version >= 3.4 )
+		echo '<iframe src="' . admin_url() . '/media-new.php?wppb_frontenduploader=css" width="525" height="215"></iframe>';
+	else
+		echo '<p>' . __( 'Visit the <a href="http://localhost/wp/testing/wp-admin/themes.php?page=upload_images">image uploads page</a> to upload new images.', 'wppb_lang' ) . '</p>';
 
-	<?php /*<div class="ptc-image-uploads"><?php wppb_image_upload_form_fields(); ?></div>*/ ?>
+	?>
 </div>
 
 </form>

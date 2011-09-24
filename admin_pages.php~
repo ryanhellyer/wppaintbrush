@@ -96,10 +96,10 @@ function wppb_upload_css() {
 	wp_enqueue_style( 'wppb_uploader_css' );
 }
 if ( 'css' == $_GET['wppb_frontenduploader'] )
-	add_action( "admin_print_styles-media-new.php", 'wppb_upload_css' );   
+	add_action( "admin_print_styles-media-new.php", 'wppb_upload_css' );
 
 /* Change uploads folder
- * Only changes it if a specific form field was present - whic is dynamically added via WP Paintbrush when using the media uploader on the front-end
+ * Only changes it if a specific form field was present - which is dynamically added via WP Paintbrush when using the media uploader on the front-end
  * @since 1.0
  */
 function wppb_change_uploads_folder() {
@@ -159,3 +159,88 @@ function wppb_display_images() {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Create the options page
+ * @since 0.1
+ */
+function upload_images_do_page() {
+
+	// Security checks
+	wppb_image_upload_form_check();
+
+?>
+<div class="wrap">
+	<?php
+		// Create screen icon by heading
+		screen_icon( 'wppb-icon' ); echo '<h2>' . __( 'Upload images' ) . '</h2>';
+
+		// "Options Saved" message as displayed at top of page on clicking "Save"
+		if ( isset( $_REQUEST['updated'] ) )
+			echo '<div class="updated fade"><p><strong>' . __( 'Options saved' ) . '</strong></p></div>';
+	?>
+	<h3><?php _e( 'Upload images here', 'wppb_lang' ); ?></h3>
+
+	<form method="post" action="" enctype="multipart/form-data">
+		<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+		<?php wp_nonce_field( 'wppb_upload_image','image'); ?>
+		<p>
+			<?php _e( 'Note: This section is for adding and deleting images used in your theme only. For image uploads in your posts/pages please visit the ', 'wppb_lang' ); ?>
+			<a href="<?php echo admin_url(); ?>upload.php"><?php _e( 'Media uploader', 'wppb_lang' ); ?></a>
+		</p>
+		<?php wppb_image_upload_form_fields(); ?>
+		<ol>
+			<?php wppb_display_images(); ?>
+		</ol>
+	</form>
+</div>
+
+<?php
+}
+
+/**
+ * Load up the menu pages
+ * @since 0.1
+ */
+function wppb_settings_options_add_page() {
+
+	// Upload images admin page
+	$page = add_theme_page(
+		__( 'Images' ),
+		__( 'Images' ),
+		'edit_theme_options',
+		'upload_images',
+		'upload_images_do_page'
+	);
+	add_action( 'admin_print_styles-' . $page, 'wppb_settings_admin_styles' ); // Add styles (only for this admin page)
+
+}
+add_action( 'admin_menu', 'wppb_settings_options_add_page' ); // Creat admin page
+
+/**
+ * Add stylesheet
+ * @since 0.1
+ */
+function wppb_settings_admin_styles() {
+	wp_enqueue_style( 'wppb-admin-css', get_template_directory_uri() . '/admin.css', false, '', 'screen' );
+}
+
