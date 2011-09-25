@@ -90,10 +90,12 @@ jQuery(function($){
 				switch(data) {
 					case "Error: Couldn't connect to server":
 					$( "#wppb-external-connection-failure" ).dialog({width:250,minWidth:250,maxWidth:250,modal:true,autoOpen:true,});
-					$('#ptc-css3').html("Error: Couldn't connect to server");					break;
+					$('#ptc-css3').html("Error: Couldn't connect to server");
+					break;
 					default:
 					$('#ptc-css').html(data);
-					$('#ptc-css3').html(data);					break;
+					$('#ptc-css3').html(data);
+					break;
 				}
 				$('#ptc-css2').html('');
 			},
@@ -391,4 +393,4 @@ echo "
 }
 </script>";
 }
-add_action( 'wp_footer', 'ptc_updatecolours' );
+add_action( 'wp_footer', 'ptc_updatecolours' );
