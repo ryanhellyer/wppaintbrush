@@ -67,7 +67,7 @@ jQuery(function($){
 
 	// Output list of available designs
 	foreach( wppb_available_themes() as $count=>$design ) {
-		echo "$('#myform" . $design['Folder'] . "').click(function() {change_design( '" . $design['Folder'] . "' );});\n";
+		echo "$('#myform" . $design['Folder'] . "').click(function() {change_design( '" . $design['Folder'] . "' );});";
 	}
 
 ?>
@@ -82,7 +82,7 @@ jQuery(function($){
 				'ptc_nonce':$("#ptc_nonce").val(),<?php
 				// Set all AJAX options
 				foreach( ptc_ajax_option_get() as $option ) {
-					echo '\'' . $option . '\':$("#' . $option . '").val(),' . "\n";
+					echo '\'' . $option . '\':$("#' . $option . '").val(),';
 				}
 				?>
 			},
