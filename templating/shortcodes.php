@@ -107,12 +107,14 @@ add_shortcode( 'the_title', 'pixopoint_the_title_shortcode' );
 
 /**
  * [the_content] shortcode
+ * Uses output buffering to avoid rewriting a bunch of code in comments_number() which can only be echo'd
  * @since 0.1
  */
 function pixopoint_the_content_shortcode() {
-	$content = get_the_content( '', '' );
-	$content = apply_filters( 'the_content', $content );
-	$content = str_replace( ']]>', ']]&gt;', $content );
+	ob_start();
+	the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'wppb_lang' ) );
+	$content = ob_get_contents();
+	ob_end_clean();
 	return $content;
 }
 add_shortcode( 'the_content', 'pixopoint_the_content_shortcode' );
@@ -368,7 +370,7 @@ function pixopoint_the_tags_shortcode( $atts ) {
 
 	$separator = esc_html( $separator );
 
-	return get_the_tag_list( '', $separator, '' );
+	return get_the_tag_list( __( 'Tags: ', 'wppb_lang' ), $separator, '' );
 }
 add_shortcode( 'the_tags', 'pixopoint_the_tags_shortcode' );
 
@@ -769,8 +771,27 @@ function pixopoint_loop_shortcode( $atts, $content = null ) {
 		$query = '';
 
 	// Create PHP
-	if ( is_404() )
-		query_posts( 'post_type=page&name=404-error' );
+	if ( is_404() ) {
+		
+		$pages = get_pages();
+		foreach ( $pages as $page ) {
+    		$apage = $page->post_name;
+    		if ( $apage == '404-error' )
+				$page_404 = 'load';
+		}
+		// If the 404-error page is found, then load that
+		if ( 'load' == $page_404 )		
+			query_posts( 'post_type=page&name=404-error' );
+		// Otherwise load default 404 HTML
+		else {
+			echo '
+			<h1>' . __( 'Not Found', 'wppb_lang' ) . '</h1>
+			<p>' . __( 'Apologies, but the page you requested could not be found. Perhaps searching will help.', 'wppb_lang' ) . '</p>';
+			get_search_form();
+		}	
+	}
+
+	// Display post/page
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
 		// Return filtered output
 		echo do_shortcode( $content );
@@ -1646,3 +1667,59 @@ function pixopoint_numeric_pagination_shortcode( $pages = '', $range = 2 ) {
 	return $pagination;
 }
 add_shortcode( 'numeric_pagination', 'pixopoint_numeric_pagination_shortcode' );
+
+/**
+ * [previous_post_link] shortcode
+ * Uses output buffering to avoid rewriting a bunch of code in comments_number() which can only be echo'd
+ * @since 1.0
+ */
+function pixopoint_previous_post_link_shortcode( $atts ) {
+	// Grabbing parameters and setting default values
+	extract(
+		shortcode_atts(
+			array(
+				'text'  => 'Previous post link'
+			),
+			$atts
+		)
+	);
+
+	// Sanitization of text
+	$text = esc_html( $text );
+
+	ob_start();
+	previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', $text, 'coraline' ) . '</span> %title' );
+	$previous_post_link = ob_get_contents();
+	ob_end_clean();
+
+	return $previous_post_link;
+}
+add_shortcode( 'previous_post_link', 'pixopoint_previous_post_link_shortcode' );
+
+/**
+ * [next_post_link] shortcode
+ * Uses output buffering to avoid rewriting a bunch of code in comments_number() which can only be echo'd
+ * @since 1.0
+ */
+function pixopoint_next_post_link_shortcode( $atts ) {
+	// Grabbing parameters and setting default values
+	extract(
+		shortcode_atts(
+			array(
+				'text'  => 'Next post link'
+			),
+			$atts
+		)
+	);
+
+	// Sanitization of text
+	$text = esc_html( $text );
+
+	ob_start();
+	next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', $text, 'coraline' ) . '</span>' );
+	$next_post_link = ob_get_contents();
+	ob_end_clean();
+
+	return $next_post_link;
+}
+add_shortcode( 'next_post_link', 'pixopoint_next_post_link_shortcode' );

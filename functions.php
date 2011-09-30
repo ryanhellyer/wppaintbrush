@@ -1049,13 +1049,6 @@ function wppb_load_css() {
 }
 add_action( 'wp_print_styles', 'wppb_load_css' );
 
-/**
- * Load fonts
- * Utilized by WP Paintbrush Fonts plugin
- * @since 0.1
- */
-if ( function_exists( 'wppb_embeddable_fonts' ) )
-	require_once( WPPB_FONTS_DIR . 'load-font.php' );
 
 /*
 The following is just junk that is required to pass the official WordPress theme check

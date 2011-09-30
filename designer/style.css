@@ -974,7 +974,7 @@ input.clearpalette:hover {
 }
 .current-blocks {
 	float: right;
-	width: 220px;
+	width: 270px;
 	margin: 10px 40px 0 0;
 	border: 5px dashed #eee;
 	padding: 0 10px;
@@ -1111,7 +1111,7 @@ ul#blocks-sortable li.ui-state-default {
 	margin: 7px 0 0 16px;
 }
 ul#layout-sortable li.ui-state-default {
-	width: 220px;
+	width: 260px;
 	margin: 7px 0 0 3px;
 }
 /* Text area boxes */

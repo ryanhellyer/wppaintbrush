@@ -289,7 +289,7 @@ function ptc_content_home_shortcode() {
 						<p class="post-info">
 							<span class="tags">Posted in [the_category separator=", "]</span>
 							<br />
-							<span class="tags">Tags: [the_tags]</span>
+							<span class="tags">[the_tags]</span>
 						</p>
 					</article>
 					[/loop]
@@ -347,6 +347,10 @@ function ptc_content_single_shortcode() {
 				<div class="article-wrapper">
 					[loop]
 					<article>
+						<div id="nav-above" class="navigation">
+							<div class="nav-previous">[previous_post_link]</div>
+							<div class="nav-next">[next_post_link]</div>
+						</div>
 						<h1>[the_title]</h1>
 						<p class="post-info">
 							Posted on <span class="date time published">[the_date format="l, F j, Y"]</span>
@@ -354,14 +358,18 @@ function ptc_content_single_shortcode() {
 							<span class="author vcard">[the_author_posts_link]</span>
 							[edit_post_link text=" Edit"]
 						</p>
-						[the_content]
+						<div class="content">
+							[the_content]
+						</div>
 						[link_pages]
 						<p class="post-info">
 							<span class="tags">Posted in [the_category separator=", "]</span>
 							<br />
-							<span class="tags">Tags: [the_tags]</span>
+							<span class="tags">[the_tags]</span>
+							<br />
+							<a href="[the_permalink]">Bookmark the permalink</a>
 						</p>
-						[comment_form]
+						[comments_template]
 					</article>
 					[/loop]
 				</div>
