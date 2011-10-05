@@ -160,25 +160,6 @@ function wppb_display_images() {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Create the options page
  * @since 0.1
@@ -243,4 +224,3 @@ add_action( 'admin_menu', 'wppb_settings_options_add_page' ); // Creat admin pag
 function wppb_settings_admin_styles() {
 	wp_enqueue_style( 'wppb-admin-css', get_template_directory_uri() . '/admin.css', false, '', 'screen' );
 }
-

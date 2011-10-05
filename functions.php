@@ -53,8 +53,7 @@ function wppb_settings_thumbs_array() {
  */
 function get_wppb_option( $option='' ) {
 
-	// Grab options from database and sanitize
-	//$options = wppb_settings_options_validate( get_option( WPPB_SETTINGS ) ); // Sanitized outputs - removed due to performance
+	// Grab options from database
 	$options = get_option( WPPB_SETTINGS );
 
 	// Choose which bit to return
@@ -86,11 +85,23 @@ if ( isset( $_GET['wppb_designer_pane'] ) && current_user_can( 'manage_options' 
  * Some files not loaded unless in admin panel, or editing pane loaded
  * @since 0.1
  */
-require( get_stylesheet_directory() . '/admin_pages.php' ); // Admin specific functions - need loaded for front end of theme roller too
-require( get_stylesheet_directory() . '/designer/index.php' ); // Loading designer interface
-require( get_stylesheet_directory() . '/templating/index.php' ); // Loading PixoPoint emplating framework
-require( get_stylesheet_directory() . '/import-export.php' ); // Loading Import/Export script
-require( get_stylesheet_directory() . '/images.php' ); // Loading image uploader functions
+require( get_template_directory() . '/theme-update-checker.php' );
+require( get_template_directory() . '/admin_pages.php' ); // Admin specific functions - need loaded for front end of theme roller too
+require( get_template_directory() . '/designer/index.php' ); // Loading designer interface
+require( get_template_directory() . '/templating/index.php' ); // Loading PixoPoint emplating framework
+require( get_template_directory() . '/import-export.php' ); // Loading Import/Export script
+require( get_template_directory() . '/images.php' ); // Loading image uploader functions
+
+/**
+ * Load theme specific functions
+ * Some files not loaded unless in admin panel, or editing pane loaded
+ * @since 0.1
+ */
+$wppb_update_checker = new ThemeUpdateChecker(
+	'wppaintbrush',
+	'http://wppaintbrush.com/?pixopoint_autoupdate_api=wppaintbrush'
+);
+// add_action( 'load-update-core.php', $wppb_update_checker->checkForUpdates() ); // Can force an update check
 
 /**
  * Dynamically create CSS file
