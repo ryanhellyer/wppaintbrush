@@ -19,27 +19,27 @@ if ( !defined( 'ABSPATH' ) )
  * todo Change this to use localize function
  * @since 0.1
  */
-function ptc_inline_scripts() {
+function wppb_inline_scripts() {
 
 	// If designer pane is not being loaded, then bail out
 	if ( 'on' != get_option( 'wppb_designer_pane' ) || !current_user_can( 'manage_options' ) )
 		return;
 
-	$content_layout = get_option( WPPB_DESIGNER_SETTINGS );
+	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
 
 	// Setting potentially empty variable	
-	if ( empty( $content_layout['design'] ) )
-		$content_layout['design'] = ''; 
+	if ( empty( $wppb_design_settings['design'] ) )
+		$wppb_design_settings['design'] = ''; 
 	else
-		$content_layout['design'] = sanitize_title( $content_layout['design'] ); // Bug fix for existing poorly labelled designs
+		$wppb_design_settings['design'] = sanitize_title( $wppb_design_settings['design'] ); // Bug fix for existing poorly labelled designs
 	?>
 <script type="text/javascript">
-<?php do_action( 'ptc_inline_scripts_hook' ); ?>
+<?php do_action( 'wppb_inline_scripts_hook' ); ?>
 
 // Setting WP Paintbrush JS variables
 var storage_folder = '<?php echo wppb_storage_folder( 'images', 'url' ); ?>';
-var design_folder = '<?php echo get_template_directory_uri(); ?>/designs/<?php echo $content_layout['design']; ?>/images/';
-var design_name = '<?php echo $content_layout['design']; ?>';
+var design_folder = '<?php echo get_template_directory_uri(); ?>/designs/<?php echo $wppb_design_settings['design']; ?>/images/';
+var design_name = '<?php echo $wppb_design_settings['design']; ?>';
 var nonce_link = '<?php	echo wp_nonce_url( home_url(), 'wppb_editor' ); ?>';
 var admin_url = '<?php echo home_url(); ?>/wp-admin/';
 var home_url = '<?php echo home_url(); ?>';
@@ -51,7 +51,7 @@ jQuery(function($){
 			type: 'POST',
 			url: home_url+'/?change_theme='+button,
 			data: {
-				'ptc_nonce' : $("#ptc_nonce").val(),
+				'wppb_nonce' : $("#wppb_nonce").val(),
 			},
 			success: function(data, textStatus) {
 				$( "#wppb-page-reload" ).dialog({width:250,minWidth:250,maxWidth:250,modal:true,autoOpen:true,});
@@ -74,14 +74,14 @@ jQuery(function($){
 
 	// AJAX form submission
 	function option_get(button) {
-		$("#ptc-css2").html('<div style="text-indent:0;"><img style="" src="'+admin_url+'images/wpspin_light.gif" /></div>');
+		$("#wppb-css2").html('<div style="text-indent:0;"><img style="" src="'+admin_url+'images/wpspin_light.gif" /></div>');
 		$.ajax({
 			type: 'POST',
 			url: home_url+'/?generator-css='+button,
 			data: {
-				'ptc_nonce':$("#ptc_nonce").val(),<?php
+				'wppb_nonce':$("#wppb_nonce").val(),<?php
 				// Set all AJAX options
-				foreach( ptc_ajax_option_get() as $option ) {
+				foreach( wppb_ajax_option_get() as $option ) {
 					echo '\'' . $option . '\':$("#' . $option . '").val(),' . "\n";
 				}
 				?>
@@ -90,14 +90,14 @@ jQuery(function($){
 				switch(data) {
 					case "Error: Couldn't connect to server":
 					$( "#wppb-external-connection-failure" ).dialog({width:250,minWidth:250,maxWidth:250,modal:true,autoOpen:true,});
-					$('#ptc-css3').html("Error: Couldn't connect to server");
+					$('#wppb-css3').html("Error: Couldn't connect to server");
 					break;
 					default:
-					$('#ptc-css').html(data);
-					$('#ptc-css3').html(data);
+					$('#wppb-css').html(data);
+					$('#wppb-css3').html(data);
 					break;
 				}
-				$('#ptc-css2').html('');
+				$('#wppb-css2').html('');
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				$( "#wppb-external-connection-failure" ).dialog({width:250,minWidth:250,maxWidth:250,modal:true,autoOpen:true,});
@@ -169,12 +169,12 @@ jQuery(function($){
 });
 </script><?php
 }
-add_action( 'wp_head', 'ptc_inline_scripts' );
+add_action( 'wp_head', 'wppb_inline_scripts' );
 
 /* Load scripts
  * @since 0.1
  */
-function ptc_load_scripts() {
+function wppb_load_scripts() {
 
 	// If designer pane is not being loaded, then bail out
 	if ( 'on' != get_option( 'wppb_designer_pane' ) || !current_user_can( 'manage_options' ) )
@@ -184,45 +184,45 @@ function ptc_load_scripts() {
 	wp_deregister_script( 'jquery-ui-core' );
 	wp_register_script(
 		'jquery-ui-core', 
-		PTC_URL . 'scripts/jquery-ui-1.8.15.custom.min.js',
+		WPPB_URL . 'scripts/jquery-ui-1.8.15.custom.min.js',
 		array( 'jquery' ),
 		'1.8.10',
 		true
 	);
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_register_script(
-		'ptc-designer',
-		PTC_URL . 'scripts/designer.js',
+		'wppb-designer',
+		WPPB_URL . 'scripts/designer.js',
 		array( 'farbtastic' ),
 		'1.0',
 		true
 	);
-	wp_enqueue_script( 'ptc-designer', 11 );
+	wp_enqueue_script( 'wppb-designer', 11 );
 	wp_register_script(
 		'farbtastic',
-		PTC_URL . 'scripts/farbtastic.js',
+		WPPB_URL . 'scripts/farbtastic.js',
 		array( 'jquery-ui-core' ),
 		'1.0',
 		true
 	);
 	wp_enqueue_script( 'farbtastic' );
 	wp_register_script(
-		'ptc-content',
-		PTC_URL . 'scripts/tab-content.js',
+		'wppb-content',
+		WPPB_URL . 'scripts/tab-content.js',
 		array( 'jquery-ui-core' ),
 		'1.0',
 		true
 	);
-	wp_enqueue_script( 'ptc-content' );
+	wp_enqueue_script( 'wppb-content' );
 }
 if ( !is_admin() )
-	add_action( 'wp_print_scripts', 'ptc_load_scripts' );
+	add_action( 'wp_print_scripts', 'wppb_load_scripts' );
 
 /* Add colour updater script
  * Added to footer
  * @since 1.0
  */
-function ptc_updatecolours() {
+function wppb_updatecolours() {
 	echo "<script type='text/javascript'>
 function updatecolours() {\n";
 
@@ -231,7 +231,7 @@ function updatecolours() {\n";
 		'pagination_border_colour' => '#pagination li',
 	);
 /*
-	foreach( ptc_block_wrapper() as $next=>$type ) {
+	foreach( wppb_block_wrapper() as $next=>$type ) {
 		array_push( $border, $type . '_border_top_colour' );
 		array_push( $border, $type . '_border_right_colour' );
 		array_push( $border, $type . '_border_bottom_colour' );
@@ -393,4 +393,4 @@ echo "
 }
 </script>";
 }
-add_action( 'wp_footer', 'ptc_updatecolours' );
+add_action( 'wp_footer', 'wppb_updatecolours' );

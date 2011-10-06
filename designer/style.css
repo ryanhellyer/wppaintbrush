@@ -147,7 +147,7 @@
 	border: none;
 	height: 17px;
 }
-#tab_wrapper .ptc-size input {
+#tab_wrapper .wppb-size input {
 	float: left;
 	clear: none;
 	width: 20px;
@@ -232,7 +232,7 @@
 	-webkit-box-shadow: 10px 1px 5px rgba(0,0,0,0.3);
 	box-shadow: 0px 1px 10px rgba(0,0,0,0.3);
 }
-#ptc-dialog-button {
+#wppb-dialog-button {
 	position: fixed;
 	top: 0;
 	right: 25px;
@@ -273,10 +273,10 @@
 .ui-widget {
 	font-size: 70%;
 }
-.ptc-main-dialog {
+.wppb-main-dialog {
 	padding: 0;
 }
-.ptc-main-dialog  .ui-dialog-content {
+.wppb-main-dialog  .ui-dialog-content {
 	margin: 0;
 	padding: 0;
 	border: none !important;
@@ -738,7 +738,7 @@ input.clearpalette:hover {
 }
 
 /* Open dialog box box */
-#ptc-openme {
+#wppb-openme {
 	display: none;
 	position: fixed;
 	right: 0;
@@ -768,7 +768,7 @@ input.clearpalette:hover {
 	-webkit-border-top-right-radius: 6px;
 	border-top-right-radius: 6px;
 }
-#ptc-openme:hover {
+#wppb-openme:hover {
 	background: #f5f5f5;
 	cursor: pointer;
 }
@@ -862,7 +862,7 @@ input.clearpalette:hover {
 	border: none;
 }
 
-#ptc-close-button {
+#wppb-close-button {
 	z-index: 999;
 	text-indent: -999em;
 	position: absolute; 
@@ -879,8 +879,8 @@ input.clearpalette:hover {
 	-webkit-border-top-right-radius: 6px;
 	border-top-right-radius: 6px;
 }
-#ptc-close-button:hover,
-#ptc-close-button:focus {
+#wppb-close-button:hover,
+#wppb-close-button:focus {
 	background: url(images/dialog-close.png) 0 -28px !important;
 }
 
@@ -1124,12 +1124,12 @@ ul#layout-sortable li.ui-state-default {
 }
 
 
-#ptc-loading {
+#wppb-loading {
 	float: left;
 	width: 16px;
 	height: 16px;
 }
-#ptc-loading img {
+#wppb-loading img {
 	display: block;
 	margin-top: 7px;
 }
@@ -1167,14 +1167,14 @@ ul#layout-sortable li.ui-state-default {
 }
 
 /* Removing JS loading information */
-.ptc-main-dialog #dialog #loading-text {
+.wppb-main-dialog #dialog #loading-text {
 	display: none;
 }
-.ptc-main-dialog #dialog #tab_wrapper {
+.wppb-main-dialog #dialog #tab_wrapper {
 	display: block;
 }
 
-#ptc-css2 {
+#wppb-css2 {
 	text-indent: -99999em;
 	width: 24px;
 	height: 24px;

@@ -14,7 +14,7 @@
 /* Create script for dynamic number CSS
  * @since 0.1
  */
-function ptc_dynamic_css_number( $name, $element, $property, $min, $max, $step ) {
+function wppb_dynamic_css_number( $name, $element, $property, $min, $max, $step ) {
 
 	// Dynamically change CSS and input field via slider
 ?>
@@ -49,37 +49,37 @@ $('input#<?php echo $name; ?>').change(function() {
 /* Create CSS for background attribute
  * @since 1.0
  */
-function ptc_backgroundimage_creator( $content_layout, $name, $extras='' ) {
+function wppb_backgroundimage_creator( $wppb_design_settings, $name, $extras='' ) {
 	// Setting variables
 	$background = '';
-	if ( empty( $content_layout[$name . '_display'] ) )
-		$content_layout[$name . '_display'] = '';
-	if ( empty( $content_layout[$name . '_colour'] ) )
-		$content_layout[$name . '_colour'] = '';
-	if ( empty( $content_layout[$name . '_image'] ) )
-		$content_layout[$name . '_image'] = '';
-	if ( empty( $content_layout[$name . '_image_tiling'] ) )
-		$content_layout[$name . '_image_tiling'] = '';
-	if ( empty( $content_layout[$name . '_positioning'] ) )
-		$content_layout[$name . '_positioning'] = '';
+	if ( empty( $wppb_design_settings[$name . '_display'] ) )
+		$wppb_design_settings[$name . '_display'] = '';
+	if ( empty( $wppb_design_settings[$name . '_colour'] ) )
+		$wppb_design_settings[$name . '_colour'] = '';
+	if ( empty( $wppb_design_settings[$name . '_image'] ) )
+		$wppb_design_settings[$name . '_image'] = '';
+	if ( empty( $wppb_design_settings[$name . '_image_tiling'] ) )
+		$wppb_design_settings[$name . '_image_tiling'] = '';
+	if ( empty( $wppb_design_settings[$name . '_positioning'] ) )
+		$wppb_design_settings[$name . '_positioning'] = '';
 
 	// Bail out now if set not to display a background
-	if ( 'none' == $content_layout[$name . '_display'] )
+	if ( 'none' == $wppb_design_settings[$name . '_display'] )
 		return;
 
 	// Add initial background property
-	if ( '' != $content_layout[$name . '_colour'] || '' != $content_layout[$name . '_image'] )
+	if ( '' != $wppb_design_settings[$name . '_colour'] || '' != $wppb_design_settings[$name . '_image'] )
 		$background .= "background: ";
 
 	// Add colour value
-	if ( '' != $content_layout[$name . '_colour'] )
-		$background .= $content_layout[$name . '_colour'];
+	if ( '' != $wppb_design_settings[$name . '_colour'] )
+		$background .= $wppb_design_settings[$name . '_colour'];
 
 	// Add image value
-	$extension = explode( '.', $content_layout[$name . '_image'] );
+	$extension = explode( '.', $wppb_design_settings[$name . '_image'] );
 	if ( isset( $extension[1] ) ) {
 		if ( 'png' == $extension[1] || 'jpg' == $extension[1] || 'jpg' == $extension[1] || 'gif' == $extension[1] ) {
-			$background .= " url('" . $content_layout[$name . '_image'] . "')" . $content_layout[$name . '_image_tiling'] . $content_layout[$name . '_positioning'];
+			$background .= " url('" . $wppb_design_settings[$name . '_image'] . "')" . $wppb_design_settings[$name . '_image_tiling'] . $wppb_design_settings[$name . '_positioning'];
 
 			// Add random extras on the end (such as "top center" etc.)
 			if ( '' != $extras )

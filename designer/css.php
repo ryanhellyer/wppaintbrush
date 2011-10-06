@@ -43,7 +43,7 @@ add_action( 'wppb_add_css', 'wppb_add_external_css' );
 /* Load dynamically generated stylesheet
  * @since 0.1
  */
-function ptc_load_styles() {
+function wppb_load_styles() {
 
 	// If designer pane is not being loaded, then bail out
 	if ( 'on' != get_option( 'wppb_designer_pane' ) || !current_user_can( 'manage_options' ) || is_admin() )
@@ -54,42 +54,42 @@ function ptc_load_styles() {
 
 	// Grab and sanitize inputs
 	if ( isset( $_POST['positions'] ) )
-		$content_layout = ptc_sanitize_inputs( $_POST ); // Grab submitted data
+		$wppb_design_settings = wppb_sanitize_inputs( $_POST ); // Grab submitted data
 	else
-		$content_layout = $wppb_designer_settings;
+		$wppb_design_settings = $wppb_designer_settings;
 
 	// Insert CSS in (so that the current page can be quickly styled without dragging CSS from external server)
-	$content_layout['css'] = $wppb_designer_settings['css'];
+	$wppb_design_settings['css'] = $wppb_designer_settings['css'];
 
-	$css = wppb_convert_urls_in_css( $content_layout['css'] ); // Fixing image urls
+	$css = wppb_convert_urls_in_css( $wppb_design_settings['css'] ); // Fixing image urls
 	$css = str_replace( "	", '', $css ); // Stripping tabs out
 	$css = str_replace( "\n", '', $css ); // Stripping carriage returns out
 	$css = str_replace( ': ', ':', $css ); // Stripping spaces after colons out
 
 	// Display CSS
-	echo '<style id="ptc-css" type="text/css">';
+	echo '<style id="wppb-css" type="text/css">';
 	echo $css; // Adding CSS
 	do_action( 'wppb_load_css' ); // Hook for allowing plugins to append CSS
 	echo '</style>';
 }
-add_action( 'wp_print_styles', 'ptc_load_styles' );
+add_action( 'wp_print_styles', 'wppb_load_styles' );
 
 /* Disable standard stylesheet
  * Load editor stylesheet
  * @since 0.1
  */
-function ptc_handle_stylesheets() {
+function wppb_handle_stylesheets() {
 
 	// If designer pane is not being loaded, then bail out
 	if ( 'on' != get_option( 'wppb_designer_pane' ) || !current_user_can( 'manage_options' ) ) {
-		wp_enqueue_style( 'ptc_openme', PTC_URL . 'openme.css', false, '', 'screen' );
+		wp_enqueue_style( 'wppb_openme', WPPB_URL . 'openme.css', false, '', 'screen' );
 		return;
 	}
 
-	wp_enqueue_style( 'ptccss', PTC_URL . 'style.css', false, '', 'screen' );
+	wp_enqueue_style( 'wppbcss', WPPB_URL . 'style.css', false, '', 'screen' );
 	wp_deregister_style( 'wppb-core' ); 
 }
-add_action( 'wp_print_styles', 'ptc_handle_stylesheets' );
+add_action( 'wp_print_styles', 'wppb_handle_stylesheets' );
 
 /* Convert URLs in CSS
  *
@@ -129,11 +129,11 @@ add_action( 'pixopoint_css_hook', 'wppb_convert_published_urls' );
 /* Create CSS from editor submit data
  * @since 0.1
  */
-function ptc_load_css() {
+function wppb_load_processed_css() {
 	global $css;
 
 	// Check that nonce is valid
-	if ( !wp_verify_nonce( $_POST['ptc_nonce'], 'ptc_nonce' ) )
+	if ( !wp_verify_nonce( $_POST['wppb_nonce'], 'wppb_nonce' ) )
 		exit( 'Error: Nonce not verified!' );
 
 	// Action hook for adding CSS

@@ -12,7 +12,7 @@
 /* Array of possible border type variations
  * @since 0.1
  */
-function ptc_bordertype_variations() {
+function wppb_bordertype_variations() {
 	// Default border type options
 	$possible = array(
 		'solid',
@@ -25,7 +25,7 @@ function ptc_bordertype_variations() {
 /* Array of possible font family variations
  * @since 0.1
  */
-function ptc_font_family() {
+function wppb_font_family() {
 	// Default font options
 	$possible = array(
 		'Georgia, serif',
@@ -51,7 +51,7 @@ function ptc_font_family() {
 /* Array of possible text decoration variations
  * @since 0.1
  */
-function ptc_textdecoration_variations() {
+function wppb_textdecoration_variations() {
 	$possible = array(
 		'none',
 		'overline',
@@ -64,7 +64,7 @@ function ptc_textdecoration_variations() {
 /* Array of possible alignment variations
  * @since 0.1
  */
-function ptc_alignment_variations() {
+function wppb_alignment_variations() {
 	$possible = array(
 		'Left'   => 'Left',
 		'Center' => 'Center',
@@ -76,7 +76,7 @@ function ptc_alignment_variations() {
 /* Array of possible text transform variations
  * @since 0.1
  */
-function ptc_texttransform_variations() {
+function wppb_texttransform_variations() {
 	$possible = array(
 		'uppercase',
 		'lowercase',
@@ -89,7 +89,7 @@ function ptc_texttransform_variations() {
 /* Array of possible image tiling variations
  * @since 0.1
  */
-function ptc_imagetiling_variations() {
+function wppb_imagetiling_variations() {
 	$possible = array(
 		'no-repeat' => 'No repeat',
 		'repeat-x'  => 'Repeat Horizontally',
@@ -102,7 +102,7 @@ function ptc_imagetiling_variations() {
 /* Array of possible Small caps variations
  * @since 0.1
  */
-function ptc_smallcaps_variations() {
+function wppb_smallcaps_variations() {
 	$possible = array(
 		'small-caps'  => 'Small caps',
 		'normal'      => 'Normal',

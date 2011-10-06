@@ -14,7 +14,7 @@
  */
 function wppb_image_upload_form_fields() {
 	?>
-	<p class="ptc-upload-form-fields">
+	<p>
 		<div class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" role="button" aria-disabled="false">
 			&nbsp;&nbsp;&nbsp;<input name="upload_file" type="file" />
 		</div>

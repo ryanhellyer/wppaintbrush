@@ -63,7 +63,7 @@ function wppb_available_themes() {
 function wppb_change_design() {
 
 	// Bail out if not logged in and nonce not legit
-	if ( !current_user_can( 'manage_options' ) && !wp_verify_nonce( $_POST['ptc_nonce'], 'ptc_nonce' ) )
+	if ( !current_user_can( 'manage_options' ) && !wp_verify_nonce( $_POST['wppb_nonce'], 'wppb_nonce' ) )
 		exit( 'Error: Nonce not verified!' );
 
 	// Set new design 
@@ -139,10 +139,10 @@ function wppb_grab_design( $design ) {
 /* Publish template
  * @since 0.1
  */
-function ptc_publish_options( $content_layout, $css ) {
+function wppb_publish_options( $wppb_design_settings, $css ) {
 
 	// Get options ready for publishing
-	$input = ptc_get_options_for_storing( $content_layout, $css );
+	$input = wppb_get_options_for_storing( $wppb_design_settings, $css );
 
 	// Update database with sanitized data
 	update_option( WPPB_SETTINGS, wppb_settings_options_validate( $input ) );

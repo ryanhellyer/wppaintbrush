@@ -21,41 +21,41 @@ global $positions;
 /* Load template
  * @since 0.1
  */
-function ptc_load_template() {
+function wppb_load_template() {
 	global $positions;
 
 	if ( isset( $_POST['content_layout'] ) )
-		$content_layout = ptc_sanitize_inputs( $_POST['content_layout'] );
+		$wppb_design_settings = wppb_sanitize_inputs( $_POST['content_layout'] );
 	else
-		$content_layout = get_option( WPPB_DESIGNER_SETTINGS ); // Setting defaults for "content_layout"
+		$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS ); // Setting defaults for "content_layout"
 
 
 	// Setting potentially empty variable
-	if ( empty( $content_layout['copyright'] ) )
-		$content_layout['copyright'] = '';
-	if ( empty( $content_layout['design'] ) )
-		$content_layout['design'] = '';
+	if ( empty( $wppb_design_settings['copyright'] ) )
+		$wppb_design_settings['copyright'] = '';
+	if ( empty( $wppb_design_settings['design'] ) )
+		$wppb_design_settings['design'] = '';
 
 	// Hook for adding AJAXed scripts
 	do_action( 'wppb_add_ajax_content' );
 ?>
-<div id="ptc-page-content">
-	<?php echo ptc_create_template(); ?>
+<div id="wppb-page-content">
+	<?php echo wppb_create_template(); ?>
 </div>
 
 <div id="dialog" title="Theme Creator">
 	<div id="loading-text">
-		<img style="" src="<?php echo PTC_URL; ?>images/load.gif" alt="Loading" />
+		<img style="" src="<?php echo WPPB_URL; ?>images/load.gif" alt="Loading" />
 		<br />
 		<h3>One moment please. The WP Paintbrush editor is loading.</h3>
 	</div>
 <div id="tab_wrapper">
-<form id="ptc-editor-form" method="post" action="" enctype="multipart/form-data">
+<form id="wppb-editor-form" method="post" action="" enctype="multipart/form-data">
 	<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-	<input type="hidden" id="copyright" name="copyright" value='<?php echo $content_layout['copyright']; ?>' />
-	<input type="hidden" id="design" name="design" value='<?php echo $content_layout['design']; ?>' />
+	<input type="hidden" id="copyright" name="copyright" value='<?php echo $wppb_design_settings['copyright']; ?>' />
+	<input type="hidden" id="design" name="design" value='<?php echo $wppb_design_settings['design']; ?>' />
 	<?php wp_nonce_field( 'wppb_upload_image','image'); ?>
-	<?php wp_nonce_field( 'ptc_nonce','ptc_nonce'); ?>
+	<?php wp_nonce_field( 'wppb_nonce','wppb_nonce'); ?>
 	<div id="tabs" class="maintabber">
 		<div id="tabs-navigation-wrapper">
 			<ul>
@@ -89,7 +89,7 @@ function ptc_load_template() {
 
 		echo '<tr><td><h2 style="margin:20px 0 6px 0;">' . __( ' Design images', 'wppb_lang' ) . '</h2></td></tr>';
 		foreach( wppb_available_themes() as $count=>$theme ) {
-			if ( $theme['Folder'] == $content_layout['design'] ) {
+			if ( $theme['Folder'] == $wppb_design_settings['design'] ) {
 				if ( 'Internal' == $theme['Type'] ) {
 					wppb_list_images(
 						get_template_directory() . '/designs/' . $theme['Folder'] . '/images/', // Folder directory

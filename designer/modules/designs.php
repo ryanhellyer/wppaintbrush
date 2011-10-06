@@ -21,7 +21,7 @@ add_action( 'wppb_add_editor_links', 'wppb_designs_editor_link' );
  * @since 1.0
  */
 function wppb_designs_editor_tab() {
-	$content_layout = get_option( WPPB_DESIGNER_SETTINGS );
+	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
 
 	// Add HTML
 	?>
@@ -32,7 +32,7 @@ function wppb_designs_editor_tab() {
 			<p><?php _e( 'You can select a default design to start from. We will be adding more designs to this area over time.', 'wppb_lang' ); ?></p>
 			<br />
 			<div class="floating-spacer-block"> </div>
-			<div id="ptc-ajax"></div><?php  
+			<div id="wppb-ajax"></div><?php  
 				foreach( wppb_available_themes() as $count=>$design ) { 
 				?>
 				<div class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" role="button" aria-disabled="false">
@@ -48,7 +48,7 @@ function wppb_designs_editor_tab() {
 			<div id="layout-editor-opener"><?php _e( 'Open layout editor', 'wppb_lang' ); ?></div>					
 			<div id="layout-editor-dialog">
 				<p>
-					<strong><?php _e( 'Drag content across</strong> and arrange it on your template', 'wppb_lang' ); ?> <img src="<?php echo PTC_URL; ?>/images/arrow.png" alt="" />
+					<strong><?php _e( 'Drag content across</strong> and arrange it on your template', 'wppb_lang' ); ?> <img src="<?php echo WPPB_URL; ?>/images/arrow.png" alt="" />
 				</p>
 				<div class="layout-editor-background">
 					<div class="current-blocks layout-blocks">
@@ -56,7 +56,7 @@ function wppb_designs_editor_tab() {
 							<?php
 							// Generating string which loads the content box in the layout editor
 							$content = '<li id="layout-content" class="ui-state-default"><ul id="sidebar-layout-sortable" class="sidebar-sortable-connect">';
-							$sidebar_positions = explode( ',', $content_layout['sidebar_positions'] );
+							$sidebar_positions = explode( ',', $wppb_design_settings['sidebar_positions'] );
 							foreach( $sidebar_positions as $block ) {
 								if ( 'layout-sidebar1' == $block )
 									$name = 'S1';
@@ -69,9 +69,9 @@ function wppb_designs_editor_tab() {
 							$content .= '</ul></li>';
 									
 							// Processor for loading chunks into layout editor
-							$positions = explode( ',', $content_layout['positions'] );
+							$positions = explode( ',', $wppb_design_settings['positions'] );
 							foreach( $positions as $pos ) {
-								foreach( ptc_page_chunks() as $chunk=>$test ) {
+								foreach( wppb_page_chunks() as $chunk=>$test ) {
 									$id = strtolower( $chunk ); // Convert to lowercase
 									$id = str_replace( ' ', '', $id ); // Strip spaces
 									$id = 'layout-' . $id; // Prepend ID prefix
@@ -83,8 +83,8 @@ function wppb_designs_editor_tab() {
 							}
 						?>
 						</ul>
-						<input type="hidden" name="positions" class="positions" id="positions" value="<?php echo $content_layout['positions']; ?>" />
-						<input type="hidden" name="sidebar_positions" class="sidebar_positions" id="sidebar_positions" value="<?php echo $content_layout['sidebar_positions']; ?>" />
+						<input type="hidden" name="positions" class="positions" id="positions" value="<?php echo $wppb_design_settings['positions']; ?>" />
+						<input type="hidden" name="sidebar_positions" class="sidebar_positions" id="sidebar_positions" value="<?php echo $wppb_design_settings['sidebar_positions']; ?>" />
 					</div>
 					<div class="section-layout section-available">
 						<h2><?php _e( 'Content blocks', 'wppb_lang' ); ?></h2>
@@ -92,7 +92,7 @@ function wppb_designs_editor_tab() {
 							<ul id="blocks-sortable" class="blocks-sortable blocks-sortable-connect">
 								<?php
 								// Processor for loading chunks into available content
-								foreach( ptc_page_chunks() as $chunk=>$test ) {
+								foreach( wppb_page_chunks() as $chunk=>$test ) {
 									$id = strtolower( $chunk ); // Convert to lowercase
 									$id = str_replace( ' ', '', $id ); // Strip spaces
 									$id = 'layout-' . $id; // Prepend ID prefix
@@ -114,8 +114,8 @@ function wppb_designs_editor_tab() {
 							<ul id="sidebar-blocks-sortable" class="blocks-sortable sidebar-sortable-connect">
 							<?php
 								// Unused sidebar chunks
-								$sidebar_remainging = ptc_sidebar_chunks();
-								foreach( ptc_sidebar_chunks() as $name=>$block ) {
+								$sidebar_remainging = wppb_sidebar_chunks();
+								foreach( wppb_sidebar_chunks() as $name=>$block ) {
 									foreach( $sidebar_positions as $current ) {
 										if ( $block == $current )
 											$sidebar_remainging[$name] = '';

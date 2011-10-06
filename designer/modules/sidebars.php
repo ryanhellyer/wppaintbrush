@@ -21,57 +21,57 @@ add_action( 'wppb_add_editor_links', 'wppb_sidebars_editor_link' );
  * @since 1.0
  */
 function wppb_sidebars_editor_tab() {
-	$content_layout = get_option( WPPB_DESIGNER_SETTINGS );
+	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
 
 	// Add HTML
 	?>
 <div class="tab-block" id="sidebars_options">
 	<div id="tabs-sidebars" class="inner-tabber">
 		<ul>
-			<li id="ptc_sidebaroverall_options"><a href="#sidebaroverall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
-			<li id="ptc_sidebarheading_options"><a href="#sidebarheading" title="<?php _e( 'Heading', 'wppb_lang' ); ?>"><?php _e( 'Heading', 'wppb_lang' ); ?></a></li>
-			<li id="ptc_sidebarparagraph_options"><a href="#sidebarparagraph_options" title="<?php _e( 'Paragraph', 'wppb_lang' ); ?>"><?php _e( 'Paragraph', 'wppb_lang' ); ?></a></li>
-			<li id="ptc_sidebarlistitem_options"><a href="#sidebarlistitem_options" title="<?php _e( 'List items', 'wppb_lang' ); ?>"><?php _e( 'List items', 'wppb_lang' ); ?></a></li>
+			<li id="wppb_sidebaroverall_options"><a href="#sidebaroverall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
+			<li id="wppb_sidebarheading_options"><a href="#sidebarheading" title="<?php _e( 'Heading', 'wppb_lang' ); ?>"><?php _e( 'Heading', 'wppb_lang' ); ?></a></li>
+			<li id="wppb_sidebarparagraph_options"><a href="#sidebarparagraph_options" title="<?php _e( 'Paragraph', 'wppb_lang' ); ?>"><?php _e( 'Paragraph', 'wppb_lang' ); ?></a></li>
+			<li id="wppb_sidebarlistitem_options"><a href="#sidebarlistitem_options" title="<?php _e( 'List items', 'wppb_lang' ); ?>"><?php _e( 'List items', 'wppb_lang' ); ?></a></li>
 		</ul>
 		<div class="inner-tab-block" id="sidebaroverall_options">
 			<div class="section-layout">
 				<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
-				<?php ptc_colour_selector( 'sidebar_background_colour', $content_layout, __( 'Colour', 'wppb_lang' ) ); ?>
-				<?php ptc_background_image_selector( 'sidebar_background_image', $content_layout, __( 'Image', 'wppb_lang' ) ); ?>
-				<?php ptc_imagetiling_selector( 'sidebar_background_image_tiling', $content_layout, __( 'Tiling', 'wppb_lang' ) ); ?>
+				<?php wppb_colour_selector( 'sidebar_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
+				<?php wppb_background_image_selector( 'sidebar_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
+				<?php wppb_imagetiling_selector( 'sidebar_background_image_tiling', $wppb_design_settings, __( 'Tiling', 'wppb_lang' ) ); ?>
 			</div>
 			<div class="section-layout">
 				<h2><?php _e( 'Widths', 'wppb_lang' ); ?></h2>
-				<?php ptc_number_selector( 'aside_1_width', $content_layout, __( 'Sidebar 1', 'wppb_lang' ), 'block coordinates' ); ?>
-				<?php ptc_number_selector( 'aside_2_width', $content_layout, __( 'Sidebar 2', 'wppb_lang' ), 'block coordinates' ); ?>
+				<?php wppb_number_selector( 'aside_1_width', $wppb_design_settings, __( 'Sidebar 1', 'wppb_lang' ), 'block coordinates' ); ?>
+				<?php wppb_number_selector( 'aside_2_width', $wppb_design_settings, __( 'Sidebar 2', 'wppb_lang' ), 'block coordinates' ); ?>
 			</div>
-			<?php ptc_text_padding( 'aside', $content_layout, 'block coordinates' ); ?>
+			<?php wppb_text_padding( 'aside', $wppb_design_settings, 'block coordinates' ); ?>
 		</div>
 		<div class="inner-tab-block" id="sidebarheading">
 			<?php 
-				ptc_text_display( 'sidebar_heading', $content_layout, __( 'Heading', 'wppb_lang' ) ); 
-				ptc_text_margins( 'sidebar_heading', $content_layout );
-				ptc_text_padding( 'sidebar_heading', $content_layout );
-				ptc_text_background( 'sidebar_heading', $content_layout );
-				ptc_text_borders_horizontal( 'sidebar_heading', $content_layout );
+				wppb_text_display( 'sidebar_heading', $wppb_design_settings, __( 'Heading', 'wppb_lang' ) ); 
+				wppb_text_margins( 'sidebar_heading', $wppb_design_settings );
+				wppb_text_padding( 'sidebar_heading', $wppb_design_settings );
+				wppb_text_background( 'sidebar_heading', $wppb_design_settings );
+				wppb_text_borders_horizontal( 'sidebar_heading', $wppb_design_settings );
 			?>
 		</div>
 		<div class="inner-tab-block" id="sidebarparagraph_options">
 			<?php
-				ptc_text_display( 'sidebar_paragraph', $content_layout, __( 'Paragraph', 'wppb_lang' ) ); 
-				ptc_text_margins( 'sidebar_paragraph', $content_layout, 'block coordinates' );
-				ptc_text_padding( 'sidebar_paragraph', $content_layout, 'block coordinates' );
-				ptc_text_background( 'sidebar_paragraph', $content_layout );
-				ptc_text_borders_horizontal( 'sidebar_paragraph', $content_layout );
+				wppb_text_display( 'sidebar_paragraph', $wppb_design_settings, __( 'Paragraph', 'wppb_lang' ) ); 
+				wppb_text_margins( 'sidebar_paragraph', $wppb_design_settings, 'block coordinates' );
+				wppb_text_padding( 'sidebar_paragraph', $wppb_design_settings, 'block coordinates' );
+				wppb_text_background( 'sidebar_paragraph', $wppb_design_settings );
+				wppb_text_borders_horizontal( 'sidebar_paragraph', $wppb_design_settings );
 			?>
 		</div>
 		<div class="inner-tab-block" id="sidebarlistitem_options">
 			<?php 
-				ptc_text_display( 'sidebar_list', $content_layout, __( 'List text', 'wppb_lang' ) ); 
-				ptc_text_margins( 'sidebar_list', $content_layout, 'block coordinates' );
-				ptc_text_padding( 'sidebar_list', $content_layout, 'block coordinates' );
-				ptc_text_background( 'sidebar_list', $content_layout, 'block coordinates' );
-				ptc_text_borders_horizontal( 'sidebar_list', $content_layout );
+				wppb_text_display( 'sidebar_list', $wppb_design_settings, __( 'List text', 'wppb_lang' ) ); 
+				wppb_text_margins( 'sidebar_list', $wppb_design_settings, 'block coordinates' );
+				wppb_text_padding( 'sidebar_list', $wppb_design_settings, 'block coordinates' );
+				wppb_text_background( 'sidebar_list', $wppb_design_settings, 'block coordinates' );
+				wppb_text_borders_horizontal( 'sidebar_list', $wppb_design_settings );
 			?>
 		</div>
 	</div>
@@ -84,7 +84,7 @@ add_action( 'wppb_add_editor_tabs', 'wppb_sidebars_editor_tab' );
  * Add text types to be sanitized to the global array
  * @since 1.0
  */
-function ptc_addsidebars_text_type_options() {
+function wppb_addsidebars_text_type_options() {
 	global $texttype;
 
 	// Other text options
@@ -94,78 +94,78 @@ function ptc_addsidebars_text_type_options() {
 
 	return $texttype;
 }
-add_action( 'ptc_hook_text_type_options', 'ptc_addsidebars_text_type_options' );
+add_action( 'wppb_hook_text_type_options', 'wppb_addsidebars_text_type_options' );
 
 /*
  * Add colours to be sanitized to the global array
  * @since 1.0
  */
-function ptc_addsidebars_colour_options() {
-	global $ptc_colour_options;
+function wppb_addsidebars_colour_options() {
+	global $wppb_colour_options;
 
 	// Colour options
-	array_push( $ptc_colour_options, 'sidebar_background_colour' );
+	array_push( $wppb_colour_options, 'sidebar_background_colour' );
 
-	return $ptc_colour_options;
+	return $wppb_colour_options;
 }
-add_action( 'ptc_hook_colour_options', 'ptc_addsidebars_colour_options' );
+add_action( 'wppb_hook_colour_options', 'wppb_addsidebars_colour_options' );
 
 /**
  * Add image options to be sanitized to the global array
  * @since 1.0
  */
-function ptc_addsidebars_image_options() {
-	global $ptc_image_options;
+function wppb_addsidebars_image_options() {
+	global $wppb_image_options;
 
 	// Image options
-	array_push( $ptc_image_options, 'sidebar_background_image' );
+	array_push( $wppb_image_options, 'sidebar_background_image' );
 
-	return $ptc_image_options;
+	return $wppb_image_options;
 }
-add_action( 'ptc_hook_image_options', 'ptc_addsidebars_image_options' );
+add_action( 'wppb_hook_image_options', 'wppb_addsidebars_image_options' );
 
 /**
  * Add little numbers to be sanitized, to the global array
  * @since 1.0
  */
-function ptc_addsidebars_littlenumbers_options() {
-	global $ptc_littlenumbers_options;
+function wppb_addsidebars_littlenumbers_options() {
+	global $wppb_littlenumbers_options;
 
 	// Little numbers options
-	array_push( $ptc_littlenumbers_options, 'aside_padding_top' );
-	array_push( $ptc_littlenumbers_options, 'aside_padding_right' );
-	array_push( $ptc_littlenumbers_options, 'aside_padding_bottom' );
-	array_push( $ptc_littlenumbers_options, 'aside_padding_left' );
+	array_push( $wppb_littlenumbers_options, 'aside_padding_top' );
+	array_push( $wppb_littlenumbers_options, 'aside_padding_right' );
+	array_push( $wppb_littlenumbers_options, 'aside_padding_bottom' );
+	array_push( $wppb_littlenumbers_options, 'aside_padding_left' );
 
-	return $ptc_littlenumbers_options;
+	return $wppb_littlenumbers_options;
 }
-add_action( 'ptc_hook_littlenumbers_options', 'ptc_addsidebars_littlenumbers_options' );
+add_action( 'wppb_hook_littlenumbers_options', 'wppb_addsidebars_littlenumbers_options' );
 
 /**
  * Add big numbers to be sanitized, to the global array
  * @since 1.0
  */
-function ptc_addsidebars_bignumbers_options() {
-	global $ptc_bignumbers_options;
+function wppb_addsidebars_bignumbers_options() {
+	global $wppb_bignumbers_options;
 
 	// Big numbers options
-	array_push( $ptc_bignumbers_options, 'aside_1_width' );
-	array_push( $ptc_bignumbers_options, 'aside_2_width' );
+	array_push( $wppb_bignumbers_options, 'aside_1_width' );
+	array_push( $wppb_bignumbers_options, 'aside_2_width' );
 
-	return $ptc_bignumbers_options;
+	return $wppb_bignumbers_options;
 }
-add_action( 'ptc_hook_bignumbers_options', 'ptc_addsidebars_bignumbers_options' );
+add_action( 'wppb_hook_bignumbers_options', 'wppb_addsidebars_bignumbers_options' );
 
 /**
  * Add image tiling options to be sanitized, to the global array
  * @since 1.0
  */
-function ptc_addsidebars_imagetiling_options() {
-	global $ptc_imagetiling_options;
+function wppb_addsidebars_imagetiling_options() {
+	global $wppb_imagetiling_options;
 
 	// Image tiling options
-	array_push( $ptc_imagetiling_options, 'sidebar_background_image_tiling' );
+	array_push( $wppb_imagetiling_options, 'sidebar_background_image_tiling' );
 
-	return $ptc_imagetiling_options;
+	return $wppb_imagetiling_options;
 }
-add_action( 'ptc_hook_imagetiling_options', 'ptc_addsidebars_imagetiling_options' );
+add_action( 'wppb_hook_imagetiling_options', 'wppb_addsidebars_imagetiling_options' );

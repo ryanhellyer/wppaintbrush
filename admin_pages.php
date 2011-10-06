@@ -81,7 +81,7 @@ function wppb_options_init() {
 		$option = $setting[1];
 		$wppb_designer_array[$name] = $option;
 	}
-	$wppb_designer_array = ptc_sanitize_inputs( $wppb_designer_array );
+	$wppb_designer_array = wppb_sanitize_inputs( $wppb_designer_array );
 	$wppb_designer_array['css'] = $wppb_templates['css']; // Storing CSS in designer array so that can be used on page load (otherwise need to make server call on initial page load)
 	add_option( WPPB_DESIGNER_SETTINGS, $wppb_designer_array );
 }
@@ -92,7 +92,7 @@ add_action( 'admin_init', 'wppb_options_init' );
  * @since 1.0
  */
 function wppb_upload_css() {
-	wp_register_style( 'wppb_uploader_css', PTC_URL . 'uploader.css' );
+	wp_register_style( 'wppb_uploader_css', WPPB_URL . 'uploader.css' );
 	wp_enqueue_style( 'wppb_uploader_css' );
 }
 if ( 'css' == $_GET['wppb_frontenduploader'] )
