@@ -14,7 +14,7 @@
 function wppb_footer_editor_link() {
 	echo '<li id="pixopoint_footer_options"><a href="#footer_options">Footer</a></li> ';
 } 
-add_action( 'wppb_add_editor_links', 'wppb_footer_editor_link' );
+add_action( 'wppb_add_editor_links', 'wppb_footer_editor_link', 70 );
 
 /* Add new editor tab to editing panel
  * @since 1.0

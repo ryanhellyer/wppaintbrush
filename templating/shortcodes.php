@@ -717,6 +717,9 @@ function pixopoint_loop_shortcode( $atts, $content = null ) {
 		)
 	);
 
+	// Seting variables
+	$query = '';
+
 	// Santise/validate numeric data
 	if ( is_int( $posts_per_page ) )
 		$query = $query . 'posts_per_page=' . $posts_per_page . '&';
@@ -776,8 +779,9 @@ function pixopoint_loop_shortcode( $atts, $content = null ) {
 		$pages = get_pages();
 		foreach ( $pages as $page ) {
     		$apage = $page->post_name;
+		$page_404 = '';
     		if ( $apage == '404-error' )
-				$page_404 = 'load';
+			$page_404 = 'load';
 		}
 		// If the 404-error page is found, then load that
 		if ( 'load' == $page_404 )		

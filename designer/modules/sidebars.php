@@ -15,7 +15,7 @@
 function wppb_sidebars_editor_link() {
 	echo '<li id="pixopoint_sidebars_options"><a href="#sidebars_options">Sidebars</a></li>';
 } 
-add_action( 'wppb_add_editor_links', 'wppb_sidebars_editor_link' );
+add_action( 'wppb_add_editor_links', 'wppb_sidebars_editor_link', 40 );
 
 /* Add new "Sidebars" tab to main editing panel tabber
  * @since 1.0

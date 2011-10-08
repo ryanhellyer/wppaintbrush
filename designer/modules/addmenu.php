@@ -15,7 +15,7 @@
 function wppb_addmenu_editor_link() {
 	echo '<li id="pixopoint_menus_options"><a href="#menus_options">' . __( 'Menus', 'wppb_lang' ) . '</a></li>';
 } 
-add_action( 'wppb_add_editor_links', 'wppb_addmenu_editor_link' );
+add_action( 'wppb_add_editor_links', 'wppb_addmenu_editor_link', 50 );
 
 /* Hooks wppb_addmenu_editor_link() into editing panel. 
  * The wppb_addmenu_editor_tab() function isn't hooked directly so that new plugins can easily add new menus via the same block of code

@@ -246,14 +246,14 @@ function wppb_display_selector( $option, $wppb_design_settings, $title, $class='
 
 	echo '<div class="' . $class . '"><p><label>' . $title . '</label><select id="' . $option . '" name="' . $option . '">';
 
+	$initial = ''; // Setting variable
 	$later = ''; // Setting variable
-
 	foreach ( $options as $opt=>$label ) {
-		if ( $opt == $wppb_design_settings[$option] ) {
+		if ( isset( $wppb_design_settings[$option] ) ) {
+			if ( $opt == $wppb_design_settings[$option] )
 			$initial = '<option value="' . $opt . '">' . $label . '</option>';
-		}
-		else {
-			$later .= '<option value="' . $opt . '">' . $label . '</option>';
+			else
+				$later .= '<option value="' . $opt . '">' . $label . '</option>';
 		}
 	}
 	echo $initial . $later;

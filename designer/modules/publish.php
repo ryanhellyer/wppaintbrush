@@ -15,7 +15,7 @@
 function wppb_publish_editor_link() {
 	echo '<li id="pixopoint_css_options"><a href="#css_options">' . __( 'Publish', 'wppb_lang' ) . '</a></li>';
 } 
-add_action( 'wppb_add_editor_links', 'wppb_publish_editor_link' );
+add_action( 'wppb_add_editor_links', 'wppb_publish_editor_link', 80 );
 
 /* Add new "Content" editor tab
  * @since 1.0

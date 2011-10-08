@@ -15,7 +15,7 @@
 function wppb_extras_editor_link() {
 	echo '<li id="pixopoint_extras_options"><a href="#extras_options">Extras</a></li>';
 } 
-add_action( 'wppb_add_editor_links', 'wppb_extras_editor_link' );
+add_action( 'wppb_add_editor_links', 'wppb_extras_editor_link', 60 );
 
 /* Add new "Extras" editor tab to editing panel
  * @since 1.0

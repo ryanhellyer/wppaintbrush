@@ -14,7 +14,7 @@
 function wppb_header_editor_link() {
 	echo '<li id="pixopoint_header_options"><a href="#header_options">Header</a></li>';
 } 
-add_action( 'wppb_add_editor_links', 'wppb_header_editor_link' );
+add_action( 'wppb_add_editor_links', 'wppb_header_editor_link', 30 );
 
 /* Add new "Header" tab to main editing panel tabber
  * @since 1.0

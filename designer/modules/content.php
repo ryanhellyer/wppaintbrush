@@ -15,7 +15,7 @@
 function wppb_content_editor_link() {
 	echo '<li id="pixopoint_menudesign_options"><a href="#menudesign_options">Content</a></li>';
 } 
-add_action( 'wppb_add_editor_links', 'wppb_content_editor_link' );
+add_action( 'wppb_add_editor_links', 'wppb_content_editor_link', 10 );
 
 /* Add new "Content" editor tab
  * @since 1.0

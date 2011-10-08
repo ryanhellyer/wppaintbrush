@@ -95,8 +95,10 @@ function wppb_upload_css() {
 	wp_register_style( 'wppb_uploader_css', WPPB_URL . 'uploader.css' );
 	wp_enqueue_style( 'wppb_uploader_css' );
 }
-if ( 'css' == $_GET['wppb_frontenduploader'] )
-	add_action( "admin_print_styles-media-new.php", 'wppb_upload_css' );
+if ( isset( $_GET['wppb_frontenduploader'] ) ) {
+	if ( 'css' == $_GET['wppb_frontenduploader'] )
+		add_action( "admin_print_styles-media-new.php", 'wppb_upload_css' );
+}
 
 /* Change uploads folder
  * Only changes it if a specific form field was present - which is dynamically added via WP Paintbrush when using the media uploader on the front-end
@@ -128,8 +130,10 @@ function wppb_plup_post_parameters( $post_params ) {
 	$post_params['wppb'] = 'wppb';
 	return $post_params;
 }
-if ( 'css' == $_GET['wppb_frontenduploader'] )
-	add_filter( 'upload_post_params', 'wppb_plup_post_parameters' );
+if ( isset( $_GET['wppb_frontenduploader'] ) ) {
+	if ( 'css' == $_GET['wppb_frontenduploader'] )
+		add_filter( 'upload_post_params', 'wppb_plup_post_parameters' );
+}
 
 /**
  * Add extra input field to pluploader
