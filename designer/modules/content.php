@@ -456,21 +456,21 @@ add_action( 'wppb_add_chunk', 'wppb_content_block' );
  * @since 1.0
  */
 function wppb_addcontent_text_type_options() {
-	global $texttype;
+	global $wppb_texttype;
 
 	// Other text options
-	array_push( $texttype, 'heading1' );
-	array_push( $texttype, 'heading2' );
-	array_push( $texttype, 'heading3' );
-	array_push( $texttype, 'heading4' );
-	array_push( $texttype, 'heading5' );
-	array_push( $texttype, 'heading6' );
-	array_push( $texttype, 'paragraph' );
-	array_push( $texttype, 'listitem' );
-	array_push( $texttype, 'blockquote' );
-	array_push( $texttype, 'postinfo' );
+	array_push( $wppb_texttype, 'heading1' );
+	array_push( $wppb_texttype, 'heading2' );
+	array_push( $wppb_texttype, 'heading3' );
+	array_push( $wppb_texttype, 'heading4' );
+	array_push( $wppb_texttype, 'heading5' );
+	array_push( $wppb_texttype, 'heading6' );
+	array_push( $wppb_texttype, 'paragraph' );
+	array_push( $wppb_texttype, 'listitem' );
+	array_push( $wppb_texttype, 'blockquote' );
+	array_push( $wppb_texttype, 'postinfo' );
 
-	return $texttype;
+	return $wppb_texttype;
 }
 add_action( 'wppb_hook_text_type_options', 'wppb_addcontent_text_type_options' );
 

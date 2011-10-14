@@ -239,7 +239,7 @@ function wppb_alignment_selector( $option, $wppb_design_settings, $title, $class
  */
 function wppb_display_selector( $option, $wppb_design_settings, $title, $class='block' ) {
 
-	$options = array(
+	$wppb_options = array(
 		'none'  => 'off',
 		'block' => 'on',
 	);
@@ -248,7 +248,7 @@ function wppb_display_selector( $option, $wppb_design_settings, $title, $class='
 
 	$initial = ''; // Setting variable
 	$later = ''; // Setting variable
-	foreach ( $options as $opt=>$label ) {
+	foreach ( $wppb_options as $opt=>$label ) {
 		if ( isset( $wppb_design_settings[$option] ) ) {
 			if ( $opt == $wppb_design_settings[$option] )
 			$initial = '<option value="' . $opt . '">' . $label . '</option>';
@@ -311,6 +311,11 @@ function wppb_invert_colour( $start ) {
  * @since 0.1
  */
 function wppb_colour_selector( $option, $wppb_design_settings, $title, $class='block colour' ) {
+	// Setting variable
+	if ( !isset( $wppb_design_settings[$option] ) )
+		$wppb_design_settings[$option] = 'none';
+
+	// Display HTML for font family	selection
 	echo "\n" . '<div class="' . $class . '"><p><label>' . $title . '</label><input style="background: '  . $wppb_design_settings[$option] . '; color: #' . wppb_invert_colour( $wppb_design_settings[$option] ) . '" type="text" class="colourinput" id="' . $option . '" name="' . $option . '" value="'  . $wppb_design_settings[$option] . '" /></p></div>' . "\n";
 }
 

@@ -333,100 +333,100 @@ function wppb_sanitize_inputs( $input='' ) {
  */
 function wppb_ajax_option_get() {
 
-	$options = array(
+	$wppb_options = array(
 		'add_custom_css',
 	);
 
 	// Adding font style options
 	foreach( wppb_fontstyle_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding colour options
 	foreach( wppb_colour_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding image options
 	foreach( wppb_image_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding image tiling options
 	foreach( wppb_imagetiling_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
-	
+
 	// Adding font weight options
 	foreach( wppb_fontweight_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding text decoration options
 	foreach( wppb_textdecoration_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 	
 	// Adding big numbers options
 	foreach( wppb_bignumbers_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding little numbers options
 	foreach( wppb_littlenumbers_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 	// Adding display options
 	foreach( wppb_display_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding centered options
 	foreach( wppb_centered_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 	
 	// Adding opacity options
 	foreach( wppb_opacity_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding font size options
 	foreach( wppb_fontsize_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding alignment options
 	foreach( wppb_alignment_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding Text transform options
 	foreach( wppb_texttransform_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding Small-caps options
 	foreach( wppb_smallcaps_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding Font family options
 	foreach( wppb_fontfamily_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding border type options
 	foreach( wppb_bordertype_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
 	// Adding raw text options
 	foreach( wppb_rawtext_options() as $stuff=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
-	return $options;
+	return $wppb_options;
 }
 
 /**
@@ -467,7 +467,6 @@ function wppb_adddefault_rawtext_options() {
 	global $wppb_rawtext_options;
 
 	// Raw text options
-	array_push( $wppb_rawtext_options, 'copyright' );
 	array_push( $wppb_rawtext_options, 'design' );
 
 	return $wppb_rawtext_options;

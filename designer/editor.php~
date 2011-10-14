@@ -42,8 +42,10 @@ global $positions;
 function wppb_load_template() {
 	global $positions;
 
-	// Setting defaults for "content_layout"
-	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
+	if ( isset( $_POST['content_layout'] ) )
+		$wppb_design_settings = wppb_sanitize_inputs( $_POST['content_layout'] );
+	else
+		$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS ); // Setting defaults for "content_layout"
 
 
 	// Setting potentially empty variable

@@ -127,13 +127,13 @@ add_shortcode( 'wppb_footer', 'wppb_footer_shortcode' );
  * @since 0.1
  */
 function wppb_addfooter_text_type_options() {
-	global $texttype;
+	global $wppb_texttype;
 
 	// Other text options
-	array_push( $texttype, 'footer_menu' );
-	array_push( $texttype, 'footer_copyright' );
+	array_push( $wppb_texttype, 'footer_menu' );
+	array_push( $wppb_texttype, 'footer_copyright' );
 
-	return $texttype;
+	return $wppb_texttype;
 }
 add_action( 'wppb_hook_text_type_options', 'wppb_addfooter_text_type_options' );
 

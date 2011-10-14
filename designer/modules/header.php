@@ -175,15 +175,15 @@ add_shortcode( 'wppb_header', 'wppb_header_shortcode' );
  * @since 1.0
  */
 function wppb_addheader_text_type_options() {
-	global $texttype;
+	global $wppb_texttype;
 
 	// Other text options
-	array_push( $texttype, 'header_heading' );
-	array_push( $texttype, 'header_description' );
-	array_push( $texttype, 'searchtext' );
-	array_push( $texttype, 'searchsubmit' );
+	array_push( $wppb_texttype, 'header_heading' );
+	array_push( $wppb_texttype, 'header_description' );
+	array_push( $wppb_texttype, 'searchtext' );
+	array_push( $wppb_texttype, 'searchsubmit' );
 
-	return $texttype;
+	return $wppb_texttype;
 }
 add_action( 'wppb_hook_text_type_options', 'wppb_addheader_text_type_options' );
 

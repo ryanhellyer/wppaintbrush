@@ -85,14 +85,14 @@ add_action( 'wppb_add_editor_tabs', 'wppb_sidebars_editor_tab' );
  * @since 1.0
  */
 function wppb_addsidebars_text_type_options() {
-	global $texttype;
+	global $wppb_texttype;
 
 	// Other text options
-	array_push( $texttype, 'sidebar_heading' );
-	array_push( $texttype, 'sidebar_list' );
-	array_push( $texttype, 'sidebar_paragraph' );
+	array_push( $wppb_texttype, 'sidebar_heading' );
+	array_push( $wppb_texttype, 'sidebar_list' );
+	array_push( $wppb_texttype, 'sidebar_paragraph' );
 
-	return $texttype;
+	return $wppb_texttype;
 }
 add_action( 'wppb_hook_text_type_options', 'wppb_addsidebars_text_type_options' );
 

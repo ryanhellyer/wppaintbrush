@@ -1574,8 +1574,16 @@ add_shortcode( 'home_url', 'pixopoint_home_url_shortcode' );
  * @since 1.0
  */
 function pixopoint_counter_shortcode() {
+	// Counter needs to be global to make sure the shortcode increases by 1 each time it is fired
+	global $counter;
 
+	// Setting $counter in case it doesn't exist yet
+	if ( !isset( $counter ) )
+		$counter = 0;
+
+	// Increase counter by 1
 	$counter++;
+
 	return $counter;
 }
 add_shortcode( 'counter', 'pixopoint_counter_shortcode' );

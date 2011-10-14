@@ -125,7 +125,7 @@ function wppb_grab_design( $design ) {
 	// Processing data ready for database
 	$data = explode( WPPB_BLOCK_SPLITTER, $data ); // Splitting data
 	$counter = 0;
-	$wppb_options = array();
+	$options = array();
 	while ( $counter <= 100 ) {
 		if ( !isset( $data[$counter+1] ) )
 			$data[$counter+1] = '';
@@ -138,12 +138,12 @@ function wppb_grab_design( $design ) {
 
 		if ( !isset( $split[1] ) )
 			$split[1] = '';
-		$wppb_options[$name] = $split[1];
+		$options[$name] = $split[1];
 		$counter++;
 	}
 
 	// Return array
-	return $wppb_options;
+	return $options;
 }
 
 /* Publish template

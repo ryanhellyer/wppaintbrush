@@ -59,17 +59,11 @@ function wppb_ajax_content() {
  */
 function wppb_create_template() {
 
-	// Grab data from database
-	$wppb_database_data = get_option( WPPB_DESIGNER_SETTINGS );
-
 	// Grab and sanitize inputs
 	if ( isset( $_POST['positions'] ) )
 		$wppb_design_settings = wppb_sanitize_inputs( $_POST ); // Grab submitted data
 	else
-		$wppb_design_settings = $wppb_database_data;
-
-	// Making sure the home page layout is set - this needs to be respecified as the drag and drop editor only utilizes a POST request with the positional data, and doesn't pull in whether or not a magazine layout home page has been used or not)
-	$wppb_design_settings['changehome_homelayout_display'] = $wppb_database_data['changehome_homelayout_display'];
+		$wppb_design_settings = wppb_sanitize_inputs( get_option( WPPB_DESIGNER_SETTINGS ) ); // Grab from database
 
 	// Setting processed template variable
 	$processed_template = '';
@@ -86,8 +80,9 @@ function wppb_create_template() {
 			$id = str_replace( ' ', '', $id ); // Strip spaces
 			$id = 'layout-' . $id; // Prepend ID prefix
 
-//			if ( !isset( $wppb_design_settings['changehome_homelayout_display'] ) )
-//				$wppb_design_settings['changehome_homelayout_display'] = '';
+			if ( !isset( $wppb_design_settings['changehome_homelayout_display'] ) )
+				$wppb_design_settings['changehome_homelayout_display'] = '';
+
 			// Replacing [wppb_content] with appropriate page specific template
 			if ( is_front_page()  && 'Magazine' == $wppb_design_settings['changehome_homelayout_display'] )
 				$shortcode = str_replace( 'wppb_content', 'wppb_content_front', $shortcode );
@@ -115,16 +110,16 @@ function wppb_create_template() {
  * @since 0.1
  */
 function wppb_load_stuff() {
-	global $wppb_options, $css;
+	global $options, $css;
 
 	// Grab and sanitize data
-	$wppb_options = wppb_sanitize_inputs();
+	$options = wppb_sanitize_inputs();
 
 	// Processing CSS on an external server
 	$css = wppb_load_processed_css();
 
 	// Grabbing raw CSS before addition of URLs (urls are needed for internal CSS file, but cause problems when exporting themes etc. as they need to be removed)
-	$wppb_options['css'] = $css;
+	$options['css'] = $css;
 
 	// Add URLs (needed since CSS won't reference images correctly otherwise - not needed for storage though as can dynamically add it later)
 	$css = wppb_convert_urls_in_css( $css );
@@ -143,15 +138,15 @@ function wppb_load_stuff() {
  * @since 1.0
  */
 function wppb_publish_save_export() {
-	global $wppb_options, $css;
+	global $options, $css;
 
 	// Save options
 	if ( 'save' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] || 'publish' == $_GET['generator-css'] )
-		update_option( WPPB_DESIGNER_SETTINGS, $wppb_options );
+		update_option( WPPB_DESIGNER_SETTINGS, $options );
 
 	// Publishing and Export options
 	if ( 'publish' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] )
-		wppb_publish_options( $wppb_options, $css );
+		wppb_publish_options( $options, $css );
 
 	// Export zip file (creates redirect to serve zip file - required for loading zip via AJAX)
 	if ( 'export' == $_GET['generator-css'] ) {
@@ -169,7 +164,7 @@ add_action( 'wppb_load_stuff_hook', 'wppb_publish_save_export' );
 function wppb_get_options_for_storing( $wppb_design_settings, $css='' ) {
 
 	// Setting CSS	
-	$wppb_options['css'] = $css;
+	$options['css'] = $css;
 
 	// Add support for sidebars
 	$sidebar_positions = str_replace( 'layout-', '', $wppb_design_settings['sidebar_positions'] ) ;
@@ -178,19 +173,19 @@ function wppb_get_options_for_storing( $wppb_design_settings, $css='' ) {
 		$count = 0;
 		while( $count < 2 ) {
 			$count++;
-			$wppb_options['show_widget' . $count] = '';
-			$wppb_options['name_widget' . $count] = '';
-			$wppb_options['before_widget' . $count] = '';
-			$wppb_options['after_widget' . $count] = '';
-			$wppb_options['before_title' . $count] = '';
-			$wppb_options['after_title' . $count] = '';
+			$options['show_widget' . $count] = '';
+			$options['name_widget' . $count] = '';
+			$options['before_widget' . $count] = '';
+			$options['after_widget' . $count] = '';
+			$options['before_title' . $count] = '';
+			$options['after_title' . $count] = '';
 			if ( 'sidebar' . $count == $block ) {
-				$wppb_options['show_widget' . $count] = 'on';
-				$wppb_options['name_widget' . $count] = 'Sidebar ' . $count;
-				$wppb_options['before_widget' . $count] = '<div class="widget">';
-				$wppb_options['after_widget' . $count] = '</div>';
-				$wppb_options['before_title' . $count] = '<h3>';
-				$wppb_options['after_title' . $count] = '</h3>';
+				$options['show_widget' . $count] = 'on';
+				$options['name_widget' . $count] = 'Sidebar ' . $count;
+				$options['before_widget' . $count] = '<div class="widget">';
+				$options['after_widget' . $count] = '</div>';
+				$options['before_title' . $count] = '<h3>';
+				$options['after_title' . $count] = '</h3>';
 			}
 		}
 	}
@@ -198,8 +193,8 @@ function wppb_get_options_for_storing( $wppb_design_settings, $css='' ) {
 	// Set header and footer templates
 	$positions = explode( ',', $wppb_design_settings['positions'] );
 	$section = 'header'; // Load header first
-	$wppb_options['header'] = ''; // Resetting header
-	$wppb_options['footer'] = ''; // Resetting footer
+	$options['header'] = ''; // Resetting header
+	$options['footer'] = ''; // Resetting footer
 	foreach( $positions as $pos ) {
 		foreach( wppb_page_chunks() as $chunk=>$test ) {
 			$chunk = strtolower( $chunk ); // Convert to lowercase
@@ -207,11 +202,11 @@ function wppb_get_options_for_storing( $wppb_design_settings, $css='' ) {
 			if ( ( 'layout-' . $chunk ) == $pos ) {
 				$chunk = '[wppb_' . strtolower( $chunk ) . ']'; // Convert to lowercase
 				if ( 'footer' == $section )
-					$wppb_options['footer'] .= do_shortcode( $chunk );
+					$options['footer'] .= do_shortcode( $chunk );
 				if ( '[wppb_content]' == $chunk )
 					$section = 'footer';
 				if ( 'header' == $section )
-					$wppb_options['header'] .= do_shortcode( $chunk );
+					$options['header'] .= do_shortcode( $chunk );
 			}
 		}
 	}
@@ -224,23 +219,23 @@ function wppb_get_options_for_storing( $wppb_design_settings, $css='' ) {
 			$chunk = str_replace( ' ', '', $chunk ); // Strip spaces
 			if ( ( 'layout-' . $chunk ) == $pos ) {
 				if ( 'menu' == $chunk )
-					$wppb_options['support_primarymenu'] = 'on';
+					$options['support_primarymenu'] = 'on';
 			}
 		}
 	}
 
 	// Set main templates
-	$wppb_options['front_page'] = '';
-	$wppb_options['home'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
-	$wppb_options['archive'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
-	$wppb_options['index'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
-	$wppb_options['page'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_page]' ) . "\n\n[get_footer]";
-	$wppb_options['single'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_single]' ) . "\n\n[get_footer]";
+	$options['front_page'] = '';
+	$options['home'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
+	$options['archive'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
+	$options['index'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
+	$options['page'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_page]' ) . "\n\n[get_footer]";
+	$options['single'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_single]' ) . "\n\n[get_footer]";
 
 	// Correct URLs
-	$wppb_options['css'] = str_replace( 'http: //', 'http://', $wppb_options['css'] );
+	$options['css'] = str_replace( 'http: //', 'http://', $options['css'] );
 
-	return $wppb_options; 
+	return $options; 
 }
 
 /* Array of page chunks

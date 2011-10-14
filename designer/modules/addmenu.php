@@ -287,12 +287,12 @@ add_action( 'wppb_hook_textdecoration_options', 'wppb_addmenu_textdecoration_opt
  * @since 1.0
  */
 function wppb_addmenu_text_type_options_hook() {
-	global $texttype;
+	global $wppb_texttype;
 
 	// Other text options
-	array_push( $texttype, 'menu1' );
+	array_push( $wppb_texttype, 'menu1' );
 
-	return $texttype;
+	return $wppb_texttype;
 }
 add_action( 'wppb_hook_text_type_options', 'wppb_addmenu_text_type_options_hook' );
 

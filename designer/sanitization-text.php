@@ -15,7 +15,7 @@
 function wppb_text_options() {
 
 	// Add text options
-	$options = array(
+	$wppb_options = array(
 		'_fontfamily',
 		'_textcolour',
 		'_font_weight',
@@ -33,10 +33,10 @@ function wppb_text_options() {
 	);
 
 	foreach( wppb_slider_options() as $option=>$opt ) {
-		array_push( $options, $opt );
+		array_push( $wppb_options, $opt );
 	}
 
-	return $options;
+	return $wppb_options;
 }
 
 /**
@@ -47,7 +47,7 @@ function wppb_text_options() {
 function wppb_slider_options() {
 
 	// Add text options
-	$options = array(
+	$wppb_options = array(
 		'_fontsize',
 		'_line_height',
 		'_shadow_x_coordinate',
@@ -65,7 +65,7 @@ function wppb_slider_options() {
 		'_padding_bottom',
 		'_padding_left',
 	);
-	return $options;
+	return $wppb_options;
 }
 
 /**
@@ -74,14 +74,14 @@ function wppb_slider_options() {
  * @since 0.9
  */
 function wppb_text_type_options() {
-	global $texttype;
+	global $wppb_texttype;
 
-	$texttype = array();
+	$wppb_texttype = array();
 
 	// text type hook
 	do_action( 'wppb_hook_text_type_options' );
 
-	return $texttype;
+	return $wppb_texttype;
 }
 
 
