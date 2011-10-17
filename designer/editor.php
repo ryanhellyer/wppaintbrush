@@ -39,8 +39,11 @@ global $positions;
 /* Load template
  * @since 0.1
  */
-function wppb_load_template() {
+function wppb_load_template( $wppb_template ) {
 	global $positions;
+
+	// Starting output buffer
+	ob_start();
 
 	// Setting defaults for "content_layout"
 	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
@@ -148,4 +151,12 @@ function wppb_load_template() {
 </div>
 
 <?php
+
+	// Starting output buffer
+	$wppb_template .= ob_get_contents();
+	
+	// End buffer
+	ob_end_clean();
+
+	return $wppb_template;
 }

@@ -81,16 +81,16 @@ function wppb_text_type_options() {
 	// text type hook
 	do_action( 'wppb_hook_text_type_options' );
 
+	// Hook for plugins to filter the value
+	$wppb_texttype = apply_filters ( 'wppb_text_type_filter' , $wppb_texttype );
+
 	return $wppb_texttype;
 }
 
-
-
-/* Setting variables for colour sanitization
+/* Add colours to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_add_colour_options() {
-	global $wppb_colour_options;
+function wppb_colour_filter( $wppb_colour_options ) {
 
 	// Colour options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -103,13 +103,13 @@ function wppb_add_colour_options() {
 
 	return $wppb_colour_options;
 }
-add_action( 'wppb_hook_colour_options', 'wppb_add_colour_options' );
+add_filter( 'wppb_colour_filter', 'wppb_colour_filter' );
+
 
 /* Setting variables for font weight sanitization
  * @since 1.0
  */
-function wppb_add_fontweight_options() {
-	global $wppb_fontweight_options;
+function wppb_add_fontweight_filter( $wppb_fontweight_options ) {
 
 	// Bold options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -118,15 +118,14 @@ function wppb_add_fontweight_options() {
 
 	return $wppb_fontweight_options;
 }
-add_action( 'wppb_hook_fontweight_options', 'wppb_add_fontweight_options' );
+add_action( 'wppb_fontweight_filter', 'wppb_add_fontweight_filter' );
 
 /**
  * Font style options
  * Array of options which need sanitizised as font style
  * @since 1.0
  */
-function wppb_add_fontstyle_options() {
-	global $wppb_fontstyle_options;
+function wppb_add_fontstyle_filter( $wppb_fontstyle_options ) {
 
 	// Setting variable
 	if ( !isset( $wppb_fontstyle_options ) )
@@ -139,14 +138,13 @@ function wppb_add_fontstyle_options() {
 
 	return $wppb_fontstyle_options;
 }
-add_action( 'wppb_hook_fontstyle_options', 'wppb_add_fontstyle_options' );
+add_action( 'wppb_fontstyle_filter', 'wppb_add_fontstyle_filter' );
 
 /**
  * Setting variables for Font size sanitization
  * @since 1.0
  */
-function wppb_add_fontsize_options() {
-	global $wppb_fontsize_options;
+function wppb_add_fontsize_filter( $wppb_fontsize_options ) {
 
 	// Font size options
 	foreach( wppb_text_type_options() as $next=>$type ) {
@@ -156,14 +154,13 @@ function wppb_add_fontsize_options() {
 
 	return $wppb_fontsize_options;
 }
-add_action( 'wppb_hook_fontsize_options', 'wppb_add_fontsize_options' );
+add_action( 'wppb_fontsize_filter', 'wppb_add_fontsize_filter' );
 
 /**
  * Setting array for image options sanitization
  * @since 1.0
  */
-function wppb_add_image_options() {
-	global $wppb_image_options;
+function wppb_add_image_filter( $wppb_image_options ) {
 
 	// Image options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -172,15 +169,14 @@ function wppb_add_image_options() {
 
 	return $wppb_image_options;
 }
-add_action( 'wppb_hook_image_options', 'wppb_add_image_options' );
+add_action( 'wppb_image_filter', 'wppb_add_image_filter' );
 
 /**
  * Border type options
  * Array of options which need sanitizised as border type
  * @since 1.0
  */
-function wppb_add_bordertype_options() {
-	global $wppb_bordertype_options;
+function wppb_add_bordertype_filter( $wppb_bordertype_options ) {
 
 	// Border type options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -190,15 +186,14 @@ function wppb_add_bordertype_options() {
 
 	return $wppb_bordertype_options;
 }
-add_action( 'wppb_hook_bordertype_options', 'wppb_add_bordertype_options' );
+add_action( 'wppb_bordertype_filter', 'wppb_add_bordertype_filter' );
 
 /**
  * Text Transform options
  * Array of options which need sanitizised as text transform
  * @since 1.0
  */
-function wppb_add_texttransform_options() {
-	global $wppb_texttransform_options;
+function wppb_add_texttransform_filter( $wppb_texttransform_options ) {
 
 	// Text transform options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -207,15 +202,14 @@ function wppb_add_texttransform_options() {
 
 	return $wppb_texttransform_options;
 }
-add_action( 'wppb_hook_texttransform_options', 'wppb_add_texttransform_options' );
+add_action( 'wppb_texttransform_filter', 'wppb_add_texttransform_filter' );
 
 /**
  * Small-caps options
  * Array of options which need sanitizised as small-caps
  * @since 1.0
  */
-function wppb_add_smallcaps_options() {
-	global $wppb_smallcaps_options;
+function wppb_add_smallcaps_filter( $wppb_smallcaps_options ) {
 
 	// Small-caps options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -224,15 +218,14 @@ function wppb_add_smallcaps_options() {
 
 	return $wppb_smallcaps_options;
 }
-add_action( 'wppb_hook_smallcaps_options', 'wppb_add_smallcaps_options' );
+add_action( 'wppb_smallcaps_filter', 'wppb_add_smallcaps_filter' );
 
 /**
  * Little numbers options
  * Array of options which need sanitizised as little numbers
  * @since 1.0
  */
-function wppb_add_littlenumbers_options() {
-	global $wppb_littlenumbers_options;
+function wppb_add_littlenumbers_filter( $wppb_littlenumbers_options ) {
 
 	// Little numbers options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -250,15 +243,14 @@ function wppb_add_littlenumbers_options() {
 
 	return $wppb_littlenumbers_options;
 }
-add_action( 'wppb_hook_littlenumbers_options', 'wppb_add_littlenumbers_options' );
+add_action( 'wppb_littlenumbers_filter', 'wppb_add_littlenumbers_filter' );
 
 /**
  * Shadow coordinates options
  * Array of options which need sanitizised as shadow coordinates
  * @since 1.0
  */
-function wppb_add_shadow_coordinates_options() {
-	global $wppb_shadow_coordinates_options;
+function wppb_add_shadow_coordinates_filter( $wppb_shadow_coordinates_options ) {
 
 	// Shadow coordinate options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -268,15 +260,14 @@ function wppb_add_shadow_coordinates_options() {
 	}
 	return $wppb_shadow_coordinates_options;
 }
-add_action( 'wppb_hook_shadow_coordinates_options', 'wppb_add_shadow_coordinates_options' );
+add_action( 'wppb_shadow_coordinates_filter', 'wppb_add_shadow_coordinates_filter' );
 
 /**
  * Font Family options
  * Array of options which need sanitizised as font family
  * @since 1.0
  */
-function wppb_add_fontfamily_options() {
-	global $wppb_fontfamily_options;
+function wppb_add_fontfamily_filter( $wppb_fontfamily_options ) {
 
 	// Font family options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -285,15 +276,14 @@ function wppb_add_fontfamily_options() {
 
 	return $wppb_fontfamily_options;
 }
-add_action( 'wppb_hook_fontfamily_options', 'wppb_add_fontfamily_options' );
+add_action( 'wppb_fontfamily_filter', 'wppb_add_fontfamily_filter' );
 
 /**
  * Text decoration options
  * Array of options which need sanitizised as text decoration
  * @since 1.0
  */
-function wppb_add_textdecoration_options() {
-	global $wppb_textdecoration_options;
+function wppb_add_textdecoration_filter( $wppb_textdecoration_options ) {
 
 	// Text decoration options
 	foreach( wppb_text_type_options() as $stuff=>$type ) {
@@ -302,5 +292,5 @@ function wppb_add_textdecoration_options() {
 
 	return $wppb_textdecoration_options;
 }
-add_action( 'wppb_hook_textdecoration_options', 'wppb_add_textdecoration_options' );
+add_action( 'wppb_textdecoration_filter', 'wppb_add_textdecoration_filter' );
 

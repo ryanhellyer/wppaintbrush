@@ -7,6 +7,8 @@
  * Loads the arrays containing the various options avaialble
  * Designed to be hooked into via plugins
  * Standard options are added via the sanitization-theme.php file
+ *
+ * Todo: Remove global variables and action hooks - these were added in error and are kept temporarily until all legacy code utilizing them is removed
  */
 
 
@@ -19,6 +21,10 @@ function wppb_bordertype_options() {
 	global $wppb_bordertype_options;
 
 	$wppb_bordertype_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_bordertype_options = apply_filters ( 'wppb_bordertype_filter', $wppb_bordertype_options );
+
 	do_action( 'wppb_hook_bordertype_options' );
 
 	return $wppb_bordertype_options;
@@ -33,6 +39,10 @@ function wppb_texttransform_options() {
 	global $wppb_texttransform_options;
 
 	$wppb_texttransform_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_texttransform_options = apply_filters ( 'wppb_texttransform_filter' , $wppb_texttransform_options );
+
 	do_action( 'wppb_hook_texttransform_options' );
 
 	return $wppb_texttransform_options;
@@ -47,6 +57,10 @@ function wppb_smallcaps_options() {
 	global $wppb_smallcaps_options;
 
 	$wppb_smallcaps_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_smallcaps_options = apply_filters ( 'wppb_smallcaps_filter' , $wppb_smallcaps_options );
+
 	do_action( 'wppb_hook_smallcaps_options' );
 
 	return $wppb_smallcaps_options;
@@ -61,6 +75,10 @@ function wppb_fontsize_options() {
 	global $wppb_fontsize_options;
 
 	$wppb_fontsize_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_fontsize_options = apply_filters ( 'wppb_fontsize_filter' , $wppb_fontsize_options );
+
 	do_action( 'wppb_hook_fontsize_options' );
 
 	return $wppb_fontsize_options;
@@ -75,6 +93,10 @@ function wppb_opacity_options() {
 	global $wppb_opacity_options;
 
 	$wppb_opacity_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_opacity_options = apply_filters ( 'wppb_opacity_filter' , $wppb_opacity_options );
+
 	do_action( 'wppb_hook_opacity_options' );
 
 	return $wppb_opacity_options;
@@ -89,6 +111,10 @@ function wppb_textdecoration_options() {
 	global $wppb_textdecoration_options;
 
 	$wppb_textdecoration_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_textdecoration_options = apply_filters ( 'wppb_textdecoration_filter' , $wppb_textdecoration_options );
+
 	do_action( 'wppb_hook_textdecoration_options' );
 
 	return $wppb_textdecoration_options;
@@ -103,6 +129,10 @@ function wppb_fontfamily_options() {
 	global $wppb_fontfamily_options;
 
 	$wppb_fontfamily_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_fontfamily_options = apply_filters ( 'wppb_fontfamily_filter' , $wppb_fontfamily_options );
+
 	do_action( 'wppb_hook_fontfamily_options' );
 
 	return $wppb_fontfamily_options;
@@ -117,6 +147,10 @@ function wppb_fontstyle_options() {
 	global $wppb_fontstyle_options;
 
 	$wppb_fontstyle_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_fontstyle_options = apply_filters ( 'wppb_fontstyle_filter' , $wppb_fontstyle_options );
+
 	do_action( 'wppb_hook_fontstyle_options' );
 
 	return $wppb_fontstyle_options;
@@ -131,6 +165,10 @@ function wppb_fontweight_options() {
 	global $wppb_fontweight_options;
 
 	$wppb_fontweight_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_fontweight_options = apply_filters ( 'wppb_fontweight_filter' , $wppb_fontweight_options );
+
 	do_action( 'wppb_hook_fontweight_options' );
 
 	return $wppb_fontweight_options;
@@ -145,6 +183,10 @@ function wppb_image_options() {
 	global $wppb_image_options;
 
 	$wppb_image_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_image_options = apply_filters ( 'wppb_image_filter' , $wppb_image_options );
+
 	do_action( 'wppb_hook_image_options' );
 
 	return $wppb_image_options;
@@ -159,6 +201,10 @@ function wppb_colour_options() {
 	global $wppb_colour_options;
 
 	$wppb_colour_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_colour_options = apply_filters ( 'wppb_colour_filter' , $wppb_colour_options );
+
 	do_action( 'wppb_hook_colour_options' );
 
 	return $wppb_colour_options;
@@ -173,7 +219,12 @@ function wppb_alignment_options() {
 	global $wppb_alignment_options;
 
 	$wppb_alignment_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_alignment_options = apply_filters ( 'wppb_alignment_filter' , $wppb_alignment_options );
+
 	do_action( 'wppb_hook_alignment_options' );
+
 
 	return $wppb_alignment_options;
 }
@@ -188,6 +239,10 @@ function wppb_centered_options() {
 
 	// Centered options
 	$wppb_centered_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_centered_options = apply_filters ( 'wppb_centered_filter' , $wppb_centered_options );
+
 	do_action( 'wppb_hook_centered_options' );
 
 	return $wppb_centered_options;
@@ -203,6 +258,10 @@ function wppb_display_options() {
 
 	// Centered options
 	$wppb_display_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_display_options = apply_filters ( 'wppb_display_filter' , $wppb_display_options );
+
 	do_action( 'wppb_hook_display_options' );
 
 	return $wppb_display_options;
@@ -218,6 +277,10 @@ function wppb_littlenumbers_options() {
 
 	// Centered options
 	$wppb_littlenumbers_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_littlenumbers_options = apply_filters ( 'wppb_littlenumbers_filter' , $wppb_littlenumbers_options );
+
 	do_action( 'wppb_hook_littlenumbers_options' );
 
 	return $wppb_littlenumbers_options;
@@ -233,6 +296,10 @@ function wppb_bignumbers_options() {
 
 	// Big numbers options
 	$wppb_bignumbers_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_bignumbers_options = apply_filters ( 'wppb_bignumbers_filter' , $wppb_bignumbers_options );
+
 	do_action( 'wppb_hook_bignumbers_options' );
 
 	return $wppb_bignumbers_options;
@@ -248,6 +315,10 @@ function wppb_shadow_coordinates_options() {
 
 	// Shadow coordinate options
 	$wppb_shadow_coordinates_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_shadow_coordinates_options = apply_filters ( 'wppb_shadow_coordinates_filter' , $wppb_shadow_coordinates_options );
+
 	do_action( 'wppb_hook_shadow_coordinates_options' );
 
 	return $wppb_shadow_coordinates_options;
@@ -263,6 +334,10 @@ function wppb_imagetiling_options() {
 
 	// Shadow coordinate options
 	$wppb_imagetiling_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_imagetiling_options = apply_filters ( 'wppb_imagetiling_filter' , $wppb_imagetiling_options );
+
 	do_action( 'wppb_hook_imagetiling_options' );
 
 	return $wppb_imagetiling_options;
@@ -278,6 +353,10 @@ function wppb_rawtext_options() {
 
 	// Raw text options
 	$wppb_rawtext_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_rawtext_options = apply_filters ( 'wppb_rawtext_filter' , $wppb_rawtext_options );
+
 	do_action( 'wppb_hook_rawtext_options' );
 
 	return $wppb_rawtext_options;

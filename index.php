@@ -16,18 +16,14 @@
 get_header();
 
 /**
- * Output buffering template
- * @since 0.8
- */
-do_action( 'wppb_pre_theme' ); // Action hook for loading content
-
-/**
  * Outputting stored templates
  * Parsed through do_shortcode() to convert shortcodes into required text
- * @since 0.1
+ * @since 1.0
  */
-if ( isset( $wppb_template ) )
-	echo do_shortcode( $wppb_template );
+$wppb_template = '';
+$wppb_template = apply_filters ( 'wppb_template_filter' , $wppb_template );
+echo do_shortcode( $wppb_template );
+//do_action( 'wppb_pre_theme' ); // Action hook for loading content
 
 /**
  * Load footer

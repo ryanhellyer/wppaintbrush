@@ -351,7 +351,7 @@ function wppb_template_choice() {
  * Used when not utilizing the designer tool
  * @since 0.8
  */
-function wppb_template_load() {
+function wppb_template_load( $wppb_template ) {
 	global $wppb_template;
 
 	$wppb_template = get_wppb_option( wppb_template_choice() ); // Load appropriate template
@@ -359,7 +359,8 @@ function wppb_template_load() {
 	$wppb_template = str_replace( '[get_footer]', get_wppb_option( 'footer' ), $wppb_template );
 	return $wppb_template;
 }
-add_action( 'wppb_pre_theme', 'wppb_template_load' );
+//add_filter( 'wppb_template_filter', 'wppb_load_template' );
+add_filter( 'wppb_template_filter', 'wppb_create_template' );
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -370,6 +371,9 @@ function wppb_settings_setup() {
 	// Set Constants
 	define( 'WPPB_COPYRIGHT', '<a href="http://wppaintbrush.com/">wppaintbrush.com</a>. Powered by <a href="http://wordpress.org/">WordPress</a>.' );
 	define( 'WPPB_VERSION', '1.0 beta 10_5' ); // Version of WP Paintbrush used
+
+	// Add options to an array - use array so that can filter options before output
+	$wppb_settings = apply_filters ( 'wppb_settings_pre_setup_filter' , get_wppb_option() );
 
 	// Setting the default content width
 	if ( ! isset( $content_width ) )
@@ -390,9 +394,9 @@ function wppb_settings_setup() {
 	$thumbsdone = ''; // Setting variable to avoid WP_DEBUG errors
 	foreach ( wppb_settings_thumbs_array() as $number ) {
 		if (
-			'' != get_wppb_option( 'support_name_postthumbnails' . $number ) &&
-			'' != get_wppb_option( 'support_width_postthumbnails' . $number ) &&
-			'' != get_wppb_option( 'support_height_postthumbnails' . $number )
+			'' != $wppb_settings['support_name_postthumbnails' . $number] &&
+			'' != $wppb_settings['support_width_postthumbnails' . $number] &&
+			'' != $wppb_settings['support_height_postthumbnails' . $number]
 		) {
 			// Add comment code (only once)
 			if ( 'done' !== $thumbsdone ) {
@@ -405,10 +409,10 @@ function wppb_settings_setup() {
 		}
 
 		add_image_size(
-			get_wppb_option( 'support_name_postthumbnails' . $number ), // name
-			get_wppb_option( 'support_width_postthumbnails' . $number ), // width
-			get_wppb_option( 'support_height_postthumbnails' . $number ), // height
-			get_wppb_option( 'support_hardcrop_postthumbnails' . $number ) // hard crop?
+			$wppb_settings['support_name_postthumbnails' . $number], // name
+			$wppb_settings['support_width_postthumbnails' . $number], // width
+			$wppb_settings['support_height_postthumbnails' . $number], // height
+			$wppb_settings['support_hardcrop_postthumbnails' . $number] // hard crop?
 		);
 	}
 

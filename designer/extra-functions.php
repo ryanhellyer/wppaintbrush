@@ -57,22 +57,17 @@ function wppb_ajax_content() {
 /* Create template
  * @since 0.1
  */
-function wppb_create_template() {
-
-	// Grab data from database
-	$wppb_database_data = get_option( WPPB_DESIGNER_SETTINGS );
+function wppb_create_template( $wppb_template ) {
+	global $wppb_design_settings;
 
 	// Grab and sanitize inputs
 	if ( isset( $_POST['positions'] ) )
 		$wppb_design_settings = wppb_sanitize_inputs( $_POST ); // Grab submitted data
 	else
-		$wppb_design_settings = $wppb_database_data;
+		$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
 
-	// Making sure the home page layout is set - this needs to be respecified as the drag and drop editor only utilizes a POST request with the positional data, and doesn't pull in whether or not a magazine layout home page has been used or not)
-	$wppb_design_settings['changehome_homelayout_display'] = $wppb_database_data['changehome_homelayout_display'];
-
-	// Setting processed template variable
-	$processed_template = '';
+	// Hook for plugins to filter the value of $wppb_design_settings;
+	$wppb_design_settings = apply_filters ( 'wppb_template_creation_filter' , $wppb_design_settings );
 
 	// Work out block positions	
 	$positions = explode( ',', $wppb_design_settings['positions'] ); // Splitting positions into an array
@@ -104,10 +99,10 @@ function wppb_create_template() {
 		}
 
 		// Execute template
-		$processed_template .= do_shortcode( $template );
+		$wppb_template .= do_shortcode( $template );
 	}
 
-	return $processed_template;
+	return $wppb_template;
 }
 
 /* Process editor submits
@@ -144,10 +139,12 @@ function wppb_load_stuff() {
  */
 function wppb_publish_save_export() {
 	global $wppb_options, $css;
-
+//var_dump( $wppb_options );die;
 	// Save options
-	if ( 'save' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] || 'publish' == $_GET['generator-css'] )
+	if ( 'save' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] || 'publish' == $_GET['generator-css'] ) {
+		$wppb_options['css'] = $css;
 		update_option( WPPB_DESIGNER_SETTINGS, $wppb_options );
+	}
 
 	// Publishing and Export options
 	if ( 'publish' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] )
@@ -321,9 +318,12 @@ function wppb_designer_init() {
 	if ( !isset( $_GET['generator-content'] ) )
 		$_GET['generator-content'] = '';
 	if ( 'on' == get_option( 'wppb_designer_pane' ) && current_user_can( 'manage_options' ) && 'load' != $_GET['generator-content'] && '' == $_GET['generator-css'] ) {
-		remove_action( 'wppb_pre_theme', 'wppb_template_load' ); // Unhooks existing template editor template
+		//remove_action( 'wppb_pre_theme', 'wppb_template_load' ); // Unhooks existing template editor template
 		remove_action( 'wp_print_styles', 'wppb_settings_css' ); // Disabling current themes stylesheet
-		add_action( 'wp_footer', 'wppb_load_template', 9 );
+		//add_action( 'wp_footer', 'wppb_load_template', 9 );
+		//add_action( 'wppb_pre_theme', 'wppb_load_template' );
+		add_filter( 'wppb_template_filter', 'wppb_load_template' );
+		remove_filter( 'wppb_template_filter', 'wppb_create_template' );
 	}
 	// Else load AJAX content
 	else

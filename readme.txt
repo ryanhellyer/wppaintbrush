@@ -4,7 +4,7 @@ Donate link: http://wppaintbrush.com/plugins/
 Tags: dark, light, white, black, gray, red, orange, yellow, green, blue, purple, one-column, two-columns, three-columns, left-sidebar, right-sidebar, fixed-width, flexible-width, custom-background, custom-colors, custom-header, custom-menu, featured-image-header, featured-images, full-width-template, theme-options, translation-ready
 Requires at least: 3.3
 Tested up to: 3.3
-Stable tag: 1.0.3
+Stable tag: 1.0.3.1
 
 The file is a work in progres ... WP Paintbrush provides an easy to use wysiwyg editing tool for redesigning your site.
 
@@ -31,6 +31,9 @@ Yes, plugins for WP Paintbrush are available at http://wppaintbrush.com/plugins/
 1. Front-end editor
 
 == Changelog ==
+
+= 1.0.3.1 [21/10/2011] =
+* Fixed folder name and removed errant backup files
 
 = 1.0.3 [20/10/2011] =
 * Added support for Magazine layouts via hooks and extra code

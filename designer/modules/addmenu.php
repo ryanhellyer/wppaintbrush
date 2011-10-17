@@ -146,8 +146,7 @@ add_shortcode( 'wppb_menu', 'wppb_menu_shortcode' );
 /* Add colours to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_colour_options_hook() {
-	global $wppb_colour_options;
+function wppb_addmenu_colour_filter( $wppb_colour_options ) {
 
 	array_push( $wppb_colour_options, 'menu1_hover_background_colour' );
 	array_push( $wppb_colour_options, 'menu1_background_colour' );
@@ -162,13 +161,12 @@ function wppb_addmenu_colour_options_hook() {
 
 	return $wppb_colour_options;
 }
-add_action( 'wppb_hook_colour_options', 'wppb_addmenu_colour_options_hook' );
+add_filter( 'wppb_colour_filter', 'wppb_addmenu_colour_filter' );
 
 /* Add border type options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_bordertype_options() {
-	global $wppb_bordertype_options;
+function wppb_addmenu_bordertype_filter( $wppb_bordertype_options ) {
 
 	array_push( $wppb_bordertype_options, 'menu1_border_top_type' );
 	array_push( $wppb_bordertype_options, 'menu1_border_right_type' );
@@ -177,18 +175,16 @@ function wppb_addmenu_bordertype_options() {
 
 	return $wppb_bordertype_options;
 }
-add_action( 'wppb_hook_bordertype_options', 'wppb_addmenu_bordertype_options' );
+add_filter( 'wppb_bordertype_filter', 'wppb_addmenu_bordertype_filter' );
 
 /* Add little numbers to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_littlenumbers_options_hook() {
-	global $wppb_littlenumbers_options;
+function wppb_addmenu_littlenumbers_filter( $wppb_littlenumbers_options ) {
 
 	array_push( $wppb_littlenumbers_options, 'menu1_shadow_x_coordinate' );
 	array_push( $wppb_littlenumbers_options, 'menu1_shadow_y_coordinate' );
 	array_push( $wppb_littlenumbers_options, 'menu1_shadow_blur_radius' );
-
 	array_push( $wppb_littlenumbers_options, 'menu1_border_top_width' );
 	array_push( $wppb_littlenumbers_options, 'menu1_border_right_width' );
 	array_push( $wppb_littlenumbers_options, 'menu1_border_bottom_width' );
@@ -198,13 +194,12 @@ function wppb_addmenu_littlenumbers_options_hook() {
 
 	return $wppb_littlenumbers_options;
 }
-add_action( 'wppb_hook_littlenumbers_options', 'wppb_addmenu_littlenumbers_options_hook' );
+add_filter( 'wppb_littlenumbers_filter', 'wppb_addmenu_littlenumbers_filter' );
 
 /* Add big numbers to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_bignumbers_options_hook() {
-	global $wppb_bignumbers_options;
+function wppb_addmenu_bignumbers_filter( $wppb_bignumbers_options ) {
 
 	array_push( $wppb_bignumbers_options, 'menu1_max_width' );
 	array_push( $wppb_bignumbers_options, 'menu1_min_width' );
@@ -212,26 +207,24 @@ function wppb_addmenu_bignumbers_options_hook() {
 
 	return $wppb_bignumbers_options;
 }
-add_action( 'wppb_hook_bignumbers_options', 'wppb_addmenu_bignumbers_options_hook' );
+add_filter( 'wppb_bignumbers_filter', 'wppb_addmenu_bignumbers_filter' );
 
 /* Add display options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_display_options() {
-	global $wppb_display_options;
+function wppb_addmenu_display_filter( $wppb_display_options ) {
 
 	// Display options
 	array_push( $wppb_display_options, 'menu1_fullwidth_background_display' );
 
 	return $wppb_display_options;
 }
-add_action( 'wppb_hook_display_options', 'wppb_addmenu_display_options' );
+add_filter( 'wppb_display_filter', 'wppb_addmenu_display_filter' );
 
 /* Add image tiling options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_image_options_hook() {
-	global $wppb_image_options;
+function wppb_addmenu_image_filter( $wppb_image_options ) {
 
 	array_push( $wppb_image_options, 'menu1_background_image' );
 	array_push( $wppb_image_options, 'menu1_items_background_image' );
@@ -240,59 +233,54 @@ function wppb_addmenu_image_options_hook() {
 
 	return $wppb_image_options;
 }
-add_action( 'wppb_hook_image_options', 'wppb_addmenu_image_options_hook' );
+add_filter( 'wppb_image_filter', 'wppb_addmenu_image_filter' );
 
 /*  * Add font weight options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_fontweight_options() {
-	global $wppb_fontweight_options;
+function wppb_addmenu_fontweight_filter( $wppb_fontweight_options ) {
 
 	// Bold options
 	array_push( $wppb_fontweight_options, 'menu1_hover_font_weight' );
 
 	return $wppb_fontweight_options;
 }
-add_action( 'wppb_hook_fontweight_options', 'wppb_addmenu_fontweight_options' );
+add_filter( 'wppb_fontweight_filter', 'wppb_addmenu_fontweight_filter' );
 
 /*  * Add font style options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_fontstyle_options() {
-	global $wppb_fontstyle_options;
+function wppb_addmenu_fontstyle_filter( $wppb_fontstyle_options ) {
 
 	// Style options
 	array_push( $wppb_fontstyle_options, 'menu1_hover_font_style' );
 
 	return $wppb_fontstyle_options;
 }
-add_action( 'wppb_hook_fontstyle_options', 'wppb_addmenu_fontstyle_options' );
+add_filter( 'wppb_fontstyle_filter', 'wppb_addmenu_fontstyle_filter' );
 
 /**
  * Add text decoration options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_textdecoration_options() {
-	global $wppb_textdecoration_options;
+function wppb_addmenu_textdecoration_filter( $wppb_textdecoration_options ) {
 
 	// Text decoration options
 	array_push( $wppb_textdecoration_options, 'menu1_hover_textdecoration' );
 
 	return $wppb_textdecoration_options;
 }
-add_action( 'wppb_hook_textdecoration_options', 'wppb_addmenu_textdecoration_options' );
+add_filter( 'wppb_textdecoration_filter', 'wppb_addmenu_textdecoration_filter' );
 
 /*
  * Add text type options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addmenu_text_type_options_hook() {
-	global $wppb_texttype;
+function wppb_addmenu_text_type_filter( $wppb_texttype ) {
 
 	// Other text options
 	array_push( $wppb_texttype, 'menu1' );
 
 	return $wppb_texttype;
 }
-add_action( 'wppb_hook_text_type_options', 'wppb_addmenu_text_type_options_hook' );
-
+add_filter( 'wppb_text_type_filter', 'wppb_addmenu_text_type_filter' );
