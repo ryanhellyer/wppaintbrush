@@ -32,7 +32,7 @@ Yes, plugins for WP Paintbrush are available at http://wppaintbrush.com/plugins/
 
 == Changelog ==
 
-= 1.0.4 [23/10/2011] =
+= 1.0.4 beta [23/10/2011] =
 * Fixed folder name and removed errant backup files
 * Renamed some functions to make them more descriptive
 * Comments  now appear correctly on static pages
@@ -44,26 +44,26 @@ Yes, plugins for WP Paintbrush are available at http://wppaintbrush.com/plugins/
 * Some action hooks which should have been filters have been fixed where appropriate
 * Improvements to allow for increased plugin functionality
 
-= 1.0.3.1 [21/10/2011] =
+= 1.0.3.1 beta [21/10/2011] =
 * Fixed folder name and removed errant backup files
 
-= 1.0.3 [20/10/2011] =
+= 1.0.3 beta [20/10/2011] =
 * Added support for Magazine layouts via hooks and extra code
 * Performance enhancement via improved use of data sanitization
 * Minor code improvements
 * Minor bug fixes
 * Added auto update functionality
 
-= 1.0.2 [05/10/2011] =
+= 1.0.2 beta [05/10/2011] =
 * Added readme.txt file (which you are reading right now!)
 * Changed references to 'ptc' to 'wppb'. 'ptc' was a reference to the code name "PixoPoint Theme Creator" which was used during the very early alpha builds
 * Changed ptc_load_css() to wppb_load_processed_css()
 * Removed references to comments_template() and add_editor_style() from functions.php as they are already in use in shortcodes.php file
 
-= 1.0.1 [05/10/2011] =
+= 1.0.1 beta [05/10/2011] =
 * Added auto-updating support
 
 == Upgrade Notice ==
 
-= 1.0.2 =
+= 1.0.2 beta =
 Maintenance release. Minor updates only.
