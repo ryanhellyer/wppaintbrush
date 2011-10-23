@@ -346,8 +346,9 @@ function pixopoint_get_avatar_shortcode( $atts ) {
 	);
 
 	// Strip out unnecessary stuff
-	if ( !is_int( $size ) )
+	if ( !is_numeric( $size ) )
 		$size = 80;
+	$size = (int) $size;
 
 	return get_avatar( get_the_author_meta( 'user_email' ), $size );
 }
@@ -445,8 +446,10 @@ function pixopoint_get_archives_shortcode( $atts ) {
 	);
 
 	// Check for numerical values
-	if ( !is_int( $limit ) )
+	if ( !is_numeric( $limit ) )
 		$limit = '';
+	else
+		$limit = (int) $limit;
 	$args = 'limit=' . $limit;
 
 	// Confirm if 0 or 1
@@ -601,8 +604,9 @@ function pixopoint_widget_shortcode( $atts, $content = null ) {
 		)
 	);
 
-	if ( !is_int( $number ) )
-		$return;
+	if ( !is_numeric( $number ) )
+		return;
+	$number = (int) $number;
 
 	ob_start();
 	if ( !dynamic_sidebar( 'widgetarea' . $number ) )
@@ -721,48 +725,46 @@ function pixopoint_loop_shortcode( $atts, $content = null ) {
 	$query = '';
 
 	// Santise/validate numeric data
-	if ( is_int( $posts_per_page ) )
-		$query = $query . 'posts_per_page=' . $posts_per_page . '&';
-	if ( is_int( $offset ) )
-		$query = $query . 'offset=' . $offset . '&';
+	if ( is_numeric( $posts_per_page ) )
+		$query .= 'posts_per_page=' . (int) $posts_per_page . '&';
+
+	if ( is_numeric( $offset ) )
+		$query .= 'offset=' . (int) $offset . '&';
 
 	// Sanitise slugs
 	if ( '' != $category_name )
-		$query = $query . 'category_name=' . sanitize_title_with_dashes( $category_name ) . '&';
+		$query .= 'category_name=' . sanitize_title_with_dashes( $category_name ) . '&';
 	if ( '' != $tag )
 		$query = $query . 'tag=' . sanitize_title_with_dashes( $tag ) . '&';
 	if ( '' != $author_name )
-		$query = $query . 'author_name=' . sanitize_title_with_dashes( $author_name ) . '&';
+		$query .= 'author_name=' . sanitize_title_with_dashes( $author_name ) . '&';
 	if ( '' != $name )
-		$query = $query . 'name=' . sanitize_title_with_dashes( $name ) . '&';
+		$query .= 'name=' . sanitize_title_with_dashes( $name ) . '&';
 	if ( '' != $pagename )
-		$query = $query . 'pagename=' . sanitize_title_with_dashes( $pagename ) . '&';
+		$query .= 'pagename=' . sanitize_title_with_dashes( $pagename ) . '&';
 
 	// Sanitise post type
 	if ( 'page' == $post_type OR 'post' == $post_type OR 'slider_gallery' == $post_type )
-		$query = $query . 'post_type=' . $post_type . '&';
+		$query .= 'post_type=' . $post_type . '&';
 
 	// Sanitise order
 	if ( 'ASC' == $order AND 'DESC' == $order )
-		$query = $query . 'order=' . $order . '&';
+		$query .= 'order=' . $order . '&';
 
 	// Sanitise post type
 	switch ( $orderby ) {
-		case 'author':           $query = $query . 'orderby=' . $orderby . '&'; break;
-		case 'date':             $query = $query . 'orderby=' . $orderby . '&'; break;
-		case 'title':            $query = $query . 'orderby=' . $orderby . '&'; break;
-		case 'modified':         $query = $query . 'orderby=' . $orderby . '&'; break;
-		case 'menu_order':       $query = $query . 'orderby=' . $orderby . '&'; break;
-		case 'parent':           $query = $query . 'orderby=' . $orderby . '&'; break;
-		case 'ID':               $query = $query . 'orderby=' . $orderby . '&'; break;
-		case 'rand':             $query = $query . 'orderby=' . $orderby . '&'; break;
-		case 'none':             $query = $query . 'orderby=' . $orderby . '&'; break;
-		case 'comment_count':    $query = $query . 'orderby=' . $orderby . '&'; break;
+		case 'author':           $query .= 'orderby=' . $orderby . '&'; break;
+		case 'date':             $query .= 'orderby=' . $orderby . '&'; break;
+		case 'title':            $query .= 'orderby=' . $orderby . '&'; break;
+		case 'modified':         $query .= 'orderby=' . $orderby . '&'; break;
+		case 'menu_order':       $query .= 'orderby=' . $orderby . '&'; break;
+		case 'parent':           $query .= 'orderby=' . $orderby . '&'; break;
+		case 'ID':               $query .= 'orderby=' . $orderby . '&'; break;
+		case 'rand':             $query .= 'orderby=' . $orderby . '&'; break;
+		case 'none':             $query .= 'orderby=' . $orderby . '&'; break;
+		case 'comment_count':    $query .= 'orderby=' . $orderby . '&'; break;
 		default: break;
 	}
-
-	if ( !isset( $query ) )
-		$query = '';
 
 	// Remove last &
 	$query = substr_replace( $query , '', -1 );
@@ -770,8 +772,6 @@ function pixopoint_loop_shortcode( $atts, $content = null ) {
 	// Add PHP string, or blitz query entirely if not needed
 	if ( '' != $query )
 		query_posts( $query );
-	else
-		$query = '';
 
 	// Create PHP
 	if ( is_404() ) {
@@ -803,6 +803,7 @@ function pixopoint_loop_shortcode( $atts, $content = null ) {
 
 	$loop = ob_get_contents();
 	ob_end_clean();
+
 	return $loop;
 }
 add_shortcode( 'loop', 'pixopoint_loop_shortcode' );
@@ -1038,12 +1039,14 @@ function pixopoint_list_categories_shortcode( $atts ) {
 	}
 
 	// Integers
-	if ( !is_int( $number ) )
+	if ( !is_numeric( $number ) )
 		$number = 20;
-	if ( !is_int( $depth ) )
+	if ( !is_numeric( $depth ) )
 		$number = 0;
-	if ( !is_int( $child_of ) )
+	$number = (int) $number;
+	if ( !is_numeric( $child_of ) )
 		$child_of = '';
+	$child_of = (int) $child_of;
 
 	return wp_list_categories( 'echo=0&title_li=&include=' . $include . '&exclude=' . $exclude . '&orderby=' . $orderby . '&hierarchical' . $hierarchical . '&number=' . $number . '&depth=' . $depth . '&child_of=' . $child_of );
 }
@@ -1100,12 +1103,14 @@ function pixopoint_list_pages_shortcode( $atts ) {
 	}
 
 	// Integers
-	if ( !is_int( $number ) )
+	if ( !is_numeric( $number ) )
 		$number = 20;
-	if ( !is_int( $depth ) )
+	if ( !is_numeric( $depth ) )
 		$number = 0;
-	if ( !is_int( $child_of ) )
+	$number = (int) $number;
+	if ( !is_numeric( $child_of ) )
 		$child_of = '';
+	$child_of = (int) $child_of;
 
 	return wp_list_pages( 'echo=0&title_li=&include=' . $include . '&exclude=' . $exclude . '&sort_column=' . $sort_column . '&number=' . $number . '&depth=' . $depth . '&child_of=' . $child_of );
 }
@@ -1195,12 +1200,15 @@ function pixopoint_tag_cloud_shortcode( $atts ) {
 	);
 
 	// Check integers
-	if ( !is_int( $smallest ) )
+	if ( !is_numeric( $smallest ) )
 		$smallest = 8;
-	if ( !is_int( $largest ) )
+	$smallest = (int) $smallest;
+	if ( !is_numeric( $largest ) )
 		$largest = 22;
-	if ( !is_int( $number ) )
+	$largest = (int) $largest;
+	if ( !is_numeric( $number ) )
 		$number = 45;
+	$number = (int) $number;
 
 	// Check all possibilities and set to 'name' if incorrect
 	switch ( $orderby ){

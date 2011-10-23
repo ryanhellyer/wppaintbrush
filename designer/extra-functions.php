@@ -57,8 +57,12 @@ function wppb_ajax_content() {
 /* Create template
  * @since 0.1
  */
-function wppb_create_template( $wppb_template ) {
+function wppb_create_template( $wppb_template='' ) {
 	global $wppb_design_settings;
+
+	// Set variable in case it doesn't exist already
+	if ( !isset( $wppb_template ) )
+	    $wppb_template = '';
 
 	// Grab and sanitize inputs
 	if ( isset( $_POST['positions'] ) )
@@ -84,7 +88,7 @@ function wppb_create_template( $wppb_template ) {
 //			if ( !isset( $wppb_design_settings['changehome_homelayout_display'] ) )
 //				$wppb_design_settings['changehome_homelayout_display'] = '';
 			// Replacing [wppb_content] with appropriate page specific template
-			if ( is_front_page()  && 'Magazine' == $wppb_design_settings['changehome_homelayout_display'] )
+			if ( is_front_page()  && 'Magazine' == $wppb_design_settings['maglayout_homelayout_display'] )
 				$shortcode = str_replace( 'wppb_content', 'wppb_content_front', $shortcode );
 			elseif ( is_home() || is_archive() || is_search() )
 				$shortcode = str_replace( 'wppb_content', 'wppb_content_home', $shortcode );
@@ -95,11 +99,11 @@ function wppb_create_template( $wppb_template ) {
 
 			// Shortcodifying template
 			if ( $bit == $id )
-				$template = do_shortcode( $shortcode );
+				$template = $shortcode;
 		}
 
 		// Execute template
-		$wppb_template .= do_shortcode( $template );
+		$wppb_template .= $template;
 	}
 
 	return $wppb_template;
@@ -318,10 +322,7 @@ function wppb_designer_init() {
 	if ( !isset( $_GET['generator-content'] ) )
 		$_GET['generator-content'] = '';
 	if ( 'on' == get_option( 'wppb_designer_pane' ) && current_user_can( 'manage_options' ) && 'load' != $_GET['generator-content'] && '' == $_GET['generator-css'] ) {
-		//remove_action( 'wppb_pre_theme', 'wppb_template_load' ); // Unhooks existing template editor template
 		remove_action( 'wp_print_styles', 'wppb_settings_css' ); // Disabling current themes stylesheet
-		//add_action( 'wp_footer', 'wppb_load_template', 9 );
-		//add_action( 'wppb_pre_theme', 'wppb_load_template' );
 		add_filter( 'wppb_template_filter', 'wppb_load_template' );
 		remove_filter( 'wppb_template_filter', 'wppb_create_template' );
 	}

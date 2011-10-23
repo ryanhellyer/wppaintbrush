@@ -20,10 +20,10 @@ get_header();
  * Parsed through do_shortcode() to convert shortcodes into required text
  * @since 1.0
  */
-$wppb_template = '';
-$wppb_template = apply_filters ( 'wppb_template_filter' , $wppb_template );
-echo do_shortcode( $wppb_template );
-//do_action( 'wppb_pre_theme' ); // Action hook for loading content
+$wppb_template = ''; // Setting string
+$wppb_template = apply_filters ( 'wppb_template_filter' , $wppb_template ); // Filter for adding templates
+$wppb_template = do_shortcode( $wppb_template ); // Creating content of shortcodes
+echo do_shortcode( $wppb_template ); // Creating content of shortcodes within initial shortcodes
 
 /**
  * Load footer

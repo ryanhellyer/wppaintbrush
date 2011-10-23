@@ -85,7 +85,7 @@ if ( isset( $_GET['wppb_designer_pane'] ) && current_user_can( 'manage_options' 
  * Some files not loaded unless in admin panel, or editing pane loaded
  * @since 0.1
  */
-require( get_template_directory() . '/theme-update-checker.php' );
+require_once( get_template_directory() . '/theme-update-checker.php' ); // Load theme update checker - needs loaded only once due to being used in child themes
 require( get_template_directory() . '/admin_pages.php' ); // Admin specific functions - need loaded for front end of theme roller too
 require( get_template_directory() . '/designer/index.php' ); // Loading designer interface
 require( get_template_directory() . '/templating/index.php' ); // Loading PixoPoint emplating framework
@@ -93,15 +93,13 @@ require( get_template_directory() . '/import-export.php' ); // Loading Import/Ex
 require( get_template_directory() . '/images.php' ); // Loading image uploader functions
 
 /**
- * Load theme specific functions
- * Some files not loaded unless in admin panel, or editing pane loaded
- * @since 0.1
+ * Update checker
+ * @since 1.0
  */
 $wppb_update_checker = new ThemeUpdateChecker(
 	'wppaintbrush',
 	'http://wppaintbrush.com/?pixopoint_autoupdate_api=wppaintbrush'
 );
-// add_action( 'load-update-core.php', $wppb_update_checker->checkForUpdates() ); // Can force an update check
 
 /**
  * Dynamically create CSS file
@@ -352,14 +350,12 @@ function wppb_template_choice() {
  * @since 0.8
  */
 function wppb_template_load( $wppb_template ) {
-	global $wppb_template;
 
 	$wppb_template = get_wppb_option( wppb_template_choice() ); // Load appropriate template
 	$wppb_template = str_replace( '[get_header]', get_wppb_option( 'header' ), $wppb_template ); 
 	$wppb_template = str_replace( '[get_footer]', get_wppb_option( 'footer' ), $wppb_template );
 	return $wppb_template;
 }
-//add_filter( 'wppb_template_filter', 'wppb_load_template' );
 add_filter( 'wppb_template_filter', 'wppb_create_template' );
 
 /**
@@ -408,12 +404,22 @@ function wppb_settings_setup() {
 			}
 		}
 
-		add_image_size(
-			$wppb_settings['support_name_postthumbnails' . $number], // name
-			$wppb_settings['support_width_postthumbnails' . $number], // width
-			$wppb_settings['support_height_postthumbnails' . $number], // height
-			$wppb_settings['support_hardcrop_postthumbnails' . $number] // hard crop?
-		);
+		if (
+			isset( $wppb_settings['support_name_postthumbnails' . $number] )
+			&&
+			isset( $wppb_settings['support_width_postthumbnails' . $number] )
+			&&
+			isset( $wppb_settings['support_height_postthumbnails' . $number] )
+			&&
+			isset( $wppb_settings['support_hardcrop_postthumbnails' . $number] )
+		){
+			add_image_size(
+				$wppb_settings['support_name_postthumbnails' . $number], // name
+				$wppb_settings['support_width_postthumbnails' . $number], // width
+				$wppb_settings['support_height_postthumbnails' . $number], // height
+				$wppb_settings['support_hardcrop_postthumbnails' . $number] // hard crop?
+			);
+		}
 	}
 
 	// Make theme available for translation
