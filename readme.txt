@@ -32,6 +32,18 @@ Yes, plugins for WP Paintbrush are available at http://wppaintbrush.com/plugins/
 
 == Changelog ==
 
+= 1.0.4 [23/10/2011] =
+* Fixed folder name and removed errant backup files
+* Renamed some functions to make them more descriptive
+* Comments  now appear correctly on static pages
+* “No comments” now displays on blog posts with no comments
+* The update_colours() JS function was removed from live sites HTML
+* "Open" link removed from HTML when not needed (previously removed with CSS)
+* Some variables renamed to avoid naming clashes and to make them more descriptive
+* Incorrect use of is_int() has been fixed
+* Some action hooks which should have been filters have been fixed where appropriate
+* Improvements to allow for increased plugin functionality
+
 = 1.0.3.1 [21/10/2011] =
 * Fixed folder name and removed errant backup files
 
@@ -40,6 +52,7 @@ Yes, plugins for WP Paintbrush are available at http://wppaintbrush.com/plugins/
 * Performance enhancement via improved use of data sanitization
 * Minor code improvements
 * Minor bug fixes
+* Added auto update functionality
 
 = 1.0.2 [05/10/2011] =
 * Added readme.txt file (which you are reading right now!)
