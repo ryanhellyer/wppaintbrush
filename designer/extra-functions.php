@@ -51,7 +51,10 @@ add_action( 'wp_before_admin_bar_render', 'wppb_admin_bar_link' );
  * @since 0.8
  */
 function wppb_ajax_content() {
-	die( wppb_create_template() );
+	$wppb_template = wppb_create_template(); // Creating template
+	$wppb_template = do_shortcode( $wppb_template ); // Create shortcodes
+	$wppb_template = do_shortcode( $wppb_template ); // Create inner shortcodes
+	die( $wppb_template ); // Spit out template and kill execution immediately since only loading this for AJAX purposes
 }
 
 /* Create template
@@ -85,10 +88,8 @@ function wppb_create_template( $wppb_template='' ) {
 			$id = str_replace( ' ', '', $id ); // Strip spaces
 			$id = 'layout-' . $id; // Prepend ID prefix
 
-//			if ( !isset( $wppb_design_settings['changehome_homelayout_display'] ) )
-//				$wppb_design_settings['changehome_homelayout_display'] = '';
 			// Replacing [wppb_content] with appropriate page specific template
-			if ( is_front_page()  && 'Magazine' == $wppb_design_settings['maglayout_homelayout_display'] )
+			if ( is_front_page() )
 				$shortcode = str_replace( 'wppb_content', 'wppb_content_front', $shortcode );
 			elseif ( is_home() || is_archive() || is_search() )
 				$shortcode = str_replace( 'wppb_content', 'wppb_content_home', $shortcode );
@@ -143,7 +144,7 @@ function wppb_load_stuff() {
  */
 function wppb_publish_save_export() {
 	global $wppb_options, $css;
-//var_dump( $wppb_options );die;
+
 	// Save options
 	if ( 'save' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] || 'publish' == $_GET['generator-css'] ) {
 		$wppb_options['css'] = $css;
@@ -232,6 +233,7 @@ function wppb_get_options_for_storing( $wppb_design_settings, $css='' ) {
 
 	// Set main templates
 	$wppb_options['front_page'] = '';
+	//$wppb_options['front_page'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
 	$wppb_options['home'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
 	$wppb_options['archive'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
 	$wppb_options['index'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
@@ -240,6 +242,9 @@ function wppb_get_options_for_storing( $wppb_design_settings, $css='' ) {
 
 	// Correct URLs
 	$wppb_options['css'] = str_replace( 'http: //', 'http://', $wppb_options['css'] );
+
+	// Filter for plugins to modify data before storage
+	$wppb_options = apply_filters ( 'wppb_storage_options_filter' , $wppb_options );
 
 	return $wppb_options; 
 }
@@ -315,16 +320,17 @@ add_action( 'init', 'wppb_load_files', 9 );
  */
 function wppb_designer_init() {
 
+	// Setting variables in case they don't exist
 	if ( !isset( $_GET['generator-css'] ) )
 		$_GET['generator-css'] = '';
-
-	// Load editor, if set to "on" and user is logged in and not attempting to load AJAX content
 	if ( !isset( $_GET['generator-content'] ) )
 		$_GET['generator-content'] = '';
+
+	// Load editor, if set to "on" and user is logged in and not attempting to load AJAX content
 	if ( 'on' == get_option( 'wppb_designer_pane' ) && current_user_can( 'manage_options' ) && 'load' != $_GET['generator-content'] && '' == $_GET['generator-css'] ) {
 		remove_action( 'wp_print_styles', 'wppb_settings_css' ); // Disabling current themes stylesheet
-		add_filter( 'wppb_template_filter', 'wppb_load_template' );
-		remove_filter( 'wppb_template_filter', 'wppb_create_template' );
+		add_filter( 'wppb_template_filter', 'wppb_load_template' ); // Loads front-end editor + template
+		remove_filter( 'wppb_template_filter', 'wppb_template_load' ); // Stops published template from loading
 	}
 	// Else load AJAX content
 	else

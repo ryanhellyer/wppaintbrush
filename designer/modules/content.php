@@ -305,6 +305,7 @@ function wppb_content_home_shortcode() {
 	return $functions;
 }
 add_shortcode( 'wppb_content_home', 'wppb_content_home_shortcode' );
+add_shortcode( 'wppb_content_front', 'wppb_content_home_shortcode' );
 
 /**
  * Adds the single post shortcode for creating the content section in the templates

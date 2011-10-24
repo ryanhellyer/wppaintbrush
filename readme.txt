@@ -32,6 +32,12 @@ Yes, plugins for WP Paintbrush are available at http://wppaintbrush.com/plugins/
 
 == Changelog ==
 
+= 1.0.5 beta [23/10/2011] =
+* Fixed bug which prevented changes in HTML for published designs from appearing on the live site
+* Improved support for changing the home page via plugins
+* Fixed broken close button on front-end editor
+* Fixed drag and drop editor
+
 = 1.0.4 beta [23/10/2011] =
 * Fixed folder name and removed errant backup files
 * Renamed some functions to make them more descriptive

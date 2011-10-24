@@ -356,7 +356,7 @@ function wppb_template_load( $wppb_template ) {
 	$wppb_template = str_replace( '[get_footer]', get_wppb_option( 'footer' ), $wppb_template );
 	return $wppb_template;
 }
-add_filter( 'wppb_template_filter', 'wppb_create_template' );
+add_filter( 'wppb_template_filter', 'wppb_template_load' );
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.
