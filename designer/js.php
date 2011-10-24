@@ -67,7 +67,6 @@ jQuery(function($){
 	}
 
 ?>
-
 	// AJAX form submission
 	function option_get(button) {
 		$("#wppb-css2").html('<div style="text-indent:0;"><img style="" src="'+admin_url+'images/wpspin_light.gif" /></div>');
