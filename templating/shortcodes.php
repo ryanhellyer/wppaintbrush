@@ -1223,7 +1223,11 @@ function pixopoint_tag_cloud_shortcode( $atts ) {
 		default: $order =   'ASC';  break;
 	}
 
-	return wp_tag_cloud( 'echo=false&smallest=' . $smallest . '&largest=' . $largest . '&number=' . $number . '&orderby=' . $orderby . '&order=' . $order );
+	ob_start();
+	wp_tag_cloud( 'echo=false&smallest=' . $smallest . '&largest=' . $largest . '&number=' . $number . '&orderby=' . $orderby . '&order=' . $order );
+	$tag_cloud = ob_get_contents();
+	ob_end_clean();
+	return $tag_cloud;
 }
 add_shortcode( 'tag_cloud', 'pixopoint_tag_cloud_shortcode' );
 

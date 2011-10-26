@@ -254,11 +254,6 @@ function wppb_content_home_shortcode() {
 						[tag_cloud]
 						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
 					</div>
-					<div class="widget">
-						<h3>Tags</h3>
-						[tag_cloud]
-						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
-					</div>
 					[/widget]
 				</div>
 			</aside>

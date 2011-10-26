@@ -174,7 +174,7 @@ function wppb_get_options_for_storing( $wppb_options, $css='' ) {
 	$wppb_options['css'] = $css;
 
 	// Add support for sidebars
-	$sidebar_positions = str_replace( 'layout-', '', $wppb_design_settings['sidebar_positions'] ) ;
+	$sidebar_positions = str_replace( 'layout-', '', $wppb_options['sidebar_positions'] ) ;
 	$sidebar_positions = explode( ',', $sidebar_positions );
 	foreach( $sidebar_positions as $block ) {
 		$count = 0;
@@ -198,7 +198,7 @@ function wppb_get_options_for_storing( $wppb_options, $css='' ) {
 	}
 
 	// Set header and footer templates
-	$positions = explode( ',', $wppb_design_settings['positions'] );
+	$positions = explode( ',', $wppb_options['positions'] );
 	$section = 'header'; // Load header first
 	$wppb_options['header'] = ''; // Resetting header
 	$wppb_options['footer'] = ''; // Resetting footer
@@ -219,7 +219,7 @@ function wppb_get_options_for_storing( $wppb_options, $css='' ) {
 	}
 
 	// Add support for menus
-	$positions = explode( ',', $wppb_design_settings['positions'] );
+	$positions = explode( ',', $wppb_options['positions'] );
 	foreach( $positions as $pos ) {
 		foreach( wppb_page_chunks() as $chunk=>$test ) {
 			$chunk = strtolower( $chunk ); // Convert to lowercase
