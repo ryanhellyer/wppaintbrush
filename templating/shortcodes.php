@@ -79,7 +79,7 @@ function pixopoint_page_menu_shortcode( $atts ) {
 	$link_before = sanitize_title( $link_before, '' );
 	$link_after = sanitize_title( $link_after, '' );
 
-	return wp_page_menu( 'echo=false&include=' . $include . '&exclude=' . $exclude . '&show_home=' . $show_home . '&link_before=' . $link_before . '&link_after=' . $link_after );
+	return wp_page_menu( 'echo=0&include=' . $include . '&exclude=' . $exclude . '&show_home=' . $show_home . '&link_before=' . $link_before . '&link_after=' . $link_after );
 }
 add_shortcode( 'page_menu', 'pixopoint_page_menu_shortcode' );
 
@@ -968,7 +968,7 @@ add_shortcode( 'dropdown_users', 'pixopoint_dropdown_users_shortcode' );
  * @since 0.1
  */
 function pixopoint_list_authors_shortcode() {
-	return wp_list_authors( 'show_fullname=1&optioncount=1&echo=false' );
+	return wp_list_authors( 'show_fullname=1&optioncount=1&echo=0' );
 }
 add_shortcode( 'list_authors', 'pixopoint_list_authors_shortcode' );
 
@@ -1121,7 +1121,7 @@ add_shortcode( 'list_pages', 'pixopoint_list_pages_shortcode' );
  * @since 0.1
  */
 function pixopoint_login_form_shortcode() {
-	wp_login_form( 'echo=false' );
+	wp_login_form( 'echo=0' );
 }
 add_shortcode( 'login_form', 'pixopoint_login_form_shortcode' );
 
@@ -1223,11 +1223,7 @@ function pixopoint_tag_cloud_shortcode( $atts ) {
 		default: $order =   'ASC';  break;
 	}
 
-	ob_start();
-	wp_tag_cloud( 'echo=false&smallest=' . $smallest . '&largest=' . $largest . '&number=' . $number . '&orderby=' . $orderby . '&order=' . $order );
-	$tag_cloud = ob_get_contents();
-	ob_end_clean();
-	return $tag_cloud;
+	return wp_tag_cloud( 'echo=0&smallest=' . $smallest . '&largest=' . $largest . '&number=' . $number . '&orderby=' . $orderby . '&order=' . $order );
 }
 add_shortcode( 'tag_cloud', 'pixopoint_tag_cloud_shortcode' );
 
