@@ -23,7 +23,9 @@ get_header();
 $wppb_template = ''; // Setting string
 $wppb_template = apply_filters ( 'wppb_template_filter' , $wppb_template ); // Filter for adding templates
 $wppb_template = do_shortcode( $wppb_template ); // Creating content of shortcodes
-echo do_shortcode( $wppb_template ); // Creating content of shortcodes within initial shortcodes
+$wppb_template = do_shortcode( $wppb_template ); // Creating content of shortcodes within initial shortcodes
+$wppb_template = do_shortcode( $wppb_template ); // Creating content of shortcodes within initial shortcodes
+echo $wppb_template;
 
 /**
  * Load footer

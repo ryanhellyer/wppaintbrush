@@ -168,7 +168,7 @@ add_action( 'wppb_load_stuff_hook', 'wppb_publish_save_export' );
  * Returns unfiltered/sanitized options (no need to sanitize since done during publishing process) 
  * @since 0.1
  */
-function wppb_get_options_for_storing( $wppb_design_settings, $css='' ) {
+function wppb_get_options_for_storing( $wppb_options, $css='' ) {
 
 	// Setting CSS	
 	$wppb_options['css'] = $css;

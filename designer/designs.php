@@ -156,4 +156,5 @@ function wppb_publish_options( $wppb_design_settings, $css ) {
 
 	// Update database with sanitized data
 	update_option( WPPB_SETTINGS, wppb_settings_options_validate( $input ) );
+
 }
