@@ -1032,21 +1032,6 @@ class breadcrumb_navigation_xt {
 } // END class breadcrumb_navigation_xt
 
 
-/**
- * Load CSS
- * @since 0.1
- */
-function wppb_load_css() {
-	// Bail out now if in admin panel or on login page
-	if ( is_admin() OR strstr( $_SERVER['REQUEST_URI'], 'wp-login.php' ) )
-		return;
-
-	// Load the themes stylesheet
-	wp_enqueue_style( 'css', get_template_directory_uri() . '/style.css', false, '', 'screen' );
-}
-add_action( 'wp_print_styles', 'wppb_load_css' );
-
-
 /*
 The following is just junk that is required to pass the official WordPress theme check
 This code is totally pointless and serves no purpose in this theme, but has been

@@ -234,7 +234,6 @@ endif;
  */
 if ( !function_exists( 'pixopoint_fallback_css' ) ) :
 function pixopoint_fallback_css( $name, $file_name ) {
-	global $css;
 
 	// Bail out if not needing to be loaded
 	if ( !isset( $_GET[$name] ) )
@@ -246,9 +245,9 @@ function pixopoint_fallback_css( $name, $file_name ) {
 	$options = get_option( $name ); // Get data
 	header( 'Content-Type: text/css; charset=' . get_option( 'blog_charset' ) . ''); // Loading correct MIME type
 	$css = $options['css'];
-	$css = str_replace( 'http: //', 'http://', $css ); // Fixing CSS URLs
 
-	do_action( 'pixopoint_css_hook' );
+	// Filter for modifying CSS
+	$css = apply_filters ( 'pixopoint_css_filter' , $css );
 
 	echo $css; // Validate data and display CSS
 	exit; // Kill execution now since no point in loading rest of WP

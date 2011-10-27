@@ -60,8 +60,8 @@ function wppb_load_styles() {
 
 	// Insert CSS in (so that the current page can be quickly styled without dragging CSS from external server)
 	$wppb_design_settings['css'] = $wppb_designer_settings['css'];
-
-	$css = wppb_convert_urls_in_css( $wppb_design_settings['css'] ); // Fixing image urls
+	$css = $wppb_design_settings['css'];
+	$css = wppb_convert_css_on_load( $css ); // Fixing image urls
 	$css = str_replace( "	", '', $css ); // Stripping tabs out
 	$css = str_replace( "\n", '', $css ); // Stripping carriage returns out
 	$css = str_replace( ': ', ':', $css ); // Stripping spaces after colons out
@@ -69,7 +69,7 @@ function wppb_load_styles() {
 	// Display CSS
 	echo '<style id="wppb-css" type="text/css">';
 	echo $css; // Adding CSS
-	do_action( 'wppb_load_css' ); // Hook for allowing plugins to append CSS
+	//do_action( 'wppb_load_css' ); // Hook for allowing plugins to append CSS - should be a filter
 	echo '</style>';
 }
 add_action( 'wp_print_styles', 'wppb_load_styles' );
@@ -97,6 +97,24 @@ add_action( 'wp_print_styles', 'wppb_handle_stylesheets' );
  * Also need to used absolute URLs when used in CSS file as images can be used for various folders such as uploads, child theme or internal theme folders
  * @since 1.0
  */
+function wppb_convert_css_on_load( $css ) {
+
+	// Fixing space gap in http:// in URL
+	$css = str_replace( 'http: //', 'http://', $css );
+
+	// Convert image URLs for those in uploads folder
+ 	$css = str_replace( "url('stored/", "url('" . WPPB_STORAGE_IMAGES_FOLDER . '/', $css ); // Fixing CSS URLs
+ 	$css = str_replace( "url('wppb_child_theme/", "url('" . get_stylesheet_directory_uri() . '/images/', $css ); // Fixing CSS URLs
+
+	return $css;
+}
+
+/* Convert URLs in CSS
+ *
+ * Needed because images are stored as relative URLs but need to be as absolute URLs when used inline on page
+ * Also need to used absolute URLs when used in CSS file as images can be used for various folders such as uploads, child theme or internal theme folders
+ * @since 1.0
+ */
 function wppb_convert_urls_in_css( $css ) {
 
 	// Iterate available themes to convert their image URLs (since images used in those themes aren't stored in the uploads folder)
@@ -107,9 +125,6 @@ function wppb_convert_urls_in_css( $css ) {
 		 	$css = str_replace( "url('" . $theme['Folder'], "url('" . get_theme_root_uri() . '/' . $theme['Folder'] . '/images/', $css ); // Fixing CSS URLs
 	}
 
-	// Convert image URLs for those in uploads folder
- 	$css = str_replace( "url('stored", "url('" . WPPB_STORAGE_IMAGES_FOLDER . '/', $css ); // Fixing CSS URLs
-
 	return $css;
 }
 
@@ -118,26 +133,24 @@ function wppb_convert_urls_in_css( $css ) {
  * Needed because images are stored as relative URLs but need to be as absolute URLs when used inline on page
  * Also need to used absolute URLs when used in CSS file as images can be used for various folders such as uploads, child theme or internal theme folders
  * @since 1.0
-function wppb_convert_published_urls() {
-	global $css;
-	$css = wppb_convert_urls_in_css( $css );
+ */
+function wppb_convert_published_urls( $css ) {
+	$css = wppb_convert_css_on_load( $css );
 	return $css;
 }
-add_action( 'pixopoint_css_hook', 'wppb_convert_published_urls' );
- */
+add_filter( 'pixopoint_css_filter', 'wppb_convert_published_urls', $css );
 
 /* Create CSS from editor submit data
  * @since 0.1
  */
-function wppb_load_processed_css() {
-	global $css;
+function wppb_load_processed_css( $css ) {
 
 	// Check that nonce is valid
 	if ( !wp_verify_nonce( $_POST['wppb_nonce'], 'wppb_nonce' ) )
 		exit( 'Error: Nonce not verified!' );
 
-	// Action hook for adding CSS
-	do_action( 'wppb_add_css' );
+	// Filter for adding CSS
+	$css = apply_filters ( 'wppb_add_css' , $css );
 
 	// Confirming that CSS is indeed valid by checking that string added to end of CSS exists
 	if ( ( $pos = strpos( $css, '/* CSS provided by WP Paintbrush CSS generator */' ) ) === FALSE )
@@ -146,7 +159,8 @@ function wppb_load_processed_css() {
 	// Sanitizing CSS
 	$css = pixopoint_validate_css( $css );
 
-	$css = "/* " . $_GET['generator-css'] . rand() . " */\n\n\n" . $css;
+	// Add random number to help with debugging
+	$css = "/* " . rand() . " */\n\n\n" . $css;
 
 	// Serve CSS
 	return $css;

@@ -120,21 +120,20 @@ function wppb_load_stuff() {
 	// Grab and sanitize data
 	$wppb_options = wppb_sanitize_inputs();
 
-	// Processing CSS on an external server
-	$css = wppb_load_processed_css();
-
 	// Grabbing raw CSS before addition of URLs (urls are needed for internal CSS file, but cause problems when exporting themes etc. as they need to be removed)
+	//$wppb_options['css'] = $css;
+
+	// Processing CSS on an external server
+	$css = wppb_load_processed_css( $css );
 	$wppb_options['css'] = $css;
 
-	// Add URLs (needed since CSS won't reference images correctly otherwise - not needed for storage though as can dynamically add it later)
-	$css = wppb_convert_urls_in_css( $css );
-
 	// Serve CSS
-	echo $css;
+	$css = wppb_convert_css_on_load( $css );
 
 	// Hook for extra functionality at this point
 	do_action( 'wppb_load_stuff_hook' );
 
+	echo $css;
 	exit;
 }
 
@@ -146,20 +145,16 @@ function wppb_publish_save_export() {
 	global $wppb_options, $css;
 
 	// Save options
-	if ( 'save' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] || 'publish' == $_GET['generator-css'] ) {
-		$wppb_options['css'] = $css;
+	if ( 'save' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] || 'publish' == $_GET['generator-css'] )
 		update_option( WPPB_DESIGNER_SETTINGS, $wppb_options );
-	}
 
 	// Publishing and Export options
 	if ( 'publish' == $_GET['generator-css'] || 'export' == $_GET['generator-css'] )
-		wppb_publish_options( $wppb_options, $css );
+		wppb_publish_options( $wppb_options, $wppb_options['css'] );
 
 	// Export zip file (creates redirect to serve zip file - required for loading zip via AJAX)
-	if ( 'export' == $_GET['generator-css'] ) {
+	if ( 'export' == $_GET['generator-css'] )
 		echo '</style><meta http-equiv="refresh" content="0;url=' . home_url() . '/?generator-export=' . esc_attr( $_POST['wppb_nonce'] ) . '"><style type="text/css">';
-		die;
-	}
 }
 add_action( 'wppb_load_stuff_hook', 'wppb_publish_save_export' );
 
