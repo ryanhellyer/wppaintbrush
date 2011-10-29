@@ -133,7 +133,6 @@ function wppb_grab_design( $design ) {
 		if ( !isset( $split[1] ) )
 			$split[1] = '';
 		$split = explode( WPPB_NAME_SPLIT_END, $split[1] ); // Splitting data
-		//$split[0] . '<br />' . $split[1]; // Echo'ing data
 		$name = $split[0];
 
 		if ( !isset( $split[1] ) )

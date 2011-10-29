@@ -23,7 +23,7 @@ if ( !defined( 'ABSPATH' ) )
  */
 define( 'WPPB_DIR', get_template_directory() . '/designer/' ); // Designer framework directory
 define( 'WPPB_URL', get_template_directory_uri() . '/designer/' ); // Designer framework folder URL
-define( 'WPPB_CSS_GENERATOR', 'http://pressabl.com/wp-content/plugins/pressabl-css-generator/index.php?wppb_css_generator=process' ); // Designer framework folder URL
+define( 'WPPB_CSS_GENERATOR', 'http://wppaintbrush.com/wp-content/plugins/wppaintbrush-css-generator/index.php?wppb_css_generator=process' ); // Designer framework folder URL
 
 /**
  * Include required files
@@ -47,8 +47,9 @@ require( 'sanitization-options.php' ); // Load sanitization functions
 if ( 'on' == get_option( 'wppb_designer_pane' ) && current_user_can( 'manage_options' ) ) {
 	add_action( 'wp_footer', 'wppb_updatecolours' );
 	add_action( 'wp_head', 'wppb_inline_scripts' );
-	add_action( 'wp_footer', 'wppb_open_editor' );
 }
+elseif ( current_user_can( 'manage_options' ) )
+	add_action( 'wp_footer', 'wppb_open_editor' );
 
 /* Load AJAX content
  * @since 0.1

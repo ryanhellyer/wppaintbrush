@@ -138,7 +138,7 @@ function wppb_convert_published_urls( $css ) {
 	$css = wppb_convert_css_on_load( $css );
 	return $css;
 }
-add_filter( 'pixopoint_css_filter', 'wppb_convert_published_urls', $css );
+add_filter( 'pixopoint_css_filter', 'wppb_convert_published_urls' );
 
 /* Create CSS from editor submit data
  * @since 0.1

@@ -27,6 +27,7 @@ function wppb_designs_editor_tab() {
 	?>
 <div class="tab-block" id="content_options">
 	<div id="blocks_options" class="wide">
+		<?php /*
 		<div class="section-layout">
 			<h2><?php _e( 'Choose design', 'wppb_lang' ); ?></h2>
 			<p><?php _e( 'You can select a default design to start from. We will be adding more designs to this area over time.', 'wppb_lang' ); ?></p>
@@ -42,6 +43,7 @@ function wppb_designs_editor_tab() {
 			?>		
 			<br /><br /><br />
 		</div>
+		      */ ?>
 		<div class="section-layout">
 			<h2><?php _e( 'Layout', 'wppb_lang' ); ?></h2>
 			<p><?php _e( 'You can modify your layout by dragging content boxes around.', 'wppb_lang' ); ?></p>

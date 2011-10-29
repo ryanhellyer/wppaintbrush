@@ -21,13 +21,22 @@ if ( !defined( 'ABSPATH' ) )
 define( 'PIXOPOINT_SETTINGS_COPYRIGHT', 'Theme by <a href="http://wppaintbrush.com/">WPPaintbrush.com</a>' ); // Copyright constant
 define( 'WPPB_ADMIN_URL', get_template_directory_uri() . '/admin' ); // Admin directory URL
 define( 'WPPB_TEMPLATES_LABEL', 'Themes' ); // Decides what label to give the templates page (for theme selection page - in development as an addon plugin)
-define( 'WPPB_SETTINGS', 'wppb_settings' ); // Label for option used to store template code in database
-define( 'WPPB_DESIGNER_SETTINGS', 'wppb_designer_settings' ); // Label for option used to store designer settings in database
 define( 'WPPB_STORAGE_FOLDER', 'wppb_storage' );
 define( 'WPPB_STORAGE_IMAGES_FOLDER', wppb_storage_folder( 'images', 'url' ) );
 define( 'WPPB_BLOCK_SPLITTER', "/* PixoPoint Template option */\n" ); // Strings used to descriminate between differents bits in exported/imported files
 define( 'WPPB_NAME_SPLIT_START', '[----' ); // Strings used to descriminate between differents bits in exported/imported files
 define( 'WPPB_NAME_SPLIT_END', "----]\n" ); // Strings used to descriminate between differents bits in exported/imported files
+
+/* Set Theme specific Constants
+ * Defined later due to child themes needing to override these constants (allows child themes to store data separately from core theme)
+ * @since 1.0.6
+ */
+function wppb_theme_constants() {
+	define( 'WPPB_SETTINGS', 'wppb_settings' ); // Label for option used to store template code in database
+	define( 'WPPB_DESIGNER_SETTINGS', 'wppb_designer_settings' ); // Label for option used to store designer settings in database
+}
+if ( !defined( 'WPPB_SETTINGS' ) )
+	add_action( 'init', 'wppb_theme_constants', 1 );
 
 /**
  * Set widget suffixes
@@ -53,7 +62,6 @@ function wppb_settings_thumbs_array() {
  */
 function get_wppb_option( $option='' ) {
 
-	// Grab options from database
 	$options = get_option( WPPB_SETTINGS );
 
 	// Choose which bit to return
@@ -89,7 +97,6 @@ require_once( get_template_directory() . '/theme-update-checker.php' ); // Load 
 require( get_template_directory() . '/admin_pages.php' ); // Admin specific functions - need loaded for front end of theme roller too
 require( get_template_directory() . '/designer/index.php' ); // Loading designer interface
 require( get_template_directory() . '/templating/index.php' ); // Loading PixoPoint emplating framework
-require( get_template_directory() . '/import-export.php' ); // Loading Import/Export script
 require( get_template_directory() . '/images.php' ); // Loading image uploader functions
 
 /**
@@ -105,7 +112,10 @@ $wppb_update_checker = new ThemeUpdateChecker(
  * Dynamically create CSS file
  * @since 0.3
  */
+function bla() {
 pixopoint_fallback_css( WPPB_SETTINGS, 'css' );
+}
+add_action( 'init', 'bla');
 
 /**
  * Sanitize and validate input
@@ -257,6 +267,28 @@ function wppb_callback_string_in_templates( $v1, $v2 ) {
 }
 
 /**
+ * Utilized within child themes for changing to a new design
+ * @since 1.0.6
+ */
+function wppb_child_theme_setup() {
+	global $pagenow;
+
+	$css = get_wppb_option( 'css' ); // Used for checking if data stored
+	if ( is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" && !isset( $css ) ) { 
+
+		// Grab design
+		$wppb_design = wppb_grab_design( WPPB_CHILD_THEME ); // Grab design
+
+		// Change the design to the one specified (alters front-end editor settings)
+		wppb_change_design( $wppb_design );
+
+		// Publish theme
+		wppb_publish_options( $wppb_design, $wppb_design['css'] );
+
+	} 
+}
+
+/**
  * Load CSS
  * @since 0.1
  */
@@ -267,7 +299,7 @@ function wppb_settings_css() {
 		return;
 
 	// Load CSS (uses PixoPoint templating framework function as addon plugins for the framework will allow for variations in how the CSS loaded, eg: inline CSS, static cached files etc.)
-	pixopoint_css( 'wppb_settings' );
+	pixopoint_css( WPPB_SETTINGS );
 }
 add_action( 'wp_print_styles', 'wppb_settings_css' );
 

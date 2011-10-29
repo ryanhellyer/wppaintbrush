@@ -95,7 +95,8 @@ function wppb_sanitize_inputs( $input='' ) {
 			$input[$opt] = '';
 		$image_location_initial = explode( '/', $input[$opt] );
 		$image_location_final[0] = sanitize_file_name( $image_location_initial[0] );
-		$image_location_final[1] = sanitize_file_name( $image_location_initial[1] );
+		if ( isset( $image_location_initial[1] ) )
+			$image_location_final[1] = sanitize_file_name( $image_location_initial[1] );
 		$wppb_design_settings[$opt] = implode( '/', $image_location_final );
 		if ( '/' == $wppb_design_settings[$opt] )
 		    $wppb_design_settings[$opt] = '';
