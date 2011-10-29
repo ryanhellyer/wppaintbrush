@@ -220,6 +220,15 @@ function wppb_settings_options_add_page() {
 	);
 	add_action( 'admin_print_styles-' . $page, 'wppb_settings_admin_styles' ); // Add styles (only for this admin page)
 
+	// Add reset theme admin page
+	$page = add_theme_page(
+		'Reset',
+		'Reset',
+		'administrator',
+		'wppb_reset_page',
+		'wppb_reset_redirect'
+	);
+	add_action( 'admin_print_styles-' . $page, 'wppb_settings_admin_styles' ); // Add styles (only for this admin page)
 }
 add_action( 'admin_menu', 'wppb_settings_options_add_page' ); // Creat admin page
 
@@ -230,3 +239,53 @@ add_action( 'admin_menu', 'wppb_settings_options_add_page' ); // Creat admin pag
 function wppb_settings_admin_styles() {
 	wp_enqueue_style( 'wppb-admin-css', get_template_directory_uri() . '/admin.css', false, '', 'screen' );
 }
+
+/**
+ * Add more information link to theme page
+ * @since 1.0.6
+ */
+function wppb_theme_demo_link( $actions, $theme ) {
+	if ( 'wppaintbrush' == $theme['Stylesheet'] )
+		$actions[] = '<a href="http://wppaintbrush.com/">More information</a>';
+	return $actions;
+}
+add_filter( 'theme_action_links', 'wppb_theme_demo_link', 10, 2 );
+
+/**
+ * Redirects after resetting theme
+ * @since 1.0.6
+ */
+function wppb_reset_redirect() {
+?>
+<div class="wrap">
+	<?php
+	// Reset theme
+	if ( isset( $_GET['wppb_reset_theme'] ) ) {
+		echo '<div class="updated fade"><p><strong>';
+		// Security check
+		if ( !wp_verify_nonce( $_REQUEST['_wpnonce'], 'wppb_reset_theme') )
+			 _e( 'Error: Incorrect nonce value. Theme was not reset!', 'wppb_lang' );
+		else {
+			delete_option( WPPB_SETTINGS );
+			delete_option( WPPB_DESIGNER_SETTINGS );
+			wppb_child_theme_setup( 'autoload' );
+			_e( 'Your theme has been reset', 'wppb_lang' );
+		}
+		echo '</strong></p></div>';
+	}
+
+	// Create screen icon by heading
+	screen_icon( 'wppb-icon' ); echo '<h2>' . __( 'Reset your theme', 'wppb_lang' ) . '</h2>';
+	?>
+	<p><strong><?php _e( 'Warning', 'wppb_lang' ); ?>:</strong> <?php _e( 'Only use this option if you want to wipe your changes to your theme and start over from scratch!', 'wppb_lang' ); ?></p>
+	<p class="submit"><a id="submit" class="button-primary" href="<?php
+		echo wp_nonce_url(
+			admin_url() . 'themes.php?page=wppb_reset_page&wppb_reset_theme=yes',
+			'wppb_reset_theme'
+		);
+	?>">Reset theme</a></p>
+</div>
+
+<?php
+}
+
