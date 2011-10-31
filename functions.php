@@ -270,14 +270,17 @@ function wppb_callback_string_in_templates( $v1, $v2 ) {
  * Utilized within child themes for changing to a new design
  * @since 1.0.6
  */
-function wppb_child_theme_setup( $autoload='' ) {
+function wppb_theme_setup( $autoload='' ) {
 	global $pagenow;
 
 	$css = get_wppb_option( 'css' ); // Used for checking if data stored
 	if ( ( is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" && !isset( $css ) ) || 'autoload' == $autoload ) { 
 
 		// Grab design
-		$wppb_design = wppb_grab_design( WPPB_CHILD_THEME ); // Grab design
+		if ( defined( 'WPPB_CHILD_THEME' ) )
+			$wppb_design = wppb_grab_design( WPPB_CHILD_THEME ); // Grab child theme design
+		else
+			$wppb_design = wppb_grab_design( 'wppaintbrush' ); // Grab default design
 
 		// Change the design to the one specified (alters front-end editor settings)
 		wppb_change_design( $wppb_design );

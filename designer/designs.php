@@ -103,19 +103,8 @@ function wppb_change_design( $wppb_design ) {
  */
 function wppb_grab_design( $design ) {
 
-	// Determine the path to the theme based on the theme type chosen
-	foreach( wppb_available_themes() as $count=>$theme ) {
-		if ( $design == $theme['Folder'] ) {
-			if ( 'Internal' == $theme['Type'] )
-				$designpath = get_template_directory() . '/designs';
-			elseif ( 'Child' == $theme['Type'] )
-				$designpath = get_theme_root();
-		}
-	}
-
 	// Starting importation process
-	$folder = $designpath . '/' . $design . '/';
-	$file = $folder . 'data.tpl';
+	$file = get_theme_root() . '/' . $design . '/data.tpl';
 	if ( !file_exists( $file ) )
 		return get_option( WPPB_SETTINGS ); // If file doesn't exist, just load existing template
 

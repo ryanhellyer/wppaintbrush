@@ -62,7 +62,7 @@ function wppb_options_init() {
 	// Register settings
 	register_setting( 'wppb_settings_import', 'wppb_settings_theme_import', 'wppb_settings_import_validate' );
 
-	$wppb_design = wppb_grab_design( 'coraline' ); // Grab Coraline design
+	$wppb_design = wppb_grab_design( 'wppaintbrush' ); // Grab default design
 
 	// Adding initial settings
 	add_option( WPPB_SETTINGS, $wppb_design );
@@ -212,8 +212,8 @@ function wppb_settings_options_add_page() {
 
 	// Upload images admin page
 	$page = add_theme_page(
-		__( 'Images' ),
-		__( 'Images' ),
+		__( 'Images', 'wppb_lang' ),
+		__( 'Images', 'wppb_lang' ),
 		'edit_theme_options',
 		'upload_images',
 		'upload_images_do_page'
@@ -222,11 +222,11 @@ function wppb_settings_options_add_page() {
 
 	// Add reset theme admin page
 	$page = add_theme_page(
-		'Reset',
-		'Reset',
+		__( 'Reset', 'wppb_lang' ),
+		__( 'Reset', 'wppb_lang' ),
 		'administrator',
 		'wppb_reset_page',
-		'wppb_reset_redirect'
+		'wppb_reset_pagecontent'
 	);
 	add_action( 'admin_print_styles-' . $page, 'wppb_settings_admin_styles' ); // Add styles (only for this admin page)
 }
@@ -255,7 +255,7 @@ add_filter( 'theme_action_links', 'wppb_theme_demo_link', 10, 2 );
  * Redirects after resetting theme
  * @since 1.0.6
  */
-function wppb_reset_redirect() {
+function wppb_reset_pagecontent() {
 ?>
 <div class="wrap">
 	<?php
@@ -268,7 +268,7 @@ function wppb_reset_redirect() {
 		else {
 			delete_option( WPPB_SETTINGS );
 			delete_option( WPPB_DESIGNER_SETTINGS );
-			wppb_child_theme_setup( 'autoload' );
+			wppb_theme_setup( 'autoload' );
 			_e( 'Your theme has been reset', 'wppb_lang' );
 		}
 		echo '</strong></p></div>';

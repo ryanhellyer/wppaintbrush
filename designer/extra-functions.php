@@ -192,23 +192,26 @@ function wppb_get_options_for_storing( $wppb_options, $css='' ) {
 		}
 	}
 
-	// Set header and footer templates
-	$positions = explode( ',', $wppb_options['positions'] );
-	$section = 'header'; // Load header first
-	$wppb_options['header'] = ''; // Resetting header
-	$wppb_options['footer'] = ''; // Resetting footer
-	foreach( $positions as $pos ) {
-		foreach( wppb_page_chunks() as $chunk=>$test ) {
-			$chunk = strtolower( $chunk ); // Convert to lowercase
-			$chunk = str_replace( ' ', '', $chunk ); // Strip spaces
-			if ( ( 'layout-' . $chunk ) == $pos ) {
-				$chunk = '[wppb_' . strtolower( $chunk ) . ']'; // Convert to lowercase
-				if ( 'footer' == $section )
-					$wppb_options['footer'] .= do_shortcode( $chunk );
-				if ( '[wppb_content]' == $chunk )
-					$section = 'footer';
-				if ( 'header' == $section )
-					$wppb_options['header'] .= do_shortcode( $chunk );
+	// This section only used when saving
+	if ( isset( $wppb_options['positions'] ) ) {
+	 	// Set header and footer templates
+		$positions = explode( ',', $wppb_options['positions'] );
+		$section = 'header'; // Load header first
+		$wppb_options['header'] = ''; // Resetting header
+		$wppb_options['footer'] = ''; // Resetting footer
+		foreach( $positions as $pos ) {
+			foreach( wppb_page_chunks() as $chunk=>$test ) {
+				$chunk = strtolower( $chunk ); // Convert to lowercase
+				$chunk = str_replace( ' ', '', $chunk ); // Strip spaces
+				if ( ( 'layout-' . $chunk ) == $pos ) {
+					$chunk = '[wppb_' . strtolower( $chunk ) . ']'; // Convert to lowercase
+					if ( 'footer' == $section )
+						$wppb_options['footer'] .= do_shortcode( $chunk );
+					if ( '[wppb_content]' == $chunk )
+						$section = 'footer';
+					if ( 'header' == $section )
+						$wppb_options['header'] .= do_shortcode( $chunk );
+				}
 			}
 		}
 	}
