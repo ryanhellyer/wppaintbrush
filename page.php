@@ -4,7 +4,7 @@
  * @subpackage Pressabl theme
  * @since WP Paintbrush 0.1
  *
- * Index template
+ * Page template
  */
 
 

@@ -1066,6 +1066,30 @@ class breadcrumb_navigation_xt {
 
 } // END class breadcrumb_navigation_xt
 
+/**
+ * Main function used for launching the theme
+ * Used in primary template files (index.php, page.php etc)
+ *
+ * @since 1.0.6
+ */
+function wppb_launch_theme() {
+
+	// Load header
+	get_header();
+
+	// Outputting stored templates
+	// Parsed through do_shortcode() to convert shortcodes into required text
+	$wppb_template = ''; // Setting string
+	$wppb_template = apply_filters ( 'wppb_template_filter' , $wppb_template ); // Filter for adding templates
+	$wppb_template = do_shortcode( $wppb_template ); // Creating content of shortcodes
+	$wppb_template = do_shortcode( $wppb_template ); // Creating content of shortcodes within initial shortcodes
+	$wppb_template = do_shortcode( $wppb_template ); // Creating content of shortcodes within initial shortcodes
+	echo $wppb_template;
+
+	// Load footer
+	get_footer();
+
+}
 
 /*
 The following is just junk that is required to pass the official WordPress theme check
