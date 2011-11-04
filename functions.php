@@ -270,11 +270,27 @@ function wppb_callback_string_in_templates( $v1, $v2 ) {
  * Utilized within child themes for changing to a new design
  * @since 1.0.6
  */
+function wppb_childtheme_version_error() {
+	$wppb_childtheme_data = get_theme_data( get_stylesheet_directory_uri() . '/style.css' );
+	echo '<div class="updated fade"><p>' . __( 'Sorry, but the', 'wppb_lang' ) . $wppb_childtheme_data['Name'] . __( ' child theme requires a newer version of <a href="http://wppaintbrush.com/">WP Paintbrush</a>. Please <a href="http://wppaintbrush.com/">upgrade WP Paintbrush</a>.', 'wppb_lang' ) . '</p></div>';
+}
+
+/**
+ * Utilized within child themes for changing to a new design
+ * @since 1.0.6
+ */
 function wppb_theme_setup( $autoload='' ) {
 	global $pagenow;
 
+	// Spit error out if child theme requires newer version of WP Paintbrush (and on themes page)
+	if ( '' != WPPB_CHILD_VERSION && 'themes.php' == $pagenow ) {
+		$wppb_theme_data = get_theme_data( get_template_directory_uri() . '/style.css' );
+		if ( $wppb_theme_data['Version'] > WPPB_CHILD_VERSION )
+			add_action( 'admin_notices', 'wppb_childtheme_version_error' );
+	}
+
 	$css = get_wppb_option( 'css' ); // Used for checking if data stored
-	if ( ( is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" && !isset( $css ) ) || 'autoload' == $autoload ) { 
+	if ( ( is_admin() && isset($_GET['activated'] ) && $pagenow == 'themes.php' && !isset( $css ) ) || 'autoload' == $autoload ) { 
 
 		// Grab design
 		if ( defined( 'WPPB_CHILD_THEME' ) )
