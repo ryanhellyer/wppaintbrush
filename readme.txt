@@ -4,7 +4,7 @@ Donate link: http://wppaintbrush.com/plugins/
 Tags: dark, light, white, black, gray, red, orange, yellow, green, blue, purple, one-column, two-columns, three-columns, left-sidebar, right-sidebar, fixed-width, flexible-width, custom-background, custom-colors, custom-header, custom-menu, featured-image-header, featured-images, full-width-template, theme-options, translation-ready
 Requires at least: 3.3
 Tested up to: 3.3
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 
 The file is a work in progres ... WP Paintbrush provides an easy to use wysiwyg editing tool for redesigning your site.
 
