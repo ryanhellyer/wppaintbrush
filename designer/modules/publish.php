@@ -44,10 +44,10 @@ function wppb_publish_editor_tab() {
 		</div>
 		<div id="wppb-css2">000</div>
 		<br /><br /><br />
-		<div<?php if ( !function_exists( 'wppaintbrush_css_generator' ) ) {echo ' style="display:none;"';} ?>>
-		<h3><?php _e( 'CSS', 'wppb_lang' ); ?></h3>
-		<textarea id="wppb-css3"></textarea>
-	</div>
+		<div<?php if ( !function_exists( 'wppaintbrush_css_generator' ) ) {echo ' style="zdisplay:none;"';} ?>>
+			<h3><?php _e( 'CSS', 'wppb_lang' ); ?></h3>
+			<textarea id="wppb-css3"></textarea>
+		</div>
 		<p style="display:none;" ><?php _e( '"Process" updates the site in front of you.', 'wppb_lang' ); ?></p>
 		<p><?php _e( '"Save" stores your design for later editing without updating your live site.', 'wppb_lang' ); ?></p>
 		<p><?php _e( '"Publish" updates the live site to match the new design.', 'wppb_lang' ); ?></p>

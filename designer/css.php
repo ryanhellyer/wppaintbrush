@@ -19,8 +19,7 @@ if ( !defined( 'ABSPATH' ) )
  * Connects to external API to process CSS
  * @since 1.0
  */
-function wppb_add_external_css() {
-	global $css;
+function wppb_add_external_css( $css ) {
 
 	// Write styles
 	$args = array(
@@ -37,8 +36,10 @@ function wppb_add_external_css() {
 
 	if ( 200 != $style['response']['code'] )
 		return 'Bugger! Couldn\'t connect to the server! End-users should never see this error, so if you are reading it whilst using WP Paintbrush, please let us know :) http://wppaintbrush.com/contact/'; // Serve error
+	else
+	    return $css;
 }
-add_action( 'wppb_add_css', 'wppb_add_external_css' );
+add_filter( 'wppb_add_css', 'wppb_add_external_css' );
 
 /* Load dynamically generated stylesheet
  * @since 0.1

@@ -32,6 +32,9 @@ Yes, plugins for WP Paintbrush are available at http://wppaintbrush.com/plugins/
 
 == Changelog ==
 
+= 1.0.8 beta [4/11/2011] =
+* Fixed CSS generation bug
+
 = 1.0.7 beta [4/11/2011] =
 * Now serves error when incompatible child theme used
 * If no minimum version specified in child theme then no error served
