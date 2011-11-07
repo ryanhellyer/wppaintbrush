@@ -107,6 +107,19 @@ jQuery(function($){
 	$('#ChangeHomeLayoutMagazine').click(function() {option_get( 'Magazine' );});
 	$('#ChangeHomeLayoutNormal').click(function() {option_get( 'Normal' );});
 
+
+	$("#sidebar-layout-sortable, #sidebar-blocks-sortable").sortable({
+		connectWith: ".sidebar-sortable-connect",
+		update: function(){
+			var pos = [];
+			$('#sidebar-layout-sortable > li').each(function(i){
+				pos[i] = $(this).attr('id');
+			});
+			$('#sidebar_positions').val(pos.toString());
+			option_get( 'process' );
+		}
+	});
+
 	// Image picker
 	var $button,
 	$ele = $('#wppb-image-uploads').dialog({
