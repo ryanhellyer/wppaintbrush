@@ -107,7 +107,6 @@ jQuery(function($){
 	$('#ChangeHomeLayoutMagazine').click(function() {option_get( 'Magazine' );});
 	$('#ChangeHomeLayoutNormal').click(function() {option_get( 'Normal' );});
 
-
 	$("#sidebar-layout-sortable, #sidebar-blocks-sortable").sortable({
 		connectWith: ".sidebar-sortable-connect",
 		update: function(){
