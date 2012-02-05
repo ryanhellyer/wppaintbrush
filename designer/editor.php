@@ -46,14 +46,14 @@ function wppb_load_template( $wppb_template ) {
 	ob_start();
 
 	// Setting defaults for "content_layout"
-	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
+	$wppb_designer_settings = get_option( WPPB_DESIGNER_SETTINGS );
 
 
 	// Setting potentially empty variable
-	if ( empty( $wppb_design_settings['copyright'] ) )
-		$wppb_design_settings['copyright'] = '';
-	if ( empty( $wppb_design_settings['design'] ) )
-		$wppb_design_settings['design'] = '';
+	if ( empty( $wppb_designer_settings['copyright'] ) )
+		$wppb_designer_settings['copyright'] = '';
+	if ( empty( $wppb_designer_settings['design'] ) )
+		$wppb_designer_settings['design'] = '';
 
 	// Hook for adding AJAXed scripts
 	do_action( 'wppb_add_ajax_content' );
@@ -62,17 +62,38 @@ function wppb_load_template( $wppb_template ) {
 	<?php echo wppb_create_template(); ?>
 </div>
 
+<?php
+	// Starting output buffer
+	$wppb_template .= ob_get_contents();
+	
+	// End buffer
+	ob_end_clean();
+
+	return $wppb_template;
+}
+
+/* Load Editor content into footer
+ * @since 1.0
+ */
+function wppb_editor_content() {
+	// Bail out now if user not supposed to see admin panel
+	if ( !current_user_can( 'manage_options' ) || 'on' != get_option( 'wppb_designer_pane' ) )
+		return;
+
+	// Setting defaults for "content_layout"
+	$wppb_designer_settings = get_option( WPPB_DESIGNER_SETTINGS );
+	?>
 <div id="dialog" title="Theme Creator">
 	<div id="loading-text">
-		<img style="" src="<?php echo WPPB_URL; ?>images/load.gif" alt="Loading" />
+		<img style="" src="<?php echo WPPB_URL; ?>images/load.gif" alt="<?php _e( 'Loading', 'wppb_lang' ); ?>" />
 		<br />
-		<h3>One moment please. The WP Paintbrush editor is loading.</h3>
+		<h3><?php _e( 'One moment please. The WP Paintbrush editor is loading.', 'wppb_lang' ); ?></h3>
 	</div>
 <div id="tab_wrapper">
 <form id="wppb-editor-form" method="post" action="" enctype="multipart/form-data">
 	<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-	<input type="hidden" id="copyright" name="copyright" value='<?php echo $wppb_design_settings['copyright']; ?>' />
-	<input type="hidden" id="design" name="design" value='<?php echo $wppb_design_settings['design']; ?>' />
+	<input type="hidden" id="copyright" name="copyright" value='<?php echo $wppb_designer_settings['copyright']; ?>' />
+	<input type="hidden" id="design" name="design" value='<?php echo $wppb_designer_settings['design']; ?>' />
 	<?php wp_nonce_field( 'wppb_upload_image','image'); ?>
 	<?php wp_nonce_field( 'wppb_nonce','wppb_nonce'); ?>
 	<div id="tabs" class="maintabber">
@@ -108,7 +129,7 @@ function wppb_load_template( $wppb_template ) {
 
 		echo '<tr><td><h2 style="margin:20px 0 6px 0;">' . __( ' Design images', 'wppb_lang' ) . '</h2></td></tr>';
 		foreach( wppb_available_themes() as $count=>$theme ) {
-			if ( $theme['Folder'] == $wppb_design_settings['design'] ) {
+			if ( $theme['Folder'] == $wppb_designer_settings['design'] ) {
 				if ( 'Internal' == $theme['Type'] ) {
 					wppb_list_images(
 						get_template_directory() . '/designs/' . $theme['Folder'] . '/images/', // Folder directory
@@ -151,12 +172,5 @@ function wppb_load_template( $wppb_template ) {
 </div>
 
 <?php
-
-	// Starting output buffer
-	$wppb_template .= ob_get_contents();
-	
-	// End buffer
-	ob_end_clean();
-
-	return $wppb_template;
 }
+add_action( 'wp_footer', 'wppb_editor_content');

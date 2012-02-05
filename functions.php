@@ -18,6 +18,10 @@ if ( !defined( 'ABSPATH' ) )
 /* Set Constants
  * @since 0.8.2
  */
+if ( !defined( 'WPPB_SETTINGS' ) )
+	define( 'WPPB_SETTINGS', 'wppb_settings' ); // Label for option used to store template code in database
+if ( !defined( 'WPPB_DESIGNER_SETTINGS' ) )
+	define( 'WPPB_DESIGNER_SETTINGS', 'wppb_designer_settings' ); // Label for option used to store designer settings in database
 define( 'PIXOPOINT_SETTINGS_COPYRIGHT', 'Theme by <a href="http://wppaintbrush.com/">WPPaintbrush.com</a>' ); // Copyright constant
 define( 'WPPB_ADMIN_URL', get_template_directory_uri() . '/admin' ); // Admin directory URL
 define( 'WPPB_TEMPLATES_LABEL', 'Themes' ); // Decides what label to give the templates page (for theme selection page - in development as an addon plugin)
@@ -26,17 +30,6 @@ define( 'WPPB_STORAGE_IMAGES_FOLDER', wppb_storage_folder( 'images', 'url' ) );
 define( 'WPPB_BLOCK_SPLITTER', "/* PixoPoint Template option */\n" ); // Strings used to descriminate between differents bits in exported/imported files
 define( 'WPPB_NAME_SPLIT_START', '[----' ); // Strings used to descriminate between differents bits in exported/imported files
 define( 'WPPB_NAME_SPLIT_END', "----]\n" ); // Strings used to descriminate between differents bits in exported/imported files
-
-/* Set Theme specific Constants
- * Defined later due to child themes needing to override these constants (allows child themes to store data separately from core theme)
- * @since 1.0.6
- */
-function wppb_theme_constants() {
-	define( 'WPPB_SETTINGS', 'wppb_settings' ); // Label for option used to store template code in database
-	define( 'WPPB_DESIGNER_SETTINGS', 'wppb_designer_settings' ); // Label for option used to store designer settings in database
-}
-if ( !defined( 'WPPB_SETTINGS' ) )
-	add_action( 'init', 'wppb_theme_constants', 1 );
 
 /**
  * Set widget suffixes
@@ -61,8 +54,10 @@ function wppb_settings_thumbs_array() {
  * @since 0.1
  */
 function get_wppb_option( $option='' ) {
-
-	$options = get_option( WPPB_SETTINGS );
+	if ( defined( 'WPPB_SETTINGS' ) )
+		$options = get_option( WPPB_SETTINGS );
+	else
+		return;
 
 	// Choose which bit to return
 	if ( '' == $option )
@@ -112,10 +107,10 @@ $wppb_update_checker = new ThemeUpdateChecker(
  * Dynamically create CSS file
  * @since 0.3
  */
-function bla() {
-pixopoint_fallback_css( WPPB_SETTINGS, 'css' );
+function wppb_load_css() {
+	pixopoint_fallback_css( WPPB_SETTINGS, 'css' );
 }
-add_action( 'init', 'bla');
+add_action( 'init', 'wppb_load_css');
 
 /**
  * Sanitize and validate input
@@ -126,7 +121,6 @@ function wppb_settings_options_validate( $input ) {
 
 	// Sanitize checkboxes
 	$checkboxes = array( 
-		'support_postthumbnails',
 		'support_primarymenu',
 		'support_secondarymenu',
 		'support_hardcrop_postthumbnails',
@@ -195,6 +189,7 @@ function wppb_settings_options_validate( $input ) {
 	// Sanitize thumbnail information
 	foreach ( wppb_settings_thumbs_array() as $number ) {
 
+
 		// Setting variables
 		if ( !isset( $input['support_name_postthumbnails' . $number] ) )
 			$input['support_name_postthumbnails' . $number] = '';
@@ -214,7 +209,6 @@ function wppb_settings_options_validate( $input ) {
 	}
 
 	// Sanitize CSS
-	//$output['css'] = wp_kses( $input['css'], '', '' );
 	$output['css'] = pixopoint_validate_css( $input['css'] );
 
 	// Support for plain strings instead of arrays
@@ -285,7 +279,7 @@ function wppb_theme_setup( $autoload='' ) {
 	// Spit error out if child theme requires newer version of WP Paintbrush (and on themes page)
 	if ( '' != WPPB_CHILD_VERSION && 'themes.php' == $pagenow ) {
 		$wppb_theme_data = get_theme_data( get_template_directory_uri() . '/style.css' );
-		if ( $wppb_theme_data['Version'] > WPPB_CHILD_VERSION )
+		if ( $wppb_theme_data['Version'] < WPPB_CHILD_VERSION )
 			add_action( 'admin_notices', 'wppb_childtheme_version_error' );
 	}
 
@@ -401,7 +395,6 @@ function wppb_template_choice() {
  * @since 0.8
  */
 function wppb_template_load( $wppb_template ) {
-
 	$wppb_template = get_wppb_option( wppb_template_choice() ); // Load appropriate template
 	$wppb_template = str_replace( '[get_header]', get_wppb_option( 'header' ), $wppb_template ); 
 	$wppb_template = str_replace( '[get_footer]', get_wppb_option( 'footer' ), $wppb_template );
@@ -417,7 +410,7 @@ function wppb_settings_setup() {
 
 	// Set Constants
 	define( 'WPPB_COPYRIGHT', '<a href="http://wppaintbrush.com/">wppaintbrush.com</a>. Powered by <a href="http://wordpress.org/">WordPress</a>.' );
-	define( 'WPPB_VERSION', '1.0 beta 10_5' ); // Version of WP Paintbrush used
+	define( 'WPPB_VERSION', '1.0.14' ); // Version of WP Paintbrush used
 
 	// Add options to an array - use array so that can filter options before output
 	$wppb_settings = apply_filters ( 'wppb_settings_pre_setup_filter' , get_wppb_option() );
@@ -437,42 +430,6 @@ function wppb_settings_setup() {
 	// Register support for automatic feed links
 	add_theme_support( 'automatic-feed-links' );
 
-	// Register post thumbnails
-	$thumbsdone = ''; // Setting variable to avoid WP_DEBUG errors
-	foreach ( wppb_settings_thumbs_array() as $number ) {
-		if (
-			'' != $wppb_settings['support_name_postthumbnails' . $number] &&
-			'' != $wppb_settings['support_width_postthumbnails' . $number] &&
-			'' != $wppb_settings['support_height_postthumbnails' . $number]
-		) {
-			// Add comment code (only once)
-			if ( 'done' !== $thumbsdone ) {
-				// Adding theme support (makes the thumbnail option show up in the posts page)
-				add_theme_support( 'post-thumbnails' );
-
-				// Setting thumbnail size
-				$thumbsdone = 'done';
-			}
-		}
-
-		if (
-			isset( $wppb_settings['support_name_postthumbnails' . $number] )
-			&&
-			isset( $wppb_settings['support_width_postthumbnails' . $number] )
-			&&
-			isset( $wppb_settings['support_height_postthumbnails' . $number] )
-			&&
-			isset( $wppb_settings['support_hardcrop_postthumbnails' . $number] )
-		){
-			add_image_size(
-				$wppb_settings['support_name_postthumbnails' . $number], // name
-				$wppb_settings['support_width_postthumbnails' . $number], // width
-				$wppb_settings['support_height_postthumbnails' . $number], // height
-				$wppb_settings['support_hardcrop_postthumbnails' . $number] // hard crop?
-			);
-		}
-	}
-
 	// Make theme available for translation
 	// Translations can be filed in the /languages/ directory
 	load_theme_textdomain( 'wppb_settings', get_template_directory() . '/languages' );
@@ -482,7 +439,48 @@ function wppb_settings_setup() {
 		require_once( $locale_file );
 
 }
-add_action( 'after_setup_theme', 'wppb_settings_setup' );
+add_action( 'init', 'wppb_settings_setup' ); // Changed to different hook due to issues with using wppb_get_option() earlier //add_action( 'after_setup_theme', 'wppb_settings_setup' );
+
+/**
+ * Registering post thumbnails
+ * @since 1.0
+ */
+// Add options to an array - use array so that can filter options before output
+$wppb_settings = apply_filters ( 'wppb_settings_pre_setup_filter' , get_wppb_option() );
+// Register post thumbnails
+$thumbsdone = ''; // Setting variable to avoid WP_DEBUG errors
+foreach ( wppb_settings_thumbs_array() as $number ) {
+	if (
+		'' != $wppb_settings['support_name_postthumbnails' . $number] &&
+		'' != $wppb_settings['support_width_postthumbnails' . $number] &&
+		'' != $wppb_settings['support_height_postthumbnails' . $number]
+	) {
+		// Add comment code (only once)
+		if ( 'done' !== $thumbsdone ) {
+			// Adding theme support (makes the thumbnail option show up in the posts page)
+			add_theme_support( 'post-thumbnails' );
+				// Setting thumbnail size
+			$thumbsdone = 'done';
+		}
+	}
+	if (
+		isset( $wppb_settings['support_name_postthumbnails' . $number] )
+		&&
+		isset( $wppb_settings['support_width_postthumbnails' . $number] )
+		&&
+		isset( $wppb_settings['support_height_postthumbnails' . $number] )
+		&&
+		isset( $wppb_settings['support_hardcrop_postthumbnails' . $number] )
+	){
+		add_image_size(
+			$wppb_settings['support_name_postthumbnails' . $number], // name
+			$wppb_settings['support_width_postthumbnails' . $number], // width
+			$wppb_settings['support_height_postthumbnails' . $number], // height
+			$wppb_settings['support_hardcrop_postthumbnails' . $number] // hard crop?
+		);
+	}
+}
+
 
 /**
  * Register widgetized area and update sidebar with default widgets
@@ -584,9 +582,10 @@ add_filter( 'gallery_style', 'wppb_settings_remove_gallery_css' );
 /*
  * Print the title tag based on what is being viewed.
  * @since 0.1
+ * @todo Remove need for output buffering (only used a stopgap to utilise original title code until new improved filter is ready)
  */
 function wppb_title() {
-
+	ob_start();
 	// Single post
 	if ( is_single() ) {
 		single_post_title();
@@ -631,7 +630,11 @@ function wppb_title() {
 		if ( get_query_var( 'paged' ) )
 			echo ' | Page ' . get_query_var( 'paged' );
 	}
+	$title = ob_get_contents();
+	ob_end_clean();
+	return $title;
 }
+add_filter( 'wp_title', 'wppb_title', 1 );
 
 /**
  * Breadcrumbs class

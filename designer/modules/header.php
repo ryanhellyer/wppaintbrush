@@ -20,129 +20,151 @@ add_action( 'wppb_add_editor_links', 'wppb_header_editor_link', 30 );
  * @since 1.0
  */
 function wppb_header_editor_tab() {
-	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
-	
 	// Add HTML
 ?>
 <div class="tab-block" id="header_options">
 	<div id="tabs-header" class="inner-tabber">
 		<ul>
-			<li id="wppb_headeroverall_options"><a href="#headeroverall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
-			<li id="wppb_headerheading_options"><a href="#headerheading_options" title="<?php _e( 'Heading', 'wppb_lang' ); ?>"><?php _e( 'Heading', 'wppb_lang' ); ?></a></li>
-			<li id="wppb_headerdescription_options"><a href="#headerdescription_options" title="<?php _e( 'Description', 'wppb_lang' ); ?>"><?php _e( 'Description', 'wppb_lang' ); ?></a></li>
-			<li id="wppb_headerlogo_options"><a href="#headerlogo_options" title="<?php _e( 'Logo', 'wppb_lang' ); ?>"><?php _e( 'Logo', 'wppb_lang' ); ?></a></li>
-			<li id="wppb_headersearch_options"><a href="#headersearch_options" title="<?php _e( 'Search', 'wppb_lang' ); ?>"><?php _e( 'Search', 'wppb_lang' ); ?></a></li>
+			<?php
+				// Hook for adding new link
+				do_action( 'wppb_add_headereditor_sublinks' );
+			?> 
 		</ul>
-		<div class="inner-tab-block" id="headeroverall_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Overall', 'wppb_lang' ); ?></h2>
-				<?php wppb_number_selector( 'header_max_width', $wppb_design_settings, __( 'Max width', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_min_width', $wppb_design_settings, __( 'Min width', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
-			</div>
-			<div class="section-layout">
-				<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
-				<?php wppb_colour_selector( 'header_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
-				<?php wppb_background_image_selector( 'header_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
-			</div>
-			<div class="section-layout">
-				<h2><?php _e( 'Full width background', 'wppb_lang' ); ?></h2>
-				<p><?php _e( 'Background displayed across the full width of the site - leave blank to use the standard page background.', 'wppb_lang' ); ?></p>
-				<?php wppb_display_selector( 'header_fullwidth_background_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
-				<?php wppb_colour_selector( 'header_fullwidth_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
-				<?php wppb_background_image_selector( 'header_fullwidth_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
-			</div>
-			<?php wppb_wrapper_block( 'header', $wppb_design_settings ); ?>
-		</div>
-		<div class="inner-tab-block" id="headerheading_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Heading', 'wppb_lang' ); ?></h2>
-				<?php
-					wppb_display_selector( 'header_heading_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) );
-					wppb_number_selector( 'header_heading_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) );
-					wppb_number_selector( 'header_heading_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) );
-					wppb_alignment_selector( 'header_heading_position_centered', $wppb_design_settings, __( 'Alignment', 'wppb_lang' ) );
-				?>
-			</div>
-			<?php wppb_text_display( 'header_heading', $wppb_design_settings, __( 'Text', 'wppb_lang' ) ); ?>
-		</div>
-		<div class="inner-tab-block" id="headerdescription_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Description', 'wppb_lang' ); ?></h2>
-				<?php 
-					wppb_display_selector( 'header_description_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) );
-					wppb_number_selector( 'header_description_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) );
-					wppb_number_selector( 'header_description_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) );
-					wppb_alignment_selector( 'header_description_position_centered', $wppb_design_settings, __( 'Alignment', 'wppb_lang' ) );
-				?>
-			</div>
-			<?php wppb_text_display( 'header_description', $wppb_design_settings, __( 'Text', 'wppb_lang' ) ); ?>
-		</div>
-		<div class="inner-tab-block" id="headerlogo_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Logo', 'wppb_lang' ); ?></h2>
-				<?php wppb_display_selector( 'header_logo_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_logo_width', $wppb_design_settings, __( 'Width', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_logo_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_logo_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_logo_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
-				<?php wppb_background_image_selector( 'header_logo_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
-			</div>
-		</div>
-		<div class="inner-tab-block" id="headersearch_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Search box', 'wppb_lang' ); ?></h2>
-				<?php wppb_display_selector( 'header_searchbox_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchbox_width', $wppb_design_settings, __( 'Width', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchbox_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchbox_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchbox_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
-				<h3><?php _e( 'Background', 'wppb_lang' ); ?></h3>
-				<?php wppb_colour_selector( 'header_searchbox_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
-				<?php wppb_background_image_selector( 'header_searchbox_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
-			</div>
-			<div class="section-layout">
-				<h2><?php _e( 'Search text', 'wppb_lang' ); ?></h2>
-				<?php wppb_text_display( 'searchtext', $wppb_design_settings, '', 'yes' ); ?>
-				<h3><?php _e( 'Dimensions', 'wppb_lang' ); ?></h3>
-				<?php wppb_number_selector( 'header_searchbox_text_width', $wppb_design_settings, __( 'Width', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchbox_text_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchbox_text_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchbox_text_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
-				<h3><?php _e( 'Background', 'wppb_lang' ); ?></h3>
-				<?php wppb_colour_selector( 'header_searchbox_text_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
-				<?php wppb_background_image_selector( 'header_searchbox_text_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
-			</div>
-			<div class="section-layout">
-				<h2><?php _e( 'Search submit', 'wppb_lang' ); ?></h2>
-				<?php wppb_display_selector( 'header_searchsubmit_text_display', $wppb_design_settings, __( 'Display text', 'wppb_lang' ) ); ?>
-				<?php wppb_text_display( 'searchsubmit', $wppb_design_settings, '', 'yes' ); ?>
-				<h3><?php _e( 'Dimensions', 'wppb_lang' ); ?></h3>
-				<?php wppb_number_selector( 'header_searchsubmit_text_width', $wppb_design_settings, __( 'Width', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchsubmit_text_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchsubmit_text_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'header_searchsubmit_text_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
-				<h3><?php _e( 'Background', 'wppb_lang' ); ?></h3>
-				<?php wppb_colour_selector( 'header_searchsubmit_text_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
-				<?php wppb_background_image_selector( 'header_searchsubmit_text_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
-			</div>
-		</div>
+		<?php do_action( 'wppb_add_header_editor_content' ); ?>
 	</div>
 </div>
 <?php
 }
 add_action( 'wppb_add_editor_tabs', 'wppb_header_editor_tab' );
 
+/* Add header sections editor content
+ * @since 1.0
+ */
+function wppb_add_header_editor_content() {
+	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
+	?>
+<div class="inner-tab-block" id="headeroverall_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Overall', 'wppb_lang' ); ?></h2>
+		<?php wppb_number_selector( 'header_max_width', $wppb_design_settings, __( 'Max width', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_min_width', $wppb_design_settings, __( 'Min width', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
+	</div>
+	<div class="section-layout">
+		<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
+		<?php wppb_colour_selector( 'header_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
+		<?php wppb_background_image_selector( 'header_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
+	</div>
+	<div class="section-layout">
+		<h2><?php _e( 'Full width background', 'wppb_lang' ); ?></h2>
+		<p><?php _e( 'Background displayed across the full width of the site - leave blank to use the standard page background.', 'wppb_lang' ); ?></p>
+		<?php wppb_display_selector( 'header_fullwidth_background_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
+		<?php wppb_colour_selector( 'header_fullwidth_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
+		<?php wppb_background_image_selector( 'header_fullwidth_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
+	</div>
+	<?php wppb_wrapper_block( 'header', $wppb_design_settings ); ?>
+</div>
+<div class="inner-tab-block" id="headerheading_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Heading', 'wppb_lang' ); ?></h2>
+		<?php
+			wppb_display_selector( 'header_heading_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) );
+			wppb_number_selector( 'header_heading_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) );
+			wppb_number_selector( 'header_heading_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) );
+			wppb_alignment_selector( 'header_heading_position_centered', $wppb_design_settings, __( 'Alignment', 'wppb_lang' ) );
+		?>
+	</div>
+	<?php wppb_text_display( 'header_heading', $wppb_design_settings, __( 'Text', 'wppb_lang' ) ); ?>
+</div>
+<div class="inner-tab-block" id="headerdescription_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Description', 'wppb_lang' ); ?></h2>
+		<?php 
+			wppb_display_selector( 'header_description_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) );
+			wppb_number_selector( 'header_description_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) );
+			wppb_number_selector( 'header_description_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) );
+			wppb_alignment_selector( 'header_description_position_centered', $wppb_design_settings, __( 'Alignment', 'wppb_lang' ) );
+		?>
+	</div>
+	<?php wppb_text_display( 'header_description', $wppb_design_settings, __( 'Text', 'wppb_lang' ) ); ?>
+</div>
+<div class="inner-tab-block" id="headerlogo_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Logo', 'wppb_lang' ); ?></h2>
+		<?php wppb_display_selector( 'header_logo_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_logo_width', $wppb_design_settings, __( 'Width', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_logo_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_logo_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_logo_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
+		<?php wppb_background_image_selector( 'header_logo_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
+	</div>
+</div>
+<div class="inner-tab-block" id="headersearch_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Search box', 'wppb_lang' ); ?></h2>
+		<?php wppb_display_selector( 'header_searchbox_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchbox_width', $wppb_design_settings, __( 'Width', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchbox_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchbox_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchbox_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
+		<h3><?php _e( 'Background', 'wppb_lang' ); ?></h3>
+		<?php wppb_colour_selector( 'header_searchbox_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
+		<?php wppb_background_image_selector( 'header_searchbox_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
+	</div>
+	<div class="section-layout">
+		<h2><?php _e( 'Search text', 'wppb_lang' ); ?></h2>
+		<?php wppb_text_display( 'searchtext', $wppb_design_settings, '', 'yes' ); ?>
+		<h3><?php _e( 'Dimensions', 'wppb_lang' ); ?></h3>
+		<?php wppb_number_selector( 'header_searchbox_text_width', $wppb_design_settings, __( 'Width', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchbox_text_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchbox_text_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchbox_text_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
+		<h3><?php _e( 'Background', 'wppb_lang' ); ?></h3>
+		<?php wppb_colour_selector( 'header_searchbox_text_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
+		<?php wppb_background_image_selector( 'header_searchbox_text_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
+	</div>
+	<div class="section-layout">
+		<h2><?php _e( 'Search submit', 'wppb_lang' ); ?></h2>
+		<?php wppb_display_selector( 'header_searchsubmit_text_display', $wppb_design_settings, __( 'Display text', 'wppb_lang' ) ); ?>
+		<?php wppb_text_display( 'searchsubmit', $wppb_design_settings, '', 'yes' ); ?>
+		<h3><?php _e( 'Dimensions', 'wppb_lang' ); ?></h3>
+		<?php wppb_number_selector( 'header_searchsubmit_text_width', $wppb_design_settings, __( 'Width', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchsubmit_text_height', $wppb_design_settings, __( 'Height', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchsubmit_text_position_x', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'header_searchsubmit_text_position_y', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
+		<h3><?php _e( 'Background', 'wppb_lang' ); ?></h3>
+		<?php wppb_colour_selector( 'header_searchsubmit_text_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
+		<?php wppb_background_image_selector( 'header_searchsubmit_text_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
+	</div>
+</div><?php
+}
+add_action( 'wppb_add_header_editor_content', 'wppb_add_header_editor_content' );
+
+/* Add sublinks to header section
+ * @since 1.0
+ */
+function wppb_header_editor_sublinks() {
+	?>
+	<li id="wppb_headeroverall_options"><a href="#headeroverall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
+	<li id="wppb_headerheading_options"><a href="#headerheading_options" title="<?php _e( 'Heading', 'wppb_lang' ); ?>"><?php _e( 'Heading', 'wppb_lang' ); ?></a></li>
+	<li id="wppb_headerdescription_options"><a href="#headerdescription_options" title="<?php _e( 'Description', 'wppb_lang' ); ?>"><?php _e( 'Description', 'wppb_lang' ); ?></a></li>
+	<li id="wppb_headerlogo_options"><a href="#headerlogo_options" title="<?php _e( 'Logo', 'wppb_lang' ); ?>"><?php _e( 'Logo', 'wppb_lang' ); ?></a></li>
+	<li id="wppb_headersearch_options"><a href="#headersearch_options" title="<?php _e( 'Search', 'wppb_lang' ); ?>"><?php _e( 'Search', 'wppb_lang' ); ?></a></li>
+	<?php
+}
+add_action( 'wppb_add_headereditor_sublinks', 'wppb_header_editor_sublinks' );
+
 /* Add extra block to the "Layout editor" in the editing panel.
  * @since 0.1
  */
-function wppb_header_block() {
-	global $chunks;
+function wppb_header_block( $chunks ) {
 
 	// The extra block to be added
 	$chunks['Header'] = '[wppb_header]';
+
+	return $chunks;
 }
-add_action( 'wppb_add_chunk', 'wppb_header_block' );
+add_filter( 'wppb_add_chunk_filter', 'wppb_header_block' );
 
 
 /**
@@ -162,10 +184,19 @@ function wppb_header_shortcode() {
 				<input type="text" class="field" name="s" id="s" value="Search" [onfocus][/onfocus]>
 				<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search">
 			</form>
-		</div>
+		</div>';
+
+	// Filter initial header block - userful for adding extra features
+	$functions = apply_filters ( 'wppb_header_shortcode_content_filter' , $functions );
+
+	$functions .= '
 	</div>
 </header>
 ';
+
+	// Filter completed header block
+	$functions = apply_filters ( 'wppb_header_shortcode_filter' , $functions );
+
 	return $functions;
 }
 add_shortcode( 'wppb_header', 'wppb_header_shortcode' );

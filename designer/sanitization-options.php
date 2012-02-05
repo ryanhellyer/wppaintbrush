@@ -362,3 +362,18 @@ function wppb_rawtext_options() {
 	return $wppb_rawtext_options;
 }
 
+/**
+ * Raw HTML options
+ * @since 1.0
+ */
+function wppb_rawhtml_options() {
+
+	// Raw text options
+	$wppb_rawhtml_options = array();
+
+	// Hook for plugins to filter the value
+	$wppb_rawhtml_options = apply_filters ( 'wppb_rawhtml_filter' , $wppb_rawhtml_options );
+
+	return $wppb_rawhtml_options;
+}
+

@@ -72,7 +72,7 @@ function wppb_options_init() {
 	$wppb_templates['paintbrush_designer'] = ''; // Remove 'paintbrush_designer' since needs to be stored separately
 
 
-	$wppb_designer_settings = explode( '}', $wppb_design['paintbrush_designer'] );
+	$wppb_designer_settings = explode( ']]', $wppb_design['paintbrush_designer'] );
 	foreach( $wppb_designer_settings as $tmp=>$setting ) {
 		$setting = explode( '|', $setting );
 		$name = $setting[0];
@@ -269,6 +269,7 @@ function wppb_reset_pagecontent() {
 			delete_option( WPPB_SETTINGS );
 			delete_option( WPPB_DESIGNER_SETTINGS );
 			wppb_theme_setup( 'autoload' );
+
 			_e( 'Your theme has been reset', 'wppb_lang' );
 		}
 		echo '</strong></p></div>';

@@ -53,14 +53,14 @@ add_action( 'wppb_add_editor_tabs', 'wppb_extras_editor_tab' );
 /* Add extra block to "Layout editor"
  * @since 1.0
  */
-function wppb_extras_block() {
-	global $chunks;
+function wppb_extras_block( $chunks ) {
 
 	// The extra block to be added
 	$chunks['Header image'] = '[wppb_headerimage]';
 
+	return $chunks;
 }
-add_action( 'wppb_add_chunk', 'wppb_extras_block' );
+add_filter( 'wppb_add_chunk_filter', 'wppb_extras_block' );
 
 /*
  * Adds the shortcode for creating the banner in the template

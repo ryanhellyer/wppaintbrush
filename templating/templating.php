@@ -193,6 +193,11 @@ function pixopoint_allowed_html() {
 			'class'      => array(),
 			'id'         => array()
 		),
+		'section'    => array(
+			'style'      => array(),
+			'class'      => array(),
+			'id'         => array()
+		),
 		'br'     => array(),
 		'em'     => array(),
 		'i'      => array(),

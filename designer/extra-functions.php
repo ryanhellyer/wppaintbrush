@@ -169,6 +169,8 @@ function wppb_get_options_for_storing( $wppb_options, $css='' ) {
 	$wppb_options['css'] = $css;
 
 	// Add support for sidebars
+	if ( !isset( $wppb_options['sidebar_positions'] ) )
+		$wppb_options['sidebar_positions'] = '';
 	$sidebar_positions = str_replace( 'layout-', '', $wppb_options['sidebar_positions'] ) ;
 	$sidebar_positions = explode( ',', $sidebar_positions );
 	foreach( $sidebar_positions as $block ) {
@@ -184,7 +186,7 @@ function wppb_get_options_for_storing( $wppb_options, $css='' ) {
 			if ( 'sidebar' . $count == $block ) {
 				$wppb_options['show_widget' . $count] = 'on';
 				$wppb_options['name_widget' . $count] = 'Sidebar ' . $count;
-				$wppb_options['before_widget' . $count] = '<div class="widget">';
+				$wppb_options['before_widget' . $count] = '<div id="%1$s" class="widget %2$s">';
 				$wppb_options['after_widget' . $count] = '</div>';
 				$wppb_options['before_title' . $count] = '<h3>';
 				$wppb_options['after_title' . $count] = '</h3>';
@@ -230,13 +232,13 @@ function wppb_get_options_for_storing( $wppb_options, $css='' ) {
 	}
 
 	// Set main templates
-	$wppb_options['front_page'] = '';
-	//$wppb_options['front_page'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
-	$wppb_options['home'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
-	$wppb_options['archive'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
-	$wppb_options['index'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
-	$wppb_options['page'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_page]' ) . "\n\n[get_footer]";
-	$wppb_options['single'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_single]' ) . "\n\n[get_footer]";
+	//$wppb_options['front_page'] = '';
+	$wppb_options['front_page'] = "[get_header]\n\n" . do_shortcode( '[wppb_content_front]' ) . "\n\n[get_footer]";
+	$wppb_options['home']       = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
+	$wppb_options['archive']    = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
+	$wppb_options['index']      = "[get_header]\n\n" . do_shortcode( '[wppb_content_home]' ) . "\n\n[get_footer]";
+	$wppb_options['page']       = "[get_header]\n\n" . do_shortcode( '[wppb_content_page]' ) . "\n\n[get_footer]";
+	$wppb_options['single']     = "[get_header]\n\n" . do_shortcode( '[wppb_content_single]' ) . "\n\n[get_footer]";
 
 	// Correct URLs
 	$wppb_options['css'] = str_replace( 'http: //', 'http://', $wppb_options['css'] );
@@ -250,11 +252,12 @@ function wppb_get_options_for_storing( $wppb_options, $css='' ) {
 /* Array of page chunks
  * @since 0.1
  */
-function wppb_page_chunks() {
+function wppb_page_chunks( $chunks='' ) {
 
-	global $chunks; // Need global for passing data via action hook
+	if ( !isset( $chunks ) )
+		$chunks = '';
 
-	do_action( 'wppb_add_chunk' ); // Creating action hook for additional chunks to be added via plugins
+	$chunks = apply_filters ( 'wppb_add_chunk_filter' , $chunks );
 
 	return $chunks;
 }
@@ -283,19 +286,19 @@ function wppb_load_files() {
 	// Bail out if in admin panel
 	if ( is_admin() )
 		return;
-
+ 
 	// Make sure both sidebars are set - UGLY IF STATEMENT IS A HACK TO PREVENT MUCK UPS WHEN NO SETTINGS ARE PRESENT YET - IE: WHEN INSTALLING THE THEME
 	if ( get_option( WPPB_SETTINGS ) ) {
 		$wppb_options = get_option( WPPB_SETTINGS );
 		$wppb_options['show_widget1'] = 'on';
 		$wppb_options['show_widget2'] = 'on';
 		$wppb_options['name_widget1'] = 'Sidebar 1';
-		$wppb_options['before_widget1'] = '<div class="widget">';
+		$wppb_options['before_widget1'] = '<div id="%1$s" class="widget %2$s">';
 		$wppb_options['after_widget1'] = '</div>';
 		$wppb_options['before_title1'] = '<h3>';
 		$wppb_options['after_title1'] = '</h3>';
 		$wppb_options['name_widget2'] = 'Sidebar 2';
-		$wppb_options['before_widget2'] = '<div class="widget">';
+		$wppb_options['before_widget2'] = '<div id="%1$s" class="widget %2$s">';
 		$wppb_options['after_widget2'] = '</div>';
 		$wppb_options['before_title2'] = '<h3>';
 		$wppb_options['after_title2'] = '</h3>';

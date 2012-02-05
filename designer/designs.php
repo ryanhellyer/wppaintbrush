@@ -57,30 +57,13 @@ function wppb_available_themes() {
 	return $wppaintbrushdesigns; 
 }
 
-/* Change design via AJAX
- * @since 1.0
- */
-function wppb_ajax_change_design() {
-	// Bail out if not logged in and nonce not legit
-	if ( !current_user_can( 'manage_options' ) && !wp_verify_nonce( $_POST['wppb_nonce'], 'wppb_nonce' ) )
-		exit( 'Error: Nonce not verified!' );
-
-	// Grab design
-	$wppb_design = wppb_grab_design( $_GET['change_theme'] ); // Grab design
-
-	// Change the design to the one specified in the query var
-	wppb_change_design( $wppb_design );
-
-	die;
-}
-
 /* Change design
  * @since 0.9
  */
 function wppb_change_design( $wppb_design ) {
 
-	// Set new design 
-	$wppb_designer_settings = explode( '}', $wppb_design['paintbrush_designer'] );
+	// Set new design
+	$wppb_designer_settings = explode( ']]', $wppb_design['paintbrush_designer'] );
 	foreach( $wppb_designer_settings as $tmp=>$setting ) {
 		$setting = explode( '|', $setting );
 		if ( !isset( $setting[0] ) )
@@ -143,6 +126,6 @@ function wppb_publish_options( $wppb_design_settings, $css ) {
 	$input = wppb_get_options_for_storing( $wppb_design_settings, $css );
 
 	// Update database with sanitized data
+echo '--'.$input['support_width_postthumbnails1'].'--';
 	update_option( WPPB_SETTINGS, wppb_settings_options_validate( $input ) );
-
 }

@@ -198,8 +198,8 @@ function wppb_content_shortcode() {
 						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
 					</div>
 					[/widget]
-				</div>
-			</aside>
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-1 -->
 			<aside id="aside-2">
 				<div class="sidebar">
 					[widget number=2]
@@ -209,8 +209,8 @@ function wppb_content_shortcode() {
 						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
 					</div>
 					[/widget]
-				</div>
-			</aside>
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-2 -->
 			<div id="maincontent">
 				<div class="article-wrapper">
 					[loop]
@@ -221,12 +221,16 @@ function wppb_content_shortcode() {
 						[comment_form]
 					</article>
 					[/loop]
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+				</div><!-- .article-wrapper -->
+			</div><!-- #maincontent -->
+		</div><!-- #inner -->
+	</div><!-- #content -->
+</div><!-- .wrapper -->
 ';
+
+	// Filter for modifying shortcode content
+	$functions = apply_filters ( 'wppb_content_template_filter', $functions );
+
 	return $functions;
 }
 add_shortcode( 'wppb_content', 'wppb_content_shortcode' );
@@ -250,8 +254,8 @@ function wppb_content_home_shortcode() {
 						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
 					</div>
 					[/widget]
-				</div>
-			</aside>
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-1 -->
 			<aside id="aside-2">
 				<div class="sidebar">
 					[widget number=2]
@@ -261,8 +265,8 @@ function wppb_content_home_shortcode() {
 						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
 					</div>
 					[/widget]
-				</div>
-			</aside>
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-2 -->
 			<div id="maincontent">
 				<div class="article-wrapper">
 					[loop]
@@ -286,16 +290,88 @@ function wppb_content_home_shortcode() {
 					<ul id="numeric_pagination">
 						[numeric_pagination]
 					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+				</div><!-- .article-wrapper -->
+			</div><!-- #maincontent -->
+		</div><!-- #inner -->
+	</div><!-- #content -->
+</div><!-- .wrapper -->
 ';
+
+	// Filter for modifying shortcode content
+	$functions = apply_filters ( 'wppb_home_template_filter', $functions );
+
 	return $functions;
 }
 add_shortcode( 'wppb_content_home', 'wppb_content_home_shortcode' );
-add_shortcode( 'wppb_content_front', 'wppb_content_home_shortcode' );
+
+/**
+ * Adds the front page shortcode for creating the content section in the templates
+ * [wppb_content_frontpage] shortcode
+ * @since 1.0
+ */
+function wppb_content_frontpage_shortcode() {
+	$functions = '
+<div class="wrapper">
+	<div id="content">
+		<div id="inner">
+			<aside id="aside-1">
+				<div class="sidebar">
+					[widget number=1]
+					<div class="widget">
+						<h3>Tags</h3>
+						[tag_cloud]
+						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
+					</div>
+					[/widget]
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-1 -->
+			<aside id="aside-2">
+				<div class="sidebar">
+					[widget number=2]
+					<div class="widget">
+						<h3>Calendar</h3>
+						[get_calendar]
+						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
+					</div>
+					[/widget]
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-2 -->
+			<div id="maincontent">
+				<div class="article-wrapper">
+					[loop]
+					<article class="[post_class]">
+						<h2><a href="[the_permalink]">[the_title]</a></h2>
+						<p class="post-info">
+							Posted on <span class="date time published">[the_date format="l, F j, Y"]</span>
+							by
+							<span class="author vcard">[the_author_posts_link]</span>
+							[edit_post_link text=" Edit"]
+						</p>
+						[the_content]
+						[link_pages]
+						<p class="post-info">
+							<span class="tags">Posted in [the_category separator=", "]</span>
+							<br />
+							<span class="tags">[the_tags]</span>
+						</p>
+					</article>
+					[/loop]
+					<ul id="numeric_pagination">
+						[numeric_pagination]
+					</ul>
+				</div><!-- .article-wrapper -->
+			</div><!-- #maincontent -->
+		</div><!-- #inner -->
+	</div><!-- #content -->
+</div><!-- .wrapper -->
+';
+
+	// Filter for modifying shortcode content
+	$functions = apply_filters ( 'wppb_frontpage_template_filter', $functions );
+
+	return $functions;
+}
+add_shortcode( 'wppb_content_front', 'wppb_content_frontpage_shortcode' );
 
 /**
  * Adds the single post shortcode for creating the content section in the templates
@@ -316,8 +392,8 @@ function wppb_content_single_shortcode() {
 						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
 					</div>
 					[/widget]
-				</div>
-			</aside>
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-1 -->
 			<aside id="aside-2">
 				<div class="sidebar">
 					[widget number=2]
@@ -327,8 +403,8 @@ function wppb_content_single_shortcode() {
 						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
 					</div>
 					[/widget]
-				</div>
-			</aside>
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-2 -->
 			<div id="maincontent">
 				<div class="article-wrapper">
 					[loop]
@@ -358,12 +434,16 @@ function wppb_content_single_shortcode() {
 						[comments_template]
 					</article>
 					[/loop]
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+				</div><!-- .article-wrapper -->
+			</div><!-- #maincontent -->
+		</div><!-- #inner -->
+	</div><!-- #content -->
+</div><!-- .wrapper -->
 ';
+
+	// Filter for modifying shortcode content
+	$functions = apply_filters ( 'wppb_single_template_filter', $functions );
+
 	return $functions;
 }
 add_shortcode( 'wppb_content_single', 'wppb_content_single_shortcode' );
@@ -387,8 +467,8 @@ function wppb_content_page_shortcode() {
 						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
 					</div>
 					[/widget]
-				</div>
-			</aside>
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-1 -->
 			<aside id="aside-2">
 				<div class="sidebar">
 						[widget number=2]
@@ -398,8 +478,8 @@ function wppb_content_page_shortcode() {
 						<p>You are able to alter the content in this sidebar via the widgets interface in the WordPress admin panel.</p>
 					</div>
 					[/widget]
-				</div>
-			</aside>
+				</div><!-- .sidebar -->
+			</aside><!-- #aside-2 -->
 			<div id="maincontent">
 				<div class="article-wrapper">
 					[loop]
@@ -411,12 +491,16 @@ function wppb_content_page_shortcode() {
 						[comments_template]
 					</article>
 					[/loop]
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+				</div><!-- .article-wrapper -->
+			</div><!-- #maincontent -->
+		</div><!-- #inner -->
+	</div><!-- #content -->
+</div><!-- .wrapper -->
 ';
+
+	// Filter for modifying shortcode content
+	$functions = apply_filters ( 'wppb_page_template_filter', $functions );
+
 	return $functions;
 }
 add_shortcode( 'wppb_content_page', 'wppb_content_page_shortcode' );
@@ -424,20 +508,20 @@ add_shortcode( 'wppb_content_page', 'wppb_content_page_shortcode' );
 /* Add extra block to "Layout editor"
  * @since 1.0
  */
-function wppb_content_block() {
-	global $chunks;
+function wppb_content_block( $chunks ) {
 
 	// The extra block to be added
 	$chunks['Content'] = '[wppb_content]';
+
+	return $chunks;
 }
-add_action( 'wppb_add_chunk', 'wppb_content_block' );
+add_filter( 'wppb_add_chunk_filter', 'wppb_content_block' );
 
 /*
  * Add text type options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_text_type_options() {
-	global $wppb_texttype;
+function wppb_addcontent_text_type_options( $wppb_texttype ) {
 
 	// Other text options
 	array_push( $wppb_texttype, 'heading1' );
@@ -453,14 +537,13 @@ function wppb_addcontent_text_type_options() {
 
 	return $wppb_texttype;
 }
-add_action( 'wppb_hook_text_type_options', 'wppb_addcontent_text_type_options' );
+add_filter( 'wppb_text_type_filter', 'wppb_addcontent_text_type_options' );
 
 /*
  * Add colours to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_colour_options() {
-	global $wppb_colour_options;
+function wppb_addcontent_colour_options( $wppb_colour_options ) {
 
 	// Colour options
 	array_push( $wppb_colour_options, 'pagination_textcolour' );
@@ -476,14 +559,13 @@ function wppb_addcontent_colour_options() {
 
 	return $wppb_colour_options;
 }
-add_action( 'wppb_hook_colour_options', 'wppb_addcontent_colour_options' );
+add_filter( 'wppb_colour_filter', 'wppb_addcontent_colour_options' );
 
 /*
  * Add font weight options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_fontweight_options() {
-	global $wppb_fontweight_options;
+function wppb_addcontent_fontweight_options( $wppb_fontweight_options ) {
 
 	// Bold options
 	array_push( $wppb_fontweight_options, 'pagination_font_weight' );
@@ -492,14 +574,13 @@ function wppb_addcontent_fontweight_options() {
 
 	return $wppb_fontweight_options;
 }
-add_action( 'wppb_hook_fontweight_options', 'wppb_addcontent_fontweight_options' );
+add_filter( 'wppb_fontweight_filter', 'wppb_addcontent_fontweight_options' );
 
 /**
  * Add font style options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_fontstyle_options() {
-	global $wppb_fontstyle_options;
+function wppb_addcontent_fontstyle_options( $wppb_fontstyle_options ) {
 
 	// Style options
 	array_push( $wppb_fontstyle_options, 'pagination_font_style' );
@@ -508,42 +589,39 @@ function wppb_addcontent_fontstyle_options() {
 
 	return $wppb_fontstyle_options;
 }
-add_action( 'wppb_hook_fontstyle_options', 'wppb_addcontent_fontstyle_options' );
+add_filter( 'wppb_fontstyle_filter', 'wppb_addcontent_fontstyle_options' );
 
 /**
  * Add font size options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_fontsize_options() {
-	global $wppb_fontsize_options;
+function wppb_addcontent_fontsize_options( $wppb_fontsize_options ) {
 
 	// Font size options
 	array_push( $wppb_fontsize_options, 'pagination_fontsize' );
 
 	return $wppb_fontsize_options;
 }
-add_action( 'wppb_hook_fontsize_options', 'wppb_addcontent_fontsize_options' );
+add_filter( 'wppb_fontsize_filter', 'wppb_addcontent_fontsize_options' );
 
 /**
  * Add opacity to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_opacity_options() {
-	global $wppb_opacity_options;
+function wppb_addcontent_opacity_options( $wppb_opacity_options ) {
 
 	// Opacity options
 	array_push( $wppb_opacity_options, 'pagination_shadow_opacity' );
 
 	return $wppb_opacity_options;
 }
-add_action( 'wppb_hook_opacity_options', 'wppb_addcontent_opacity_options' );
+add_filter( 'wppb_opacity_filter', 'wppb_addcontent_opacity_options' );
 
 /**
  * Add image options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_image_options() {
-	global $wppb_image_options;
+function wppb_addcontent_image_options( $wppb_image_options ) {
 
 	// Image options
 	array_push( $wppb_image_options, 'background_image' );
@@ -551,56 +629,52 @@ function wppb_addcontent_image_options() {
 
 	return $wppb_image_options;
 }
-add_action( 'wppb_hook_image_options', 'wppb_addcontent_image_options' );
+add_filter( 'wppb_image_filter', 'wppb_addcontent_image_options' );
 
 /**
  * Add border type options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_bordertype_options() {
-	global $wppb_bordertype_options;
+function wppb_addcontent_bordertype_options( $wppb_bordertype_options ) {
 
 	// Border type options
 	array_push( $wppb_bordertype_options, 'pagination_border_type' );
 
 	return $wppb_bordertype_options;
 }
-add_action( 'wppb_hook_bordertype_options', 'wppb_addcontent_bordertype_options' );
+add_filter( 'wppb_bordertype_filter', 'wppb_addcontent_bordertype_options' );
 
 /**
  * Add text transform options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_texttransform_options() {
-	global $wppb_texttransform_options;
+function wppb_addcontent_texttransform_options( $wppb_texttransform_options ) {
 
 	// Text transform options
 	array_push( $wppb_texttransform_options, 'pagination_text_transform' );
 
 	return $wppb_texttransform_options;
 }
-add_action( 'wppb_hook_texttransform_options', 'wppb_addcontent_texttransform_options' );
+add_filter( 'wppb_texttransform_filter', 'wppb_addcontent_texttransform_options' );
 
 /**
  * Add small caps options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_smallcaps_options() {
-	global $wppb_smallcaps_options;
+function wppb_addcontent_smallcaps_options( $wppb_smallcaps_options ) {
 
 	// Small-caps options
 	array_push( $wppb_smallcaps_options, 'pagination_small_caps' );
 
 	return $wppb_smallcaps_options;
 }
-add_action( 'wppb_hook_smallcaps_options', 'wppb_addcontent_smallcaps_options' );
+add_filter( 'wppb_smallcaps_filter', 'wppb_addcontent_smallcaps_options' );
 
 /**
  * Add display options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_display_options() {
-	global $wppb_display_options;
+function wppb_addcontent_display_options( $wppb_display_options ) {
 
 	// Display options
 	array_push( $wppb_display_options, 'postinfo_display' );
@@ -609,14 +683,13 @@ function wppb_addcontent_display_options() {
 
 	return $wppb_display_options;
 }
-add_action( 'wppb_hook_display_options', 'wppb_addcontent_display_options' );
+add_filter( 'wppb_display_filter', 'wppb_addcontent_display_options' );
 
 /**
  * Add little numbers options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_littlenumbers_options() {
-	global $wppb_littlenumbers_options;
+function wppb_addcontent_littlenumbers_options( $wppb_littlenumbers_options ) {
 
 	// Little numbers options
 	array_push( $wppb_littlenumbers_options, 'pagination_vertical_margin' );
@@ -630,14 +703,13 @@ function wppb_addcontent_littlenumbers_options() {
 
 	return $wppb_littlenumbers_options;
 }
-add_action( 'wppb_hook_littlenumbers_options', 'wppb_addcontent_littlenumbers_options' );
+add_filter( 'wppb_littlenumbers_filter', 'wppb_addcontent_littlenumbers_options' );
 
 /**
  * Add big numbers to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_bignumbers_options() {
-	global $wppb_bignumbers_options;
+function wppb_addcontent_bignumbers_options( $wppb_bignumbers_options ) {
 
 	// Big numbers options
 	array_push( $wppb_bignumbers_options, 'maincontent_minimum_width' );
@@ -645,28 +717,26 @@ function wppb_addcontent_bignumbers_options() {
 
 	return $wppb_bignumbers_options;
 }
-add_action( 'wppb_hook_bignumbers_options', 'wppb_addcontent_bignumbers_options' );
+add_filter( 'wppb_bignumbers_filter', 'wppb_addcontent_bignumbers_options' );
 
 /**
  * Add shadow coordinates to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_shadow_coordinates_options() {
-	global $wppb_shadow_coordinates_options;
+function wppb_addcontent_shadow_coordinates_options( $wppb_shadow_coordinates_options ) {
 
 	// Shadow coordinate options
 	array_push( $wppb_shadow_coordinates_options, 'pagination' );
 
 	return $wppb_shadow_coordinates_options;
 }
-add_action( 'wppb_hook_shadow_coordinates_options', 'wppb_addcontent_shadow_coordinates_options' );
+add_filter( 'wppb_shadow_coordinates_filter', 'wppb_addcontent_shadow_coordinates_options' );
 
 /**
  * Add image tiling options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_imagetiling_options() {
-	global $wppb_imagetiling_options;
+function wppb_addcontent_imagetiling_options( $wppb_imagetiling_options ) {
 
 	// Image tiling options
 	array_push( $wppb_imagetiling_options, 'background_image_tiling' );
@@ -675,28 +745,26 @@ function wppb_addcontent_imagetiling_options() {
 
 	return $wppb_imagetiling_options;
 }
-add_action( 'wppb_hook_imagetiling_options', 'wppb_addcontent_imagetiling_options' );
+add_filter( 'wppb_imagetiling_filter', 'wppb_addcontent_imagetiling_options' );
 
 /**
  * Add font family options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_fontfamily_options() {
-	global $wppb_fontfamily_options;
+function wppb_addcontent_fontfamily_options( $wppb_fontfamily_options ) {
 
 	// Font family options
 	array_push( $wppb_fontfamily_options, 'pagination_fontfamily' );
 
 	return $wppb_fontfamily_options;
 }
-add_action( 'wppb_hook_fontfamily_options', 'wppb_addcontent_fontfamily_options' );
+add_filter( 'wppb_fontfamily_filter', 'wppb_addcontent_fontfamily_options' );
 
 /**
  * Add text decoration options to be sanitized, to the global array
  * @since 1.0
  */
-function wppb_addcontent_textdecoration_options() {
-	global $wppb_textdecoration_options;
+function wppb_addcontent_textdecoration_options( $wppb_textdecoration_options ) {
 
 	// Text decoration options
 	array_push( $wppb_textdecoration_options, 'pagination_fontfamily' );
@@ -706,14 +774,13 @@ function wppb_addcontent_textdecoration_options() {
 
 	return $wppb_textdecoration_options;
 }
-add_action( 'wppb_hook_textdecoration_options', 'wppb_addcontent_textdecoration_options' );
+add_filter( 'wppb_textdecoration_filter', 'wppb_addcontent_textdecoration_options' );
 
 /**
  * Add raw text options for global sanitization array
  * @since 1.0
  */
-function wppb_addcontent_rawtext_options() {
-	global $wppb_rawtext_options;
+function wppb_addcontent_rawtext_options( $wppb_rawtext_options ) {
 
 	// Raw text options
 	array_push( $wppb_rawtext_options, 'positions' );
@@ -721,4 +788,4 @@ function wppb_addcontent_rawtext_options() {
 
 	return $wppb_rawtext_options;
 }
-add_action( 'wppb_hook_rawtext_options', 'wppb_addcontent_rawtext_options' );
+add_filter( 'wppb_rawtext_filter', 'wppb_addcontent_rawtext_options' );

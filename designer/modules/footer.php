@@ -27,75 +27,96 @@ function wppb_footer_editor_tab() {
 <div class="tab-block" id="footer_options">
 	<div id="tabs-footer" class="inner-tabber">
 		<ul>
-			<li id="wppb_footeroverall_options"><a href="#footeroverall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
-			<li id="wppb_footermenu_options"><a href="#footermenu_options" title="<?php _e( 'Menu', 'wppb_lang' ); ?>"><?php _e( 'Menu', 'wppb_lang' ); ?></a></li>
-			<li id="wppb_footercopyright_options"><a href="#footercopyright_options" title="<?php _e( 'Copyright', 'wppb_lang' ); ?>"><?php _e( 'Copyright', 'wppb_lang' ); ?></a></li>
+			<?php
+				// Hook for adding new link
+				do_action( 'wppb_add_footereditor_sublinks' );
+			?> 
 		</ul>
-		<div class="inner-tab-block" id="footeroverall_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Footer', 'wppb_lang' ); ?></h2>
-				<?php 
-					wppb_number_selector( 'footer_max_width', $wppb_design_settings, __( 'Max width', 'wppb_lang' ) );
-					wppb_number_selector( 'footer_min_width', $wppb_design_settings, __( 'Min width', 'wppb_lang' ) );
-					wppb_number_selector( 'footer_height', $wppb_design_settings, __( 'height', 'wppb_lang' ) );
-				?>
-			</div>
-			<div class="section-layout">
-			<h2><?php _e( 'Background', 'wppb_lang' ); ?></h3>
-				<?php
-					wppb_colour_selector( 'footer_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) );
-					wppb_background_image_selector( 'footer_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) );
-					wppb_imagetiling_selector( 'footer_background_image_tiling', $wppb_design_settings, __( 'Image tiling', 'wppb_lang' ) );
-				?>
-			</div>
-			<div class="section-layout">
-				<h2><?php _e( 'Full width background', 'wppb_lang' ); ?></h2>
-				<p><?php _e( 'Background displayed across the full width of the site - leave blank to use the standard page background.', 'wppb_lang' ); ?></p>
-				<?php wppb_display_selector( 'footer_fullwidth_background_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
-				<?php wppb_colour_selector( 'footer_fullwidth_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
-				<?php wppb_background_image_selector( 'footer_fullwidth_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
-			</div>
-			<?php wppb_wrapper_block( 'footer', $wppb_design_settings ); ?>
-		</div>
-		<div class="inner-tab-block" id="footermenu_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Menu', 'wppb_lang' ); ?></h2>
-				<?php wppb_display_selector( 'footer_menu_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
-				<?php wppb_alignment_selector( 'footer_menu_alignment', $wppb_design_settings, __( 'Alignment', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'footer_menu_horizontalposition', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'footer_menu_verticalposition', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
-				<?php wppb_number_selector( 'footer_menu_gap', $wppb_design_settings, __( 'Gap', 'wppb_lang' ) ); ?>
-			</div>
-			<?php wppb_text_display( 'footer_menu', $wppb_design_settings, __( 'Text', 'wppb_lang' ) ); ?>
-		</div>
-		<div class="inner-tab-block" id="footercopyright_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Copyright', 'wppb_lang' ); ?></h2>
-				<?php
-					wppb_display_selector( 'footer_copyright_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) );
-					wppb_number_selector( 'footer_copyright_horizontalposition', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) );
-					wppb_number_selector( 'footer_copyright_verticalposition', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) );
-					wppb_alignment_selector( 'footer_copyright_position_centered', $wppb_design_settings, __( 'Centered', 'wppb_lang' ) );
-				?>
-			</div>
-			<?php wppb_text_display( 'footer_copyright', $wppb_design_settings, __( 'Text', 'wppb_lang' ) ); ?>
-		</div>
+		<?php do_action( 'wppb_add_footer_editor_content' ); ?>
 	</div>
 </div>
 <?php
 }
 add_action( 'wppb_add_editor_tabs', 'wppb_footer_editor_tab' );
 
+/* Add sublinks to footer section
+ * @since 1.0
+ */
+function wppb_footer_editor_sublinks() { ?>
+	<li id="wppb_footeroverall_options"><a href="#footeroverall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
+	<li id="wppb_footermenu_options"><a href="#footermenu_options" title="<?php _e( 'Menu', 'wppb_lang' ); ?>"><?php _e( 'Menu', 'wppb_lang' ); ?></a></li>
+	<li id="wppb_footercopyright_options"><a href="#footercopyright_options" title="<?php _e( 'Copyright', 'wppb_lang' ); ?>"><?php _e( 'Copyright', 'wppb_lang' ); ?></a></li><?php
+}
+add_action( 'wppb_add_footereditor_sublinks', 'wppb_footer_editor_sublinks' );
+
+/* Add footer sections editor content
+ * @since 1.0
+ */
+function wppb_add_footer_editor_content() {
+	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS ); ?>
+<div class="inner-tab-block" id="footeroverall_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Footer', 'wppb_lang' ); ?></h2>
+		<?php 
+			wppb_number_selector( 'footer_max_width', $wppb_design_settings, __( 'Max width', 'wppb_lang' ) );
+			wppb_number_selector( 'footer_min_width', $wppb_design_settings, __( 'Min width', 'wppb_lang' ) );
+			wppb_number_selector( 'footer_height', $wppb_design_settings, __( 'height', 'wppb_lang' ) );
+		?>
+	</div>
+	<div class="section-layout">
+	<h2><?php _e( 'Background', 'wppb_lang' ); ?></h3>
+		<?php
+			wppb_colour_selector( 'footer_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) );
+			wppb_background_image_selector( 'footer_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) );
+			wppb_imagetiling_selector( 'footer_background_image_tiling', $wppb_design_settings, __( 'Image tiling', 'wppb_lang' ) );
+		?>
+	</div>
+	<div class="section-layout">
+		<h2><?php _e( 'Full width background', 'wppb_lang' ); ?></h2>
+		<p><?php _e( 'Background displayed across the full width of the site - leave blank to use the standard page background.', 'wppb_lang' ); ?></p>
+		<?php wppb_display_selector( 'footer_fullwidth_background_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
+		<?php wppb_colour_selector( 'footer_fullwidth_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
+		<?php wppb_background_image_selector( 'footer_fullwidth_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
+	</div>
+	<?php wppb_wrapper_block( 'footer', $wppb_design_settings ); ?>
+</div>
+<div class="inner-tab-block" id="footermenu_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Menu', 'wppb_lang' ); ?></h2>
+		<?php wppb_display_selector( 'footer_menu_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
+		<?php wppb_alignment_selector( 'footer_menu_alignment', $wppb_design_settings, __( 'Alignment', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'footer_menu_horizontalposition', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'footer_menu_verticalposition', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) ); ?>
+		<?php wppb_number_selector( 'footer_menu_gap', $wppb_design_settings, __( 'Gap', 'wppb_lang' ) ); ?>
+	</div>
+	<?php wppb_text_display( 'footer_menu', $wppb_design_settings, __( 'Text', 'wppb_lang' ) ); ?>
+</div>
+<div class="inner-tab-block" id="footercopyright_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Copyright', 'wppb_lang' ); ?></h2>
+		<?php
+			wppb_display_selector( 'footer_copyright_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) );
+			wppb_number_selector( 'footer_copyright_horizontalposition', $wppb_design_settings, __( 'x-coord', 'wppb_lang' ) );
+			wppb_number_selector( 'footer_copyright_verticalposition', $wppb_design_settings, __( 'y-coord', 'wppb_lang' ) );
+			wppb_alignment_selector( 'footer_copyright_position_centered', $wppb_design_settings, __( 'Centered', 'wppb_lang' ) );
+		?>
+	</div>
+	<?php wppb_text_display( 'footer_copyright', $wppb_design_settings, __( 'Text', 'wppb_lang' ) ); ?>
+</div><?php
+}
+add_action( 'wppb_add_footer_editor_content', 'wppb_add_footer_editor_content' );
+
 /* Add extra block to "Layout editor"
  * @since 1.0
  */
-function wppb_footer_block() {
-	global $chunks;
+function wppb_footer_block( $chunks ) {
 
 	// The extra block to be added
 	$chunks['Footer'] = '[wppb_footer]';
+
+	return $chunks;
 }
-add_action( 'wppb_add_chunk', 'wppb_footer_block' );
+add_filter( 'wppb_add_chunk_filter', 'wppb_footer_block' );
 
 /**
  * Add shortcode used within template
@@ -114,13 +135,17 @@ function wppb_footer_shortcode() {
 		<p>
 			[copyright]
 		</p>
-	</div>
+';
+
+	// Filter initial header block - userful for adding extra features
+	$functions = apply_filters ( 'wppb_footer_shortcode_content_filter' , $functions );
+
+	$functions .= '	</div>
 </footer>
 ';
 	return $functions;
 }
 add_shortcode( 'wppb_footer', 'wppb_footer_shortcode' );
-
 
 /*
  * Add Text type sanitization for global sanitization array

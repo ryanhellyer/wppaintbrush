@@ -314,6 +314,14 @@ add_shortcode( 'comment_navigation', 'pixopoint_comment_navigation_shortcode' );
  */
 function pixopoint_loginout_shortcode() {
 	return wp_loginout( '', false );
+/*
+ 	return wp_loginout(
+		array(
+			'name' => '',
+			'echo' => false,
+		)
+	);
+*/
 }
 add_shortcode( 'loginout', 'pixopoint_loginout_shortcode' );
 
@@ -670,8 +678,8 @@ function pixopoint_post_thumbnail_shortcode( $atts ) {
 	);
 
 	// Error message if thumbnails not turned on
-	if ( !function_exists( 'has_post_thumbnail' ) )
-		echo 'Post thumbnails not activated';
+//	if ( !function_exists( 'has_post_thumbnail' ) )
+//		echo 'Post thumbnails not activated';
 
 	// Sanitise name
 	$name = esc_html( $name );

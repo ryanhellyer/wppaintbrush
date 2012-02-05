@@ -1,7 +1,7 @@
 <?php
 /**
  * @package WordPress
- * @subpackage Pressabl theme
+ * @subpackage WP Paintbrush theme
  * @since WP Paintbrush 0.1
  *
  * Page template

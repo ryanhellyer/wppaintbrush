@@ -11,7 +11,7 @@
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-	<title><?php wppb_title(); ?></title>
+	<title><?php wp_title(); ?></title>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>

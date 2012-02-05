@@ -30,101 +30,127 @@ add_action( 'wppb_add_editor_tabs', 'wppb_addmenu_load_editor_tab' );
  * Add new "Menu" link to main tabber in editing panel
  * @since 1.0
  */
-function wppb_addmenu_editor_tab( $number ) {
-	$wppb_design_settings = get_option( WPPB_DESIGNER_SETTINGS );
-	
+function wppb_addmenu_editor_tab( $wppb_menu_number ) {
+	$wppb_designer_settings = get_option( WPPB_DESIGNER_SETTINGS );
+	global $wppb_menu_id, $number; // Uses globals to ensure that same action hook route is used as for other blocks, but needed since menu is unique in that it is replicated more than once (via different ID's) - not an optimal solution, but at least makes sure that the code is consistent with the rest of WP Paintbrush rather than doing it via a filter which would be different from every other module
+	$number = $wppb_menu_number;
+
 	// Calculating value to use for ID
 	if ( 1 == $number )
-		$id = '';
-	else $id = $number;
+		$wppb_menu_id = '';
+	else $wppb_menu_id = $number;
 
 	// Add HTML
 	?>
-<div class="tab-block" id="menus<?php echo $id; ?>_options">
-	<div id="tabs-menus<?php echo $id; ?>" class="inner-tabber">
+<div class="tab-block" id="menus<?php echo $wppb_menu_id; ?>_options">
+	<div id="tabs-menus<?php echo $wppb_menu_id; ?>" class="inner-tabber">
 		<ul>
-			<li id="wppb_menu<?php echo $id; ?>overall_options"><a href="#menu<?php echo $id; ?>overall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
-			<li id="wppb_menu<?php echo $id; ?>text_options"><a href="#menu<?php echo $id; ?>text_options" title="<?php _e( 'Menu ' . $id . ' items', 'wppb_lang' ); ?>"><?php _e( 'Menu items', 'wppb_lang' ); ?></a></li>
+			<?php
+				// Hook for adding new link
+				do_action( 'wppb_add_menueditor_sublinks' );
+			?> 
 		</ul>
-		<div class="inner-tab-block" id="menu<?php echo $id; ?>overall_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Menu', 'wppb_lang' ); ?></h2>
-				<?php
-					wppb_number_selector( 'menu' . $number . '_max_width', $wppb_design_settings, __( 'Maximum width', 'wppb_lang' ) );
-					wppb_number_selector( 'menu' . $number . '_min_width', $wppb_design_settings, __( 'Minimum width', 'wppb_lang' ) );
-				?>
-			</div>
-			<div class="section-layout">
-				<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
-				<?php
-					wppb_colour_selector( 'menu' . $number . '_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) );
-					wppb_background_image_selector( 'menu' . $number . '_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) );
-				?>
-			</div>
-			<div class="section-layout">
-				<h2><?php _e( 'Full width background', 'wppb_lang' ); ?></h2>
-				<p><?php _e( 'Background displayed across the full width of the site - leave blank to use the standard page background.', 'wppb_lang' ); ?></p>
-				<?php wppb_display_selector( 'menu' . $number . '_fullwidth_background_display', $wppb_design_settings, __( 'Display', 'wppb_lang' ) ); ?>
-				<?php wppb_colour_selector( 'menu' . $number . '_fullwidth_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) ); ?>
-				<?php wppb_background_image_selector( 'menu' . $number . '_fullwidth_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) ); ?>
-			</div>
-			<?php wppb_wrapper_block( 'menu' . $number . '', $wppb_design_settings ); ?>
-		</div>
-		<div class="inner-tab-block" id="menu<?php echo $id; ?>text_options">
-			<div class="section-layout">
-				<h2><?php _e( 'Menu items', 'wppb_lang' ); ?></h2>
-				<?php wppb_number_selector( 'menu' . $number . '_indent', $wppb_design_settings, __( 'Indent items', 'wppb_lang' ) ); ?>
-				<?php wppb_text_display( 'menu' . $number . '', $wppb_design_settings, '', 'yes' ); ?>
-			</div>
-			<?php wppb_text_background( 'menu' . $number . '_items', $wppb_design_settings ); ?>
-			<div class="section-layout">
-				<h2><?php _e( 'Margins', 'wppb_lang' ); ?></h2>
-				<?php
-					wppb_number_selector( 'menu' . $number . '_margin_top', $wppb_design_settings, __( 'Top', 'wppb_lang' ) );
-					wppb_number_selector( 'menu' . $number . '_margin_bottom', $wppb_design_settings, __( 'Bottom', 'wppb_lang' ) );
-					wppb_number_selector( 'menu' . $number . '_margin_left', $wppb_design_settings, __( 'Left', 'wppb_lang' ) );
-					wppb_number_selector( 'menu' . $number . '_margin_right', $wppb_design_settings, __( 'Right', 'wppb_lang' ) );
-				?>
-			</div>
-			<div class="section-layout">
-				<h2><?php _e( 'Padding', 'wppb_lang' ); ?></h2>
-				<?php
-					wppb_number_selector( 'menu' . $number . '_padding_top', $wppb_design_settings, __( 'Top', 'wppb_lang' ) );
-					wppb_number_selector( 'menu' . $number . '_padding_right', $wppb_design_settings, __( 'Right', 'wppb_lang' ) );
-					wppb_number_selector( 'menu' . $number . '_padding_bottom', $wppb_design_settings, __( 'Bottom', 'wppb_lang' ) );
-					wppb_number_selector( 'menu' . $number . '_padding_left', $wppb_design_settings, __( 'Left', 'wppb_lang' ) );
-				?>
-			</div>
-			<div class="section-layout">
-				<h2><?php _e( 'Hover effects', 'wppb_lang' ); ?></h2>
-				<?php
-					wppb_colour_selector( 'menu' . $number . '_hover_textcolour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ) );
-					wppb_fontweight_selector( 'menu' . $number . '_hover_font_weight', $wppb_design_settings, __( 'Font weight', 'wppb_lang' ) );
-					wppb_fontstyle_selector( 'menu' . $number . '_hover_font_style', $wppb_design_settings, __( 'Font style', 'wppb_lang' ) );
-					wppb_textdecoration_selector( 'menu' . $number . '_hover_textdecoration', $wppb_design_settings, __( 'Text decoration', 'wppb_lang' ) ); 
-				?>
-				<h3><?php _e( 'Background', 'wppb_lang' ); ?></h3>
-				<?php
-					wppb_colour_selector('menu' . $number . '_hover_background_colour', $wppb_design_settings, __( 'Colour', 'wppb_lang' ), 'block colour' );
-					wppb_background_image_selector( 'menu' . $number . '_hover_background_image', $wppb_design_settings, __( 'Image', 'wppb_lang' ) );
-				?>
-			</div>
-		</div>
+		<?php do_action( 'wppb_add_menu_editor_content' ); ?>
 	</div>
 </div><?php
 }
 
+/* Add sublinks to menu section
+ * @since 1.0
+ */
+function wppb_menu_editor_sublinks() {
+	global $wppb_menu_id, $number;
+	?>
+	<li id="wppb_menu<?php echo $wppb_menu_id; ?>overall_options"><a href="#menu<?php echo $wppb_menu_id; ?>overall_options" title="<?php _e( 'Overall', 'wppb_lang' ); ?>"><?php _e( 'Overall', 'wppb_lang' ); ?></a></li>
+	<li id="wppb_menu<?php echo $wppb_menu_id; ?>text_options"><a href="#menu<?php echo $wppb_menu_id; ?>text_options" title="<?php _e( 'Menu ' . $wppb_menu_id . ' items', 'wppb_lang' ); ?>"><?php _e( 'Menu items', 'wppb_lang' ); ?></a></li><?php
+}
+add_action( 'wppb_add_menueditor_sublinks', 'wppb_menu_editor_sublinks' );
+
+/* Add menu sections editor content
+ * @since 1.0
+ */
+function wppb_add_menu_editor_content() {
+	global $wppb_menu_id, $number;
+	$wppb_designer_settings = get_option( WPPB_DESIGNER_SETTINGS );
+	?>
+<div class="inner-tab-block" id="menu<?php echo $wppb_menu_id; ?>overall_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Menu', 'wppb_lang' ); ?></h2>
+		<?php
+			wppb_number_selector( 'menu' . $number . '_max_width', $wppb_designer_settings, __( 'Maximum width', 'wppb_lang' ) );
+			wppb_number_selector( 'menu' . $number . '_min_width', $wppb_designer_settings, __( 'Minimum width', 'wppb_lang' ) );
+		?>
+	</div>
+	<div class="section-layout">
+		<h2><?php _e( 'Background', 'wppb_lang' ); ?></h2>
+		<?php
+			wppb_colour_selector( 'menu' . $number . '_background_colour', $wppb_designer_settings, __( 'Colour', 'wppb_lang' ) );
+			wppb_background_image_selector( 'menu' . $number . '_background_image', $wppb_designer_settings, __( 'Image', 'wppb_lang' ) );
+		?>
+	</div>
+	<div class="section-layout">
+		<h2><?php _e( 'Full width background', 'wppb_lang' ); ?></h2>
+		<p><?php _e( 'Background displayed across the full width of the site - leave blank to use the standard page background.', 'wppb_lang' ); ?></p>
+		<?php wppb_display_selector( 'menu' . $number . '_fullwidth_background_display', $wppb_designer_settings, __( 'Display', 'wppb_lang' ) ); ?>
+		<?php wppb_colour_selector( 'menu' . $number . '_fullwidth_background_colour', $wppb_designer_settings, __( 'Colour', 'wppb_lang' ) ); ?>
+		<?php wppb_background_image_selector( 'menu' . $number . '_fullwidth_background_image', $wppb_designer_settings, __( 'Image', 'wppb_lang' ) ); ?>
+	</div>
+	<?php wppb_wrapper_block( 'menu' . $number . '', $wppb_designer_settings ); ?>
+</div>
+<div class="inner-tab-block" id="menu<?php echo $wppb_menu_id; ?>text_options">
+	<div class="section-layout">
+		<h2><?php _e( 'Menu items', 'wppb_lang' ); ?></h2>
+		<?php wppb_number_selector( 'menu' . $number . '_indent', $wppb_designer_settings, __( 'Indent items', 'wppb_lang' ) ); ?>
+		<?php wppb_text_display( 'menu' . $number . '', $wppb_designer_settings, '', 'yes' ); ?>
+	</div>
+	<?php wppb_text_background( 'menu' . $number . '_items', $wppb_designer_settings ); ?>
+	<div class="section-layout">
+		<h2><?php _e( 'Margins', 'wppb_lang' ); ?></h2>
+		<?php
+			wppb_number_selector( 'menu' . $number . '_margin_top', $wppb_designer_settings, __( 'Top', 'wppb_lang' ) );
+			wppb_number_selector( 'menu' . $number . '_margin_bottom', $wppb_designer_settings, __( 'Bottom', 'wppb_lang' ) );
+			wppb_number_selector( 'menu' . $number . '_margin_left', $wppb_designer_settings, __( 'Left', 'wppb_lang' ) );
+			wppb_number_selector( 'menu' . $number . '_margin_right', $wppb_designer_settings, __( 'Right', 'wppb_lang' ) );
+		?>
+	</div>
+	<div class="section-layout">
+		<h2><?php _e( 'Padding', 'wppb_lang' ); ?></h2>
+		<?php
+			wppb_number_selector( 'menu' . $number . '_padding_top', $wppb_designer_settings, __( 'Top', 'wppb_lang' ) );
+			wppb_number_selector( 'menu' . $number . '_padding_right', $wppb_designer_settings, __( 'Right', 'wppb_lang' ) );
+			wppb_number_selector( 'menu' . $number . '_padding_bottom', $wppb_designer_settings, __( 'Bottom', 'wppb_lang' ) );
+			wppb_number_selector( 'menu' . $number . '_padding_left', $wppb_designer_settings, __( 'Left', 'wppb_lang' ) );
+		?>
+	</div>
+	<div class="section-layout">
+		<h2><?php _e( 'Hover effects', 'wppb_lang' ); ?></h2>
+		<?php
+			wppb_colour_selector( 'menu' . $number . '_hover_textcolour', $wppb_designer_settings, __( 'Colour', 'wppb_lang' ) );
+			wppb_fontweight_selector( 'menu' . $number . '_hover_font_weight', $wppb_designer_settings, __( 'Font weight', 'wppb_lang' ) );
+			wppb_fontstyle_selector( 'menu' . $number . '_hover_font_style', $wppb_designer_settings, __( 'Font style', 'wppb_lang' ) );
+			wppb_textdecoration_selector( 'menu' . $number . '_hover_textdecoration', $wppb_designer_settings, __( 'Text decoration', 'wppb_lang' ) ); 
+		?>
+		<h3><?php _e( 'Background', 'wppb_lang' ); ?></h3>
+		<?php
+			wppb_colour_selector('menu' . $number . '_hover_background_colour', $wppb_designer_settings, __( 'Colour', 'wppb_lang' ), 'block colour' );
+			wppb_background_image_selector( 'menu' . $number . '_hover_background_image', $wppb_designer_settings, __( 'Image', 'wppb_lang' ) );
+		?>
+	</div>
+</div><?php
+}
+add_action( 'wppb_add_menu_editor_content', 'wppb_add_menu_editor_content' );
+
 /* Add extra block to the "Layout editor" in the editing panel.
  * @since 0.1
  */
-function wppb_addmenu_block() {
-	global $chunks;
+function wppb_addmenu_block( $chunks ) {
 
 	// The extra block to be added
 	$chunks['Menu'] = '[wppb_menu]';
-}
-add_action( 'wppb_add_chunk', 'wppb_addmenu_block' );
 
+	return $chunks;
+}
+add_filter( 'wppb_add_chunk_filter', 'wppb_addmenu_block' );
 
 /**
  * Adds the menu shortcode as used within the template editor
@@ -136,6 +162,12 @@ function wppb_menu_shortcode() {
 <nav id="nav">
 	<ul>
 		[nav_menu]
+';
+
+	// Filter initial menu block - userful for adding extra features
+	$functions = apply_filters ( 'wppb_menu_shortcode_content_filter' , $functions );
+
+	$functions .= '
 	</ul>
 </nav>
 ';

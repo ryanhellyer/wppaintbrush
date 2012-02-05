@@ -50,7 +50,8 @@ function wppb_sanitize_inputs( $input='' ) {
 	// Sanitizing the added custom CSS (only one option for this so need for accessing from array)
 	if ( empty( $wppb_design_settings['add_custom_css'] ) )
 		$wppb_design_settings['add_custom_css'] = '';
-	$wppb_design_settings['add_custom_css'] = pixopoint_validate_css( $input['add_custom_css'] );
+	if ( isset( $input['add_custom_css'] ) )
+		$wppb_design_settings['add_custom_css'] = pixopoint_validate_css( $input['add_custom_css'] );
 
 	// Sanitizing font size options
 	foreach( wppb_fontsize_options() as $stuff=>$opt ) {
@@ -308,6 +309,15 @@ function wppb_sanitize_inputs( $input='' ) {
 		$wppb_design_settings[$opt] = str_replace( "'", '"', wp_kses( $input[$opt], pixopoint_limited_html(), '' ) );
 	}
 
+	// Sanitizing raw text options
+	foreach( wppb_rawhtml_options() as $stuff=>$opt ) {
+		if ( !isset( $input[$opt] ) )
+			$input[$opt] = '';
+
+		// Allows some HTML, and converts quote marks to ensure they don't screw up quote marks in input fields
+		$wppb_design_settings[$opt] = wp_kses( $input[$opt], pixopoint_allowed_html(), '' );
+	}
+
 	return $wppb_design_settings;
 }
 
@@ -408,6 +418,11 @@ function wppb_ajax_option_get() {
 
 	// Adding raw text options
 	foreach( wppb_rawtext_options() as $stuff=>$opt ) {
+		array_push( $wppb_options, $opt );
+	}
+
+	// Adding raw html options
+	foreach( wppb_rawhtml_options() as $stuff=>$opt ) {
 		array_push( $wppb_options, $opt );
 	}
 

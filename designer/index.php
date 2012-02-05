@@ -56,8 +56,6 @@ elseif ( current_user_can( 'manage_options' ) )
  */
 if ( isset( $_GET['generator-css'] ) )
 	add_action( 'init', 'wppb_load_stuff' );
-if ( isset( $_GET['change_theme'] ) )
-	add_action( 'init', 'wppb_ajax_change_design' );
 if ( isset( $_GET['generator-content'] ) )
 	add_action( 'template_redirect', 'wppb_ajax_content' );
 if ( isset( $_GET['generator-export'] ) )

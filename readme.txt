@@ -2,11 +2,11 @@
 Contributors: Ryan Hellyer
 Donate link: http://wppaintbrush.com/plugins/
 Tags: dark, light, white, black, gray, red, orange, yellow, green, blue, purple, one-column, two-columns, three-columns, left-sidebar, right-sidebar, fixed-width, flexible-width, custom-background, custom-colors, custom-header, custom-menu, featured-image-header, featured-images, full-width-template, theme-options, translation-ready
-Requires at least: 3.3
+Requires at least: 3.2
 Tested up to: 3.3
-Stable tag: 1.0.9
+Stable tag: 1.0.13
 
-The file is a work in progres ... WP Paintbrush provides an easy to use wysiwyg editing tool for redesigning your site.
+The file is a work in progress ... WP Paintbrush provides an easy to use wysiwyg editing tool for redesigning your site.
 
 == Description ==
 
@@ -31,6 +31,24 @@ Yes, plugins for WP Paintbrush are available at http://wppaintbrush.com/plugins/
 1. Front-end editor
 
 == Changelog ==
+
+= 1.0.13 beta [9/12/2011] =
+* Fixed bug which prevented theme specific menus from working
+* Some minor bug fixes
+* Added support for <section> tags in HTML editor
+
+= 1.0.12 beta [3/12/2011] =
+* Fixed clash with Joast de Valks WordPress SEO plugin
+* Many minor bug fixes and code improvements
+* Improved support for plugins
+
+= 1.0.11 beta [23/11/2011] =
+* Fixed major error which prevented theme working on some server setups
+* Some code streamlining changes
+* Some minor bug fixes
+
+= 1.0.10 beta [7/11/2011] =
+* Fixed version number error bug
 
 = 1.0.9 beta [5/11/2011] =
 * Fixed sidebar drag and drop bug
